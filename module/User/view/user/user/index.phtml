@@ -45,7 +45,7 @@ $this->pageBreadcrumbs()->setItems([
         <td>
             <?= $this->escapeHtml($user->getRolesAsString()); ?></a> 
         </td>
-        <td><nobr><?= $this->escapeHtml($user->getDateCreated()); ?></nobr></td>        
+        <td><nobr><?= (is_object($user->getDateCreated()) ? $this->escapeHtml($user->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
         <td><?= $this->escapeHtml($user->getStatusAsString()); ?></td>
         <td>
             <a class="btn btn-info" href="<?= $this->url('users', 

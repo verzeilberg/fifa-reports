@@ -43,7 +43,7 @@ $this->pageBreadcrumbs()->setItems([
         </td>
         <td><?= $this->escapeHtml($permission->getDescription()); ?></a> 
         </td>
-        <td><nobr><?= $this->escapeHtml($permission->getDateCreated()); ?></nobr></td>        
+        <td><nobr><?= (is_object($permission->getDateCreated()) ? $this->escapeHtml($permission->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
         <td>
             <nobr>
             <a class="btn btn-info" href="<?= $this->url('permissions', 

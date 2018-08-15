@@ -28,7 +28,7 @@ $this->pageBreadcrumbs()->setItems([
             </tr>
             <tr>
                 <th>Date Created:</th>
-                <td><?= $this->escapeHtml($user->getDateCreated()) ?></th>
+                <td><?= (is_object($user->getDateCreated()) ? $this->escapeHtml($user->getDateCreated()->format('Y-m-d')): ''); ?></th>
             </tr>
         </table>
     </div>

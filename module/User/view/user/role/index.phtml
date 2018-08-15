@@ -43,7 +43,7 @@ $this->pageBreadcrumbs()->setItems([
         </td>
         <td><?= $this->escapeHtml($role->getDescription()); ?></a> 
         </td>
-        <td><nobr><?= $this->escapeHtml($role->getDateCreated()); ?></nobr></td>        
+        <td><nobr><?= (is_object($role->getDateCreated()) ? $this->escapeHtml($role->getDateCreated()->format('Y-m-d')): ''); ?></nobr></td>        
         <td>
             </nobr>
             <a class="btn btn-info" href="<?= $this->url('roles', 
