@@ -1,4 +1,4 @@
-# ZendSkeletonApplication
+# Default-ZF3-Frame
 
 ## Introduction
 
@@ -111,6 +111,13 @@ your/working/folder php vendor/doctrine/doctrine-module/bin/doctrine-module orm:
 your/working/folder php vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:update --dump-sql -f
 </pre>
 
-### Good to go
+### Setup Captcha folder
+Create folder 'captcha' under:
 
-Ju
+<pre>
+public/img/captcha
+</pre>
+
+And give the folder the right acces. Here you are going to store your captcha images.
+
+### Good to go
