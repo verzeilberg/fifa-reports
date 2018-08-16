@@ -82,12 +82,33 @@ Restart the nginx, now you should be ready to go!
 
 ### Setup database connection
 
+go to this file:
+
+<pre>
+config/autoload/local.php.dist
+</pre>
+
+Change this to 
+
+<pre>
+config/autoload/local.php
+</pre>
+
+And put your database connection in it
+
 ### Doctrine schema tool
 
 Run the doctrine schema tool update in your command line:
 
+
+<b>Dry run</b>
 <pre>
 your/working/folder php vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:update --dump-sql
+</pre>
+
+<b>Process</b>
+<pre>
+your/working/folder php vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:update --dump-sql -f
 </pre>
 
 ### Good to go
