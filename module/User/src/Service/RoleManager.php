@@ -53,7 +53,7 @@ class RoleManager
             foreach ($inheritedRoles as $roleId) {
                 $parentRole = $this->entityManager->getRepository(Role::class)
                     ->findOneById($roleId);
-
+                
                 if ($parentRole == null) {
                     throw new \Exception('Role to inherit not found');
                 }

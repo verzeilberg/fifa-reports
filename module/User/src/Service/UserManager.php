@@ -222,7 +222,7 @@ class UserManager
         $user->setPasswordResetToken($tokenHash);
         
         // Save token creation date to DB.
-        $currentDate = date('Y-m-d H:i:s');
+        $currentDate = new \DateTime('now');
         $user->setPasswordResetTokenCreationDate($currentDate);  
         
         // Apply changes to DB.
