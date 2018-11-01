@@ -47,6 +47,11 @@ class AuthController extends AbstractActionController
      */
     public function loginAction()
     {
+        //Check if user isn't already logged in
+        if($this->identity() !== null) {
+            return $this->redirect()->toRoute('home');  
+        }
+        
         // Retrieve the redirect URL (if passed). We will redirect the user to this
         // URL after successfull login.
         $redirectUrl = (string)$this->params()->fromQuery('redirectUrl', '');

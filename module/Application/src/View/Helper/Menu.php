@@ -56,19 +56,10 @@ class Menu extends AbstractHelper
         if (count($this->items)==0)
             return ''; // Do nothing if there are no items.
         
-        $result = '<nav class="navbar navbar-default" role="navigation">';
-        $result .= '<div class="navbar-header">';
-        $result .= '<button type="button" class="navbar-toggle" data-toggle="collapse"';
-        $result .= 'data-target=".navbar-ex1-collapse">';
-        $result .= '<span class="sr-only">Toggle navigation</span>';
-        $result .= '<span class="icon-bar"></span>';
-        $result .= '<span class="icon-bar"></span>';
-        $result .= '<span class="icon-bar"></span>';
-        $result .= '</button>';
-        $result .= '</div>';
+        $result = '<nav class="navbar navbar-expand-lg navbar-light bg-light">';
         
-        $result .= '<div class="collapse navbar-collapse navbar-ex1-collapse">';        
-        $result .= '<ul class="nav navbar-nav">';
+        $result .= '<div class="collapse navbar-collapse" id="navbarSupportedContent">';        
+        $result .= '<ul class="navbar-nav mr-auto">';
         
         // Render items
         foreach ($this->items as $item) {
@@ -112,28 +103,26 @@ class Menu extends AbstractHelper
             
             $dropdownItems = $item['dropdown'];
             
-            $result .= '<li class="dropdown ' . ($isActive?'active':'') . '">';
-            $result .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown">';
+            $result .= '<li class="nav-item dropdown ' . ($isActive?'active':'') . '">';
+            $result .= '<a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">';
             $result .= $escapeHtml($label) . ' <b class="caret"></b>';
             $result .= '</a>';
            
-            $result .= '<ul class="dropdown-menu">';
+            $result .= '<div class="dropdown-menu" aria-labelledby="navbarDropdown">';
             foreach ($dropdownItems as $item) {
                 $link = isset($item['link']) ? $item['link'] : '#';
                 $label = isset($item['label']) ? $item['label'] : '';
                 
-                $result .= '<li>';
-                $result .= '<a href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
-                $result .= '</li>';
+                $result .= '<a class="dropdown-item" href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
             }
-            $result .= '</ul>';
+            $result .= '</div>';
             $result .= '</li>';
             
         } else {        
             $link = isset($item['link']) ? $item['link'] : '#';
             
-            $result .= $isActive?'<li class="active">':'<li>';
-            $result .= '<a href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
+            $result .= $isActive?'<li class="nav-item active">':'<li class="nav-item">';
+            $result .= '<a class="nav-link" href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
             $result .= '</li>';
         }
     
