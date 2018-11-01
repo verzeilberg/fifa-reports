@@ -43,7 +43,7 @@ class Breadcrumbs extends AbstractHelper
         
         // Resulting HTML code will be stored in this var
         $result = '<nav aria-label="breadcrumb">';
-        $result .= '<ol class="breadcrumb">';
+        $result .= '<ol class="breadcrumb row">';
         
         // Get item count
         $itemCount = count($this->items); 
@@ -81,10 +81,10 @@ class Breadcrumbs extends AbstractHelper
     {
         $escapeHtml = $this->getView()->plugin('escapeHtml');
         
-        $result = $isActive?'<li class="breadcrumb-item active" aria-current="page">':'<li class="breadcrumb-item" aria-current="page">';
+        $result = $isActive?'<li class="breadcrumb-item active" aria-current="page">':'<li class="breadcrumb-item">';
         
         if (!$isActive)
-            $result .= '<a href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
+            $result .= '<a class="text-dark" href="'.$escapeHtml($link).'">'.$escapeHtml($label).'</a>';
         else
             $result .= $escapeHtml($label);
                     
