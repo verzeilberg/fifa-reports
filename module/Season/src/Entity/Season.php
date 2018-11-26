@@ -58,7 +58,19 @@ use TimestampableEntity;
     private $name;
 
     /**
+     * @ORM\Column(type="integer", length=1, nullable=false, name="lock_play_schedule")
+     * @Annotation\Type("Zend\Form\Element\Checkbox")
+     * @Annotation\Options({
+     * "label": "Lock play schedule",
+     * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label", "for":"lockPlaySchedule"}
+     * })
+     * @Annotation\Attributes({"class":"", "id":"lockPlaySchedule"})
+     */
+    private $lockPlaySchedule = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="Game\Entity\Game", mappedBy="season")
+     * @ORM\OrderBy({"sortOrder" = "ASC"})
      */
     private $games;
 
@@ -152,6 +164,22 @@ use TimestampableEntity;
 
     function setGames($games) {
         $this->games = $games;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLockPlaySchedule()
+    {
+        return $this->lockPlaySchedule;
+    }
+
+    /**
+     * @param mixed $lockPlaySchedule
+     */
+    public function setLockPlaySchedule($lockPlaySchedule): void
+    {
+        $this->lockPlaySchedule = $lockPlaySchedule;
     }
 
 

@@ -12,17 +12,15 @@ use User\Entity\User;
  */
 class IndexController extends AbstractActionController {
 
-    /**
-     * Entity manager.
-     * @var Doctrine\ORM\EntityManager
-     */
     private $seasonRepository;
+    private $gameRepository;
 
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      */
-    public function __construct($seasonRepository) {
+    public function __construct($seasonRepository, $gameRepository) {
         $this->seasonRepository = $seasonRepository;
+        $this->gameRepository = $gameRepository;
     }
 
     /**
@@ -33,15 +31,45 @@ class IndexController extends AbstractActionController {
         $this->layout('layout/home');
         
         $season = $this->seasonRepository->getItem(1);
-        
-        
+        $currentDate = new \DateTime();
+
+        $weekArray = $this->getStartAndEndDate($currentDate->format('W'), $currentDate->format('Y'));
+        //$games = $this->gameRepository->getGamesBySeasonAndDates($season->getId(), $weekArray);
+
+
         return new ViewModel([
-            'season' => $season
+            'season' => $season,
         ]);
     }
 
+    public function gameScheduleAction() {
+
+        $season = $this->seasonRepository->getItem(1);
+
+        return new ViewModel([
+            'season' => $season
+        ]);
+
+
+    }
+
+
+    /*
+     * Rules page
+     */
     public function rulesAction() {
         return new ViewModel();
+    }
+    /*
+     * @todo move this to service class
+     */
+    private function getStartAndEndDate($week, $year) {
+        $dto = new \DateTime();
+        $dto->setISODate($year, $week);
+        $ret['start'] = $dto->format('Y-m-d');
+        $dto->modify('+6 days');
+        $ret['end'] = $dto->format('Y-m-d');
+        return $ret;
     }
 
     /**

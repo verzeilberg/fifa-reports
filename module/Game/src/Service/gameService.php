@@ -52,6 +52,33 @@ class gameService implements gameServiceInterface {
 
     /**
      *
+     * Get array of items based on season id and start- end date
+     *
+     * @param       seasonId $seasonId The id of the season you want to fetch the games from
+     * @param       dates $dates array with an start- and end date
+     * @return void
+     */
+    public function getGamesBySeasonAndDates($seasonId, $dates) {
+        $qb = $this->entityManager->getRepository(Game::class)->createQueryBuilder('g');
+        $qb->join('g.season', 's');
+        $qb->where('s.id = ' . $seasonId);
+        $qb->andWhere('g.playDate >= :start');
+        $qb->andWhere('g.playDate <= :end');
+        $qb->setParameter('start', new \DateTime($dates['start']));
+        $qb->setParameter('end', new \DateTime($dates['end']));
+        $query = $qb->getQuery();
+        var_dump($query->getSql());
+        var_dump($query->getParameters());
+        var_dump($query->getResult()); die;
+
+        die;
+
+        $result = $query->getResult();
+        return $result;
+    }
+
+    /**
+     *
      * Get array of items
      * @var $searchString string to search for
      *

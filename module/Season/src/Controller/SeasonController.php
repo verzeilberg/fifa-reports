@@ -118,6 +118,7 @@ class SeasonController extends AbstractActionController {
     }
     
     public function gamesAction() {
+        $this->vhm->get('headScript')->appendFile('/js/season.js');
         $id = (int) $this->params()->fromRoute('id', 0);
         if (empty($id)) {
             return $this->redirect()->toRoute('seasons');

@@ -69,4 +69,38 @@ class GameAjaxController extends AbstractActionController {
         );
     }
 
+    public function setSortOrderAction() {
+        $success = true;
+        $errorMessage = '';
+        if ($this->getRequest()->isPost()) {
+            $gameSortOrders = $this->getRequest()->getPost('gameSortOrders');
+
+            if(count($gameSortOrders) > 0) {
+                foreach ($gameSortOrders as $sortOrder => $gameId) {
+
+                    if($sortOrder == 0) continue;
+
+                    $game = $this->repository->getItem($gameId);
+                    $game->setSortOrder($sortOrder);
+                    $this->repository->saveItem($game);
+
+                }
+
+                $success = true;
+                $errorMessage = '';
+
+            } else {
+                $success = false;
+                $errorMessage = 'No games found';
+            }
+        }
+
+        return new JsonModel(
+            array(
+                'success' => $success,
+                'errorMessage' => $errorMessage
+            )
+        );
+    }
+
 }

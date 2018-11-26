@@ -5,6 +5,7 @@ use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Application\Controller\IndexController;
 use Season\Service\seasonService;
+use Game\Service\gameService;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -16,7 +17,8 @@ class IndexControllerFactory implements FactoryInterface
     {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $seasonRepository = new seasonService($entityManager);
+        $gameRepository = new gameService($entityManager);
         // Instantiate the controller and inject dependencies
-        return new IndexController($seasonRepository);
+        return new IndexController($seasonRepository, $gameRepository);
     }
 }

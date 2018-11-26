@@ -12,6 +12,14 @@ $this->pageBreadcrumbs()->setItems([
 <div class="row">
     <h1 class="col"><?php echo $season->getName(); ?></h1>
 </div>
+<div class="row mb-1">
+    <div class="col"><?php echo $season->getStartDate()->format('d-m-Y');  ?>&nbsp;-&nbsp;<?php echo $season->getEndDate()->format('d-m-Y');  ?></div>
+</div>
+<div class="row mt-3">
+    <label class="col">
+        <?php echo $this->translator()->translate('season.lock.game.schedule'); ?>&nbsp;<?php echo ($season->getLockPlaySchedule() == 0 ? '<i class="far fa-check-circle text-success"></i>' : '<i class="far fa-times-circle text-danger"></i>'); ?>
+    </label>
+</div>
 <div class="row">
     <h3 class="col"><?php echo $this->translator()->translate('season.competition.title'); ?></h3>
 </div>
@@ -20,20 +28,22 @@ $this->pageBreadcrumbs()->setItems([
         <table class="table table-sm table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th><?php echo $this->translator()->translate('season.game.number'); ?></th>
-                    <th><?php echo $this->translator()->translate('season.game.home.player.title'); ?></th>
-                    <th><?php echo $this->translator()->translate('season.game.away.player.title'); ?></th>
-                    <th><?php echo $this->translator()->translate('season.game.playdate'); ?></th>
-                    <th><?php echo $this->translator()->translate('season.game.competition'); ?></th>
+                    <th scope="col" class="text-center"><?php echo $this->translator()->translate('season.game.number'); ?></th>
+                    <th scope="col"><?php echo $this->translator()->translate('season.game.home.player.title'); ?></th>
+                    <th scope="col"><?php echo $this->translator()->translate('season.game.away.player.title'); ?></th>
+                    <th scope="col"><?php echo $this->translator()->translate('season.game.playdate'); ?></th>
+                    <th scope="col" class="text-center"><i class="fas fa-cogs"></i></th>
+                    <th scope="col"><?php echo $this->translator()->translate('season.game.competition'); ?></th>
                 </tr>
             </thead>
             <tbody id="sortable">
                 <?php foreach ($games as $game) { ?>
-                    <tr class="ui-state-default">
-                        <td><?php echo $game->getSortOrder(); ?></td>
+                    <tr id="gameId<?php echo $game->getId(); ?>" data-gameid="<?php echo $game->getId(); ?>" class="ui-state-default">
+                        <td scope="row" class="text-center"><?php echo $game->getSortOrder(); ?></td>
                         <td><?php echo $game->getHomePlayer()->getFullName(); ?></td>
                         <td><?php echo $game->getAwayPlayer()->getFullName(); ?></td>
-                        <td id="gameId<?php echo $game->getId(); ?>" class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('d-m-Y') : '<button type="button" data-gameid="' . $game->getId() . '" class="btn btn-warning btn-sm setGameId" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-calendar-alt"></i></button>'); ?></td>
+                        <td id="gamePlayDate" class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('d-m-Y') : ''); ?></td>
+                        <td class="text-center"><button type="button" data-gameid="<?php echo $game->getId(); ?>" class="btn btn-warning btn-sm setGameId" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-calendar-alt"></i></button></td>
                         <td><?php echo $game->getCompetition()->getName(); ?></td>
                     </tr>
                 <?php } ?>
@@ -55,7 +65,7 @@ $this->pageBreadcrumbs()->setItems([
             </div>
             <div class="modal-body">
                 <label class="form-label"><?php echo $this->translator()->translate('game.playdate'); ?></label>
-                <input type="text" name="playDate" value="" id="playDate" class="form-control datepicker" />
+                <input type="text" name="playDate" value="" id="playDate" class="form-control datepicker" autocomplete="off" />
                 <input type="hidden" name="gameId" value="" id="gameId" />
             </div>
             <div class="modal-footer">
@@ -72,13 +82,33 @@ $this->pageBreadcrumbs()->setItems([
     }
 </style>
 <script>
+    <?php if ($season->getLockPlaySchedule() == 0) { ?>}
     $(function () {
         $("#sortable").sortable({
             helper: fixHelper,
             update: function (event, ui) {
+                var gameSortOrders = [];
                 $(this).children().each(function (index) {
-                    $(this).find('td').first().html(index + 1)
+                    var sortOrder = index + 1;
+                    var gameId = $(this).data('gameid');
+                    gameSortOrders[sortOrder] = gameId
+                    $(this).find('td').first().html(index + 1);
                 });
+
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        gameSortOrders: gameSortOrders
+                    },
+                    url: "<?= $this->url('gameajax', ['action' => 'setSortOrder']); ?>",
+                    async: true,
+                    success: function (data) {
+                        if (data.success === true) {
+                        } else {
+                        }
+                    }
+                });
+
             }
         });
         $("#sortable").disableSelection();
@@ -97,6 +127,8 @@ $this->pageBreadcrumbs()->setItems([
             return tr;
         }
     });
+
+<?php } ?>
 
 
     /**
@@ -123,7 +155,9 @@ $this->pageBreadcrumbs()->setItems([
             url: "<?= $this->url('gameajax', ['action' => 'setPlayDate']); ?>",
             async: true,
             success: function (data) {
-                if (data.succes === true) {
+                if (data.success === true) {
+                    $('tr#gameId' + gameId).children('td#gamePlayDate').html(playDate);
+                    $('#exampleModal').modal('toggle');
                 } else {
                 }
             }

@@ -1,0 +1,41 @@
+<?php
+$this->headTitle('Game schedule');
+
+$this->mainMenu()->setActiveItemId('schedule');
+
+$this->pageBreadcrumbs()->setItems([
+            'Home'=>$this->url('home'),
+            'Game schedule'=>$this->url('game-schedule'),
+            ]);
+?>
+
+<div class="row">
+<h1 class="col mt-3 mb-3">Wedstrijd schema</h1>
+</div>
+<div class="row">
+    <div class="col">
+        <table class="table table-sm table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center"><?php echo $this->translator()->translate('season.game.number'); ?></th>
+                <th scope="col"><?php echo $this->translator()->translate('season.game.home.player.title'); ?></th>
+                <th scope="col"><?php echo $this->translator()->translate('season.game.away.player.title'); ?></th>
+                <th class="text-center" scope="col"><?php echo $this->translator()->translate('season.game.playdate'); ?></th>
+                <th class="text-center" scope="col"><?php echo $this->translator()->translate('season.game.competition'); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($season->getGames() as $index => $game) { ?>
+                <tr id="gameId<?php echo $game->getId(); ?>" <?php echo ($index % 2 == 0? '':'class="bg-dark text-white"'); ?>>
+                    <td scope="row" class="text-center"><?php echo $game->getSortOrder(); ?></td>
+                    <td><?php echo $game->getHomePlayer()->getFullName(); ?></td>
+                    <td><?php echo $game->getAwayPlayer()->getFullName(); ?></td>
+                    <td id="gamePlayDate" class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('d-m-Y') : ''); ?></td>
+                    <td class="text-center"><?php echo $game->getCompetition()->getName(); ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
