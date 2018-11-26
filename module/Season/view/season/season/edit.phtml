@@ -1,0 +1,18 @@
+<?php
+$this->headTitle($this->translator()->translate('season.title'));
+
+$this->mainMenu()->setActiveItemId('season');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('season.manage') => $this->url('seasons'),
+    $this->translator()->translate('season.edit') => $this->url('seasons', ['action' => 'edit'])
+]);
+$form->setAttributes(array(
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1><?php echo $this->translator()->translate('season.manage') ?></h1>
+<?php
+echo $this->partial('season/season/partials/form.phtml', array('form' => $form));
+?>

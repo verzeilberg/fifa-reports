@@ -1,0 +1,9 @@
+[submodule "UploadFiles"]
+    path = module/UploadFiles
+    url = https://github.com/verzeilberg/UploadFiles.git
+[submodule "UploadImages"]
+    path = module/UploadImages
+    url = https://github.com/verzeilberg/UploadImages.git
+[submodule "Translator"]
+    path = module/Translator
+    url = https://github.com/verzeilberg/Translator.git

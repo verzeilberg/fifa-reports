@@ -1,0 +1,18 @@
+<?php
+$this->headTitle($this->translator()->translate('player.title'));
+
+$this->mainMenu()->setActiveItemId('player');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('player.manage') => $this->url('players'),
+    $this->translator()->translate('player.edit') => $this->url('players', ['action' => 'edit'])
+]);
+$form->setAttributes(array(
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1><?php echo $this->translator()->translate('player.manage') ?></h1>
+<?php
+echo $this->partial('player/player/partials/form.phtml', array('form' => $form));
+?>

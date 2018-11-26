@@ -1,0 +1,18 @@
+<?php
+$this->headTitle($this->translator()->translate('game.title'));
+
+$this->mainMenu()->setActiveItemId('game');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('game.manage') => $this->url('games'),
+    $this->translator()->translate('game.edit') => $this->url('games', ['action' => 'edit'])
+]);
+$form->setAttributes(array(
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1><?php echo $this->translator()->translate('game.manage') ?></h1>
+<?php
+echo $this->partial('game/game/partials/form.phtml', array('form' => $form, 'game' => $game, 'season' => $season));
+?>

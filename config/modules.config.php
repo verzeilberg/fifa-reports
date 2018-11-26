@@ -28,7 +28,17 @@ return [
     'Zend\Mvc\Plugin\FilePrg',
     'Zend\Form',
     'Zend\Router',
-    'Zend\Validator',    
+    'Zend\Validator',
+    'AssetManager',
+    'Translator',
+    'UploadImages',
+    'UploadFiles',
+    'Competition',
+    'Season',
+    'Game',
+    'Club',
+    'Player',
+    'Result',
     'User',
     'Application'
 ];

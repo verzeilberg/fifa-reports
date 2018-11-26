@@ -1,0 +1,106 @@
+<?php
+$this->headTitle($this->translator()->translate('season.title'));
+
+$this->mainMenu()->setActiveItemId($this->translator()->translate('season.active.item'));
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('season.manage') => $this->url('seasons'),
+    $this->translator()->translate('season.add') => $this->url('seasons', ['action' => 'show'])
+]);
+?>
+<div class="row">
+    <h1 class="col"><?php echo $season->getName(); ?></h1>
+</div>
+<div class="row">
+    <h3 class="col"><?php echo $this->translator()->translate('season.competition.title'); ?></h3>
+</div>
+<div class="row mt-3">
+    <?php foreach ($season->getCompetitions() as $index => $competition) { ?>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $competition->getName(); ?></h5>
+                    <ul id="sortable<?php echo $index + 1; ?>" data-competitionid="<?php echo $competition->getId(); ?>" class="connectedSortable sortableUl">
+                    <?php foreach ($competition->getPlayers() AS $player) { ?>
+                        <li class="ui-state-highlight bg-dark" data-playerid="<?php echo $player->getId(); ?>"><?php echo ($player->getScreenName() ? $player->getScreenName() : $player->getFullName()); ?></li>
+                    <?php } ?>
+                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
+<div class="row mt-3">
+    <h3 class="col"><?php echo $this->translator()->translate('season.players.title'); ?></h3>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <ul id="sortable0" class="connectedSortable">
+            <?php foreach ($players as $player) { ?>
+                <li class="ui-state-highlight bg-dark" data-playerid="<?php echo $player->getId(); ?>"><?php echo ($player->getScreenName() ? $player->getScreenName() : $player->getFullName()); ?></li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>
+
+<style>
+    ul.connectedSortable {
+        list-style: none;
+        margin:0;
+        padding:0;
+    } 
+
+    ul.sortableUl {
+        min-height: 20px;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 0.25rem;
+    }
+    
+    ul.sortableUl li {
+        padding: 2px 5px;
+        margin: 2px;
+        border-radius: 0.25rem;
+    }
+    
+    ul#sortable0 {
+        min-height: 100%;
+        border: 1px solid rgba(0,0,0,.125);
+    }
+
+    ul#sortable0 li {
+        padding: 2px 5px;
+        float:left;
+        margin: 2px;
+        border-radius: 0.25rem;
+    }
+</style>
+<script>
+    $(function () {
+        $("#sortable0, #sortable1, #sortable2, #sortable3, #sortable4").sortable({
+            connectWith: ".connectedSortable",
+            stop: function (event, ui) {
+                var playerId = $(ui.item).data('playerid');
+                var competitionId = $(ui.item).parent('ul').data('competitionid');
+                if (playerId != '' && competitionId != '') {
+
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            playerId: playerId,
+                            competitionId: competitionId
+                        },
+                        url: "<?= $this->url('playerajax', ['action' => 'setCompetition']); ?>",
+                        async: true,
+                        success: function (data) {
+                            if (data.succes === true) {
+                            } else {
+                            }
+                        }
+                    });
+                }
+            }
+        }).disableSelection();
+    });
+</script>

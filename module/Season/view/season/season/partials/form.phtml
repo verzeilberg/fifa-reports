@@ -1,0 +1,57 @@
+<?php echo $this->form()->openTag($form); ?>
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('name')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $this->formText($form->get('name')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('name')); ?>
+    </div>
+</div>
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('startDate')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="input-group mb-2">
+            <?php echo $this->formText($form->get('startDate')); ?>
+            <div class="input-group-prepend">
+                <div class="input-group-text" style="border-radius: 0 .25rem .25rem 0;"><i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('startDate')); ?>
+    </div>
+</div>
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('endDate')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="input-group mb-2">
+            <?php echo $this->formText($form->get('endDate')); ?>
+            <div class="input-group-prepend">
+                <div class="input-group-text" style="border-radius: 0 .25rem .25rem 0;"><i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('endDate')); ?>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-lg-4 col-md-4 col-sm-4">
+    <?php echo $form->get('competitions')->getLabel(); ?>
+    </label>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $this->formMultiCheckbox($form->get('competitions')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('competitions')); ?>
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="submit" id="submit" class="btn btn-dark"><?php echo $this->translator()->translate('save') ?></button> 
+        <a href="<?php echo $this->url['competitions']; ?>" class="btn btn-danger" title="<?php echo $this->translator()->translate('cancel') ?>"><?php echo $this->translator()->translate('cancel') ?></a>
+    </div>
+</div>
+<?php echo $this->form()->closeTag($form); ?>

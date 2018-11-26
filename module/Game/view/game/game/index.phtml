@@ -1,0 +1,73 @@
+<?php
+$this->headTitle($this->translator()->translate('game.title'));
+
+$this->mainMenu()->setActiveItemId('game');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('game.manage') => $this->url('games'),
+]);
+?>
+<div class="row">
+    <h1 class="col"><?php echo $this->translator()->translate('game.manage') ?></h1>
+</div>
+<div class="row">
+    <div class="col">
+        <a class="btn btn-dark" href="
+           <?= $this->url('games', ['action' => 'add']); ?>">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <?php echo $this->translator()->translate('game.new') ?>
+        </a>
+    </div>
+    <div class="col text-right">
+        <form class="form-inline" name="searchCustomer" method="post" action="<?php echo $this->url('games'); ?>">
+            <div class="col text-right" style="padding-right:0;">
+                <input class="form-control" name="search" value="<?php echo $searchString; ?>" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <table class="table table-striped table-condensed">
+            <thead class="thead-dark">
+                <tr>
+                    <th><?php echo $this->translator()->translate('game.sur.name') ?></th>
+                    <th><?php echo $this->translator()->translate('game.last.name') ?></th>
+                    <th><?php echo $this->translator()->translate('game.date.created') ?></th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <?php if (count($games) > 0) { ?>
+            <?php foreach ($games as $game): ?>
+                <tr>
+                    <td>
+                        <?= $this->escapeHtml($game->getSurName()); ?></a> 
+                    </td>
+                    <td>
+                        <?= $this->escapeHtml($game->getLastName()) . ($game->getLastNamePrefix()? ', ' . $game->getLastNamePrefix(): ''); ?></a> 
+                    </td>
+                    <td>
+                        <?= (is_object($game->getCreatedAt()) ? $this->escapeHtml($game->getCreatedAt()->format('Y-m-d H:m')) : ''); ?>
+                    </td>        
+                    <td>
+                        <a class="btn btn-dark btn-sm" href="<?= $this->url('games', ['action' => 'edit', 'id' => $game->getId()]); ?>">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-dark btn-sm" href="<?= $this->url('games', ['action' => 'show', 'id' => $game->getId()]); ?>">
+                            <i class="fas fa-search-plus"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="<?= $this->url('games', ['action' => 'delete', 'id' => $game->getId()]); ?>">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>    
+                </tr>
+            <?php endforeach; ?>  
+            <?php } else { ?>
+                <tr>
+                    <td colspan="5" class="text-center"><?php echo $this->translator()->translate('no.games.found') ?></td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+</div>

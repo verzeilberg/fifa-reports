@@ -50,9 +50,9 @@ class NavManager
         ];
         
         $items[] = [
-            'id' => 'about',
-            'label' => 'About',
-            'link'  => $url('about')
+            'id' => 'rules',
+            'label' => 'Rules',
+            'link'  => $url('rules')
         ];
         
         // Display "Login" menu item for not authorized user only. On the other hand,
@@ -92,6 +92,28 @@ class NavManager
                             'link' => $url('roles')
                         ];
             }
+            if ($this->rbacManager->isGranted(null, 'season.manage')) {
+                $adminDropdownItems[] = [
+                            'id' => 'seasons',
+                            'label' => 'Manage Seasons',
+                            'link' => $url('seasons')
+                        ];
+            }
+            if ($this->rbacManager->isGranted(null, 'competition.manage')) {
+                $adminDropdownItems[] = [
+                            'id' => 'competitions',
+                            'label' => 'Manage Competition',
+                            'link' => $url('competitions')
+                        ];
+            }
+            if ($this->rbacManager->isGranted(null, 'player.manage')) {
+                $adminDropdownItems[] = [
+                            'id' => 'players',
+                            'label' => 'Manage players',
+                            'link' => $url('players')
+                        ];
+            }
+            
             
             if (count($adminDropdownItems)!=0) {
                 $items[] = [

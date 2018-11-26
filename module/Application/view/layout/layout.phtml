@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?= $this->headTitle('Role Demo')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?= $this->headTitle('Fifa Reports Competition')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?= $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -11,23 +11,30 @@
         ?>
 
         <!-- Le styles -->
-        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
-                        ->prependStylesheet($this->basePath('css/style.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap-4.0.0/bootstrap.min.css'))
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/rp-logo.png'])
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/jquery-ui-1.12.1/jquery-ui.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap-4.0.0/bootstrap.min.css'))
         ?>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
         <!-- Scripts -->
         <?= $this->headScript()
-            ->prependFile($this->basePath('js/bootstrap-4.0.0/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/application.js'))
+            ->prependFile($this->basePath('js/bootstrap-4.0.0/bootstrap.bundle.min.js'))
+            ->prependFile($this->basePath('js/jquery-ui-1.12.1/jquery-ui.js'))
             ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
         ?>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <!-- Page header -->
                 <div class="col-md-4">
-                    <div class="app-caption">Role Demo</div>
+                    <div class="app-caption">
+                        <img src="<?php echo $this->basePath() . '/img/logoreports.svg'; ?>" width="300" height="auto" alt="Fifa Reports" />
+                    </div>
                 </div>                
             </div>
             <div class="row">
@@ -59,7 +66,7 @@
             </div>
             <hr>
             <footer>
-                <p>&copy; 2005 - <?= date('Y') ?> by Your Company. All rights reserved.</p>
+                <p>&copy; 2005 - <?= date('Y') ?> by Reports. All rights reserved.</p>
             </footer>
         </div>
         <?= $this->inlineScript() ?>
