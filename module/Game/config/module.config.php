@@ -11,6 +11,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\GameController::class => Factory\GameControllerFactory::class,
+            Controller\GameAjaxController::class => Factory\GameAjaxControllerFactory::class,
         ],
     ],
     'service_manager' => [
@@ -35,6 +36,20 @@ return [
                     ],
                 ],
             ],
+            'gameajax' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/game-ajax[/:action][/:id]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\GameAjaxController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [
@@ -47,6 +62,10 @@ return [
     'access_filter' => [
         'controllers' => [
             \Game\Controller\GameController::class => [
+                // to anyone.
+                ['actions' => '*', 'allow' => '+game.manage']
+            ],
+            \Game\Controller\GameAjaxController::class => [
                 // to anyone.
                 ['actions' => '*', 'allow' => '+game.manage']
             ],

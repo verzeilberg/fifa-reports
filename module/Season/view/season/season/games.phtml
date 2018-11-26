@@ -20,21 +20,22 @@ $this->pageBreadcrumbs()->setItems([
         <table class="table table-sm table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
+                    <th><?php echo $this->translator()->translate('season.game.number'); ?></th>
                     <th><?php echo $this->translator()->translate('season.game.home.player.title'); ?></th>
                     <th><?php echo $this->translator()->translate('season.game.away.player.title'); ?></th>
                     <th><?php echo $this->translator()->translate('season.game.playdate'); ?></th>
                     <th><?php echo $this->translator()->translate('season.game.competition'); ?></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="sortable">
                 <?php foreach ($games as $game) { ?>
-                    <tr>
+                    <tr class="ui-state-default">
+                        <td><?php echo $game->getSortOrder(); ?></td>
                         <td><?php echo $game->getHomePlayer()->getFullName(); ?></td>
                         <td><?php echo $game->getAwayPlayer()->getFullName(); ?></td>
                         <td id="gameId<?php echo $game->getId(); ?>" class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('d-m-Y') : '<button type="button" data-gameid="' . $game->getId() . '" class="btn btn-warning btn-sm setGameId" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-calendar-alt"></i></button>'); ?></td>
                         <td><?php echo $game->getCompetition()->getName(); ?></td>
                     </tr>
-
                 <?php } ?>
             </tbody>
         </table>
@@ -58,31 +59,68 @@ $this->pageBreadcrumbs()->setItems([
                 <input type="hidden" name="gameId" value="" id="gameId" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark"><?php echo $this->translator()->translate('save'); ?></button>
+                <button type="button" class="btn btn-dark setPlayDate"><?php echo $this->translator()->translate('save'); ?></button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $this->translator()->translate('cancel'); ?></button>
             </div>
         </div>
     </div>
 </div>
-
+<style>
+    .ui-sortable-helper td {
+        width:20% !important;
+        min-width: 20% !important;
+    }
+</style>
 <script>
+    $(function () {
+        $("#sortable").sortable({
+            helper: fixHelper,
+            update: function (event, ui) {
+                $(this).children().each(function (index) {
+                    $(this).find('td').first().html(index + 1)
+                });
+            }
+        });
+        $("#sortable").disableSelection();
+
+
+        // Return a helper with preserved width of cells  
+        var fixHelper = function (e, tr)
+        {
+            var $originals = tr.children();
+            var $helper = tr.clone();
+            $helper.children().each(function (index)
+            {
+                // Set helper cell sizes to match the original sizes
+                $(this).width($originals.eq(index).width());
+            });
+            return tr;
+        }
+    });
+
+
+    /**
+     * Set the game id into the hidden input field of the model
+     */
     $(".setGameId").on("click", function () {
         var gameId = $(this).data('gameid');
         $('input#gameId').val(gameId);
     });
 
-
-
+    /**
+     * Set the play date for the game
+     */
     $(".setPlayDate").on("click", function () {
-            var gameId = $('#gameId').val(); 
-            var playDate = $('#playDate').val();
+        console.log('test');
+        var gameId = $('#gameId').val();
+        var playDate = $('#playDate').val();
         $.ajax({
             type: 'POST',
             data: {
                 gameId: gameId,
                 playDate: playDate
             },
-            url: "<?= $this->url('playerajax', ['action' => 'setCompetition']); ?>",
+            url: "<?= $this->url('gameajax', ['action' => 'setPlayDate']); ?>",
             async: true,
             success: function (data) {
                 if (data.succes === true) {

@@ -35,6 +35,16 @@ use TimestampableEntity;
      * @Annotation\Attributes({"class":"form-control datepicker", "autocomplete":"off"})
      */
     private $playDate;
+    
+        /**
+     * @ORM\Column(type="integer", nullable=true, name="sort_order")
+     * @Annotation\Options({
+     * "label": "Play date",
+     * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
+     */
+    private $sortOrder;
 
     /**
      * @ORM\ManyToOne(targetEntity="Player\Entity\Player", inversedBy="homeGame")
@@ -135,5 +145,15 @@ use TimestampableEntity;
     function setCompetition($competition) {
         $this->competition = $competition;
     }
+    
+    function getSortOrder() {
+        return $this->sortOrder;
+    }
+
+    function setSortOrder($sortOrder) {
+        $this->sortOrder = $sortOrder;
+    }
+
+
 
 }
