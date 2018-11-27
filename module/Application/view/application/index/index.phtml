@@ -44,7 +44,7 @@ $this->pageBreadcrumbs()->setItems([
         <div class="col text-right">
             <?php echo $game->getHomePlayer()->getFullNameShortLastName(); ?>
         </div>
-        <div class="col-md-auto text-center">
+        <div class="col-md-2 text-center">
             <i class="far fa-futbol"></i>
         </div>
         <div class="col">
@@ -52,6 +52,11 @@ $this->pageBreadcrumbs()->setItems([
         </div>
     </div>   
 <?php } ?>
+    <div class="row mb-2">
+        <div class="col text-center">
+        <a class="btn btn-sm btn-dark" href="<?php echo $this->url('game-schedule'); ?>" title="Alle wedstrijden"><i class="fas fa-list-ol"></i> Alle wedstrijden</a>
+        </div>
+    </div>
 </div>
 <div class="row mb-2">
     <h2 class="col text-center"><?php echo $season->getName(); ?></h2>
