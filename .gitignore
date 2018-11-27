@@ -6,4 +6,3 @@ data/cache/*
 phpunit.xml
 /nbproject/private/
 nbproject/*
-public/img/*
