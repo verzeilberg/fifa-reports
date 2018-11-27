@@ -124,8 +124,32 @@ class NavManager
             if (count($adminDropdownItems)!=0) {
                 $items[] = [
                     'id' => 'admin',
-                    'label' => 'Admin',
+                    'label' => 'Season manage',
                     'dropdown' => $adminDropdownItems
+                ];
+            }
+            
+            if ($this->rbacManager->isGranted(null, 'language.manage')) {
+                $translatorDropdownItems[] = [
+                            'id' => 'language',
+                            'label' => 'Manage languages',
+                            'link' => $url('languages')
+                        ];
+            }
+            
+            if ($this->rbacManager->isGranted(null, 'translation.manage')) {
+                $translatorDropdownItems[] = [
+                            'id' => 'translation',
+                            'label' => 'Manage translations',
+                            'link' => $url('translations')
+                        ];
+            }
+            
+            if (count($translatorDropdownItems)!=0) {
+                $items[] = [
+                    'id' => 'translator',
+                    'label' => 'Translator manage',
+                    'dropdown' => $translatorDropdownItems
                 ];
             }
             

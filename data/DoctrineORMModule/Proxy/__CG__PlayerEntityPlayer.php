@@ -64,10 +64,10 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGame', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGame', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', 'deletedAt', 'createdAt', 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', 'deletedAt', 'createdAt', 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGame', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGame', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', 'deletedAt', 'createdAt', 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', 'deletedAt', 'createdAt', 'updatedAt'];
     }
 
     /**
@@ -224,17 +224,6 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getFullName()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFullName', []);
-
-        return parent::getFullName();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getScreenName()
     {
 
@@ -246,12 +235,45 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getHomeGames()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getHomeGames', []);
+
+        return parent::getHomeGames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAwayGames()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAwayGames', []);
+
+        return parent::getAwayGames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getClub()
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getClub', []);
 
         return parent::getClub();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCompetition()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCompetition', []);
+
+        return parent::getCompetition();
     }
 
     /**
@@ -312,23 +334,34 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setHomeGames($homeGames)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHomeGames', [$homeGames]);
+
+        return parent::setHomeGames($homeGames);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAwayGames($awayGames)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAwayGames', [$awayGames]);
+
+        return parent::setAwayGames($awayGames);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setClub($club)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setClub', [$club]);
 
         return parent::setClub($club);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCompetition()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCompetition', []);
-
-        return parent::getCompetition();
     }
 
     /**
@@ -345,45 +378,12 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getHomeGame()
+    public function getFullName()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getHomeGame', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFullName', []);
 
-        return parent::getHomeGame();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getAwayGame()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAwayGame', []);
-
-        return parent::getAwayGame();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setHomeGame($homeGame)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHomeGame', [$homeGame]);
-
-        return parent::setHomeGame($homeGame);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setAwayGame($awayGame)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAwayGame', [$awayGame]);
-
-        return parent::setAwayGame($awayGame);
+        return parent::getFullName();
     }
 
     /**

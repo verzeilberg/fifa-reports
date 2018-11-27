@@ -82,7 +82,6 @@ $this->pageBreadcrumbs()->setItems([
     }
 </style>
 <script>
-    <?php if ($season->getLockPlaySchedule() == 0) { ?>}
     $(function () {
         $("#sortable").sortable({
             helper: fixHelper,
@@ -128,7 +127,6 @@ $this->pageBreadcrumbs()->setItems([
         }
     });
 
-<?php } ?>
 
 
     /**

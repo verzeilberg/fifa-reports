@@ -35,20 +35,36 @@ $this->pageBreadcrumbs()->setItems([
         </a>
     </div>
 </div>
-<div class="row mb-2" id="nextMatch">
-
+<div class="mb-4" id="nextMatch">
+    <div class="row mb-2">
+        <h2 class="col text-center">Wedstrijden week <?php echo $weekNr; ?></h2>
+    </div>
+<?php foreach ($games as $game){ ?>
+    <div class="row mb-2">
+        <div class="col text-right">
+            <?php echo $game->getHomePlayer()->getFullName(); ?>
+        </div>
+        <div class="col-md-2 text-center">
+            <i class="far fa-futbol"></i>
+        </div>
+        <div class="col">
+            <?php echo $game->getAwayPlayer()->getFullName(); ?>
+        </div>
+    </div>   
+<?php } ?>
 </div>
 <div class="row mb-2">
     <h2 class="col text-center"><?php echo $season->getName(); ?></h2>
 </div>
 <div class="row mb-2" id="game">
-
     <?php foreach ($season->getCompetitions() as $competition) { ?>
+
         <div class="col">
             <div class="card">
                 <div class="card-header text-white bg-dark">
                     <b><?php echo $competition->getName(); ?></b>
                 </div>
+                    
                 <div class="card-body">
                     <table class="table table-bordered table-hover table-sm">
                         <tr>

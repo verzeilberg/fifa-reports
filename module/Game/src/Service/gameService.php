@@ -67,12 +67,6 @@ class gameService implements gameServiceInterface {
         $qb->setParameter('start', new \DateTime($dates['start']));
         $qb->setParameter('end', new \DateTime($dates['end']));
         $query = $qb->getQuery();
-        var_dump($query->getSql());
-        var_dump($query->getParameters());
-        var_dump($query->getResult()); die;
-
-        die;
-
         $result = $query->getResult();
         return $result;
     }

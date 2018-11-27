@@ -34,11 +34,16 @@ class IndexController extends AbstractActionController {
         $currentDate = new \DateTime();
 
         $weekArray = $this->getStartAndEndDate($currentDate->format('W'), $currentDate->format('Y'));
-        //$games = $this->gameRepository->getGamesBySeasonAndDates($season->getId(), $weekArray);
+        $games = $this->gameRepository->getGamesBySeasonAndDates($season->getId(), $weekArray);
 
-
+        $currentDateTime = new \DateTime(); 
+        $weekNr = $currentDateTime->format('W');
+        
         return new ViewModel([
             'season' => $season,
+            'games' => $games,
+            'weekNr' => $weekNr
+
         ]);
     }
 

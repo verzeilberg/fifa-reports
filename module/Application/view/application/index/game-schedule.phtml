@@ -20,7 +20,7 @@ $this->pageBreadcrumbs()->setItems([
                 <th scope="col" class="text-center"><?php echo $this->translator()->translate('season.game.number'); ?></th>
                 <th scope="col"><?php echo $this->translator()->translate('season.game.home.player.title'); ?></th>
                 <th scope="col"><?php echo $this->translator()->translate('season.game.away.player.title'); ?></th>
-                <th class="text-center" scope="col"><?php echo $this->translator()->translate('season.game.playdate'); ?></th>
+                <th class="text-center" scope="col"><?php echo $this->translator()->translate('season.game.weeknumber'); ?></th>
                 <th class="text-center" scope="col"><?php echo $this->translator()->translate('season.game.competition'); ?></th>
             </tr>
             </thead>
@@ -30,7 +30,7 @@ $this->pageBreadcrumbs()->setItems([
                     <td scope="row" class="text-center"><?php echo $game->getSortOrder(); ?></td>
                     <td><?php echo $game->getHomePlayer()->getFullName(); ?></td>
                     <td><?php echo $game->getAwayPlayer()->getFullName(); ?></td>
-                    <td id="gamePlayDate" class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('d-m-Y') : ''); ?></td>
+                    <td id="gamePlayDate" class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('W') : ''); ?></td>
                     <td class="text-center"><?php echo $game->getCompetition()->getName(); ?></td>
                 </tr>
             <?php } ?>

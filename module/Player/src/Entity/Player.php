@@ -70,12 +70,12 @@ use TimestampableEntity;
     /**
      * @ORM\OneToMany(targetEntity="Game\Entity\Game", mappedBy="homePlayer")
      */
-    private $homeGame;
+    private $homeGames;
 
     /**
      * @ORM\OneToMany(targetEntity="Game\Entity\Game", mappedBy="awayPlayer")
      */
-    private $awayGame;
+    private $awayGames;
 
     /**
      * @ORM\ManyToOne(targetEntity="Club\Entity\Club", inversedBy="player")
@@ -89,6 +89,11 @@ use TimestampableEntity;
      * @ORM\JoinColumn(name="competition_id", referencedColumnName="id")
      */
     private $competition;
+
+    public function __construct() {
+        $this->homeGames = new ArrayCollection();
+        $this->awayGames = new ArrayCollection();
+    }
 
     function getId() {
         return $this->id;
@@ -106,16 +111,24 @@ use TimestampableEntity;
         return $this->lastName;
     }
 
-    function getFullName() {
-        return $this->surName . ' ' . ($this->lastNamePrefix ? $this->lastNamePrefix . ' ' : '') . $this->lastName;
-    }
-
     function getScreenName() {
         return $this->screenName;
     }
 
+    function getHomeGames() {
+        return $this->homeGames;
+    }
+
+    function getAwayGames() {
+        return $this->awayGames;
+    }
+
     function getClub() {
         return $this->club;
+    }
+
+    function getCompetition() {
+        return $this->competition;
     }
 
     function setId($id) {
@@ -138,32 +151,24 @@ use TimestampableEntity;
         $this->screenName = $screenName;
     }
 
-    function setClub($club) {
-        $this->club = $club;
+    function setHomeGames($homeGames) {
+        $this->homeGames = $homeGames;
     }
 
-    function getCompetition() {
-        return $this->competition;
+    function setAwayGames($awayGames) {
+        $this->awayGames = $awayGames;
+    }
+
+    function setClub($club) {
+        $this->club = $club;
     }
 
     function setCompetition($competition) {
         $this->competition = $competition;
     }
 
-    function getHomeGame() {
-        return $this->homeGame;
-    }
-
-    function getAwayGame() {
-        return $this->awayGame;
-    }
-
-    function setHomeGame($homeGame) {
-        $this->homeGame = $homeGame;
-    }
-
-    function setAwayGame($awayGame) {
-        $this->awayGame = $awayGame;
+    function getFullName() {
+        return $this->surName . ' ' . ($this->lastNamePrefix ? $this->lastNamePrefix . ' ' : '') . $this->lastName;
     }
 
 }

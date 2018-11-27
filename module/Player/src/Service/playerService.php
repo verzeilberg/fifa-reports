@@ -49,6 +49,17 @@ class playerService implements playerServiceInterface {
 
         return $items;
     }
+    
+    public function getStatsForPlayerInSeason() {
+        $qb = $this->entityManager->getRepository(Player::class)->createQueryBuilder('p');
+        $qb->join('p.homeGames', 'hg');
+        $qb->join('p.awayGames', 'ag');
+        //@todo finish him
+        
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
 
     /**
      *
