@@ -171,4 +171,8 @@ use TimestampableEntity;
         return $this->surName . ' ' . ($this->lastNamePrefix ? $this->lastNamePrefix . ' ' : '') . $this->lastName;
     }
 
+    function getFullNameShortLastName() {
+        return $this->surName . ' ' . ($this->lastNamePrefix ? $this->lastNamePrefix . ' ' : '') . substr($this->lastName, 0, 1) . '.';
+    }
+
 }

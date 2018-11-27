@@ -42,13 +42,13 @@ $this->pageBreadcrumbs()->setItems([
 <?php foreach ($games as $game){ ?>
     <div class="row mb-2">
         <div class="col text-right">
-            <?php echo $game->getHomePlayer()->getFullName(); ?>
+            <?php echo $game->getHomePlayer()->getFullNameShortLastName(); ?>
         </div>
         <div class="col-md-2 text-center">
             <i class="far fa-futbol"></i>
         </div>
         <div class="col">
-            <?php echo $game->getAwayPlayer()->getFullName(); ?>
+            <?php echo $game->getAwayPlayer()->getFullNameShortLastName(); ?>
         </div>
     </div>   
 <?php } ?>

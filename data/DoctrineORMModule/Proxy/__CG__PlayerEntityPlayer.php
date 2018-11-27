@@ -389,6 +389,17 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getFullNameShortLastName()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFullNameShortLastName', []);
+
+        return parent::getFullNameShortLastName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setDeletedAt(\DateTime $deletedAt = NULL)
     {
 
