@@ -154,9 +154,14 @@ class GameController extends AbstractActionController {
                 $this->repository->saveItem($game);
                 $homeGameResult->setGame($game);
                 $homeGameResult->setPlayer($game->getHomePlayer());
+                $homeGameResult->setSeason($game->getSeason());
+                $homeGameResult->setCompetition($game->getCompetition());
                 $this->resultRepository->saveItem($homeGameResult);
+                
                 $awayGameResult->setGame($game);
                 $awayGameResult->setPlayer($game->getAwayPlayer());
+                $awayGameResult->setSeason($game->getSeason());
+                $awayGameResult->setCompetition($game->getCompetition());
                 $this->resultRepository->saveItem($awayGameResult);
                 return $this->redirect()->toRoute('competitions', array('action' => 'show', 'id' => $competitionId));
             }

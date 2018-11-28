@@ -64,10 +64,10 @@ class Season extends \Season\Entity\Season implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'id', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'startDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'endDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'name', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'lockPlaySchedule', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'games', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'competitions', 'deletedAt', 'createdAt', 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'id', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'startDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'endDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'name', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'lockPlaySchedule', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'games', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'competitions', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'homeGameResults', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'awayGameResults', 'deletedAt', 'createdAt', 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'id', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'startDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'endDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'name', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'lockPlaySchedule', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'games', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'competitions', 'deletedAt', 'createdAt', 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'id', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'startDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'endDate', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'name', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'lockPlaySchedule', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'games', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'competitions', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'homeGameResults', '' . "\0" . 'Season\\Entity\\Season' . "\0" . 'awayGameResults', 'deletedAt', 'createdAt', 'updatedAt'];
     }
 
     /**
@@ -356,12 +356,56 @@ class Season extends \Season\Entity\Season implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setLockPlaySchedule($lockPlaySchedule): void
+    public function setLockPlaySchedule($lockPlaySchedule)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLockPlaySchedule', [$lockPlaySchedule]);
 
-        parent::setLockPlaySchedule($lockPlaySchedule);
+        return parent::setLockPlaySchedule($lockPlaySchedule);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getHomeGameResults()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getHomeGameResults', []);
+
+        return parent::getHomeGameResults();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAwayGameResults()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAwayGameResults', []);
+
+        return parent::getAwayGameResults();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setHomeGameResults($homeGameResults)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHomeGameResults', [$homeGameResults]);
+
+        return parent::setHomeGameResults($homeGameResults);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAwayGameResults($awayGameResults)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAwayGameResults', [$awayGameResults]);
+
+        return parent::setAwayGameResults($awayGameResults);
     }
 
     /**

@@ -63,11 +63,23 @@ use TimestampableEntity;
      * @ORM\OneToMany(targetEntity="Player\Entity\Player", mappedBy="competition")
      */
     private $players;
+    
+        /**
+     * @ORM\OneToMany(targetEntity="Result\Entity\HomeGameResult", mappedBy="competition")
+     */
+    private $homeGameResults;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Result\Entity\AwayGameResult", mappedBy="competition")
+     */
+    private $awayGameResults;
 
     public function __construct() {
         $this->seasons = new ArrayCollection();
         $this->players = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->homeGameResults = new ArrayCollection();
+        $this->awayGameResults = new ArrayCollection();
     }
 
     function getId() {
@@ -117,6 +129,23 @@ use TimestampableEntity;
     function setAwayHomeGame($awayHomeGame) {
         $this->awayHomeGame = $awayHomeGame;
     }
+
+    function getHomeGameResults() {
+        return $this->homeGameResults;
+    }
+
+    function getAwayGameResults() {
+        return $this->awayGameResults;
+    }
+
+    function setHomeGameResults($homeGameResults) {
+        $this->homeGameResults = $homeGameResults;
+    }
+
+    function setAwayGameResults($awayGameResults) {
+        $this->awayGameResults = $awayGameResults;
+    }
+
 
 
 }

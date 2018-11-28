@@ -50,8 +50,8 @@ class resultService implements resultServiceInterface {
 
         return $item;
     }
-    
-        /**
+
+    /**
      *
      * Get item object by on id
      *
@@ -99,8 +99,8 @@ class resultService implements resultServiceInterface {
         $form->bind($item);
         return $form;
     }
-    
-        /**
+
+    /**
      *
      * Create form of an object
      *
@@ -115,7 +115,7 @@ class resultService implements resultServiceInterface {
         $form->bind($item);
         return $form;
     }
-    
+
     /**
      *
      * Create a new item object
@@ -126,8 +126,8 @@ class resultService implements resultServiceInterface {
         $item = new HomeGameResult();
         return $item;
     }
-    
-        /**
+
+    /**
      *
      * Create a new item object
      * @return      object

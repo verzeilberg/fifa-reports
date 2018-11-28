@@ -49,15 +49,15 @@ class competitionService implements competitionServiceInterface {
 
         return $item;
     }
-    
+
     public function getPlayersIds($id) {
-        
+
         $competition = $this->getItem($id);
         $playersIds = [];
         foreach ($competition->getPlayers() as $player) {
-           $playersIds[] = $player->getId(); 
+            $playersIds[] = $player->getId();
         }
-        
+
         return $playersIds;
     }
 

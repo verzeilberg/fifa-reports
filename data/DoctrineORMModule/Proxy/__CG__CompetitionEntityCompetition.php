@@ -64,10 +64,10 @@ class Competition extends \Competition\Entity\Competition implements \Doctrine\O
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'id', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'awayHomeGame', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'name', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'seasons', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'games', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'players', 'deletedAt', 'createdAt', 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'id', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'awayHomeGame', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'name', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'seasons', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'games', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'players', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'homeGameResults', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'awayGameResults', 'deletedAt', 'createdAt', 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'id', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'awayHomeGame', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'name', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'seasons', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'games', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'players', 'deletedAt', 'createdAt', 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'id', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'awayHomeGame', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'name', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'seasons', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'games', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'players', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'homeGameResults', '' . "\0" . 'Competition\\Entity\\Competition' . "\0" . 'awayGameResults', 'deletedAt', 'createdAt', 'updatedAt'];
     }
 
     /**
@@ -307,6 +307,50 @@ class Competition extends \Competition\Entity\Competition implements \Doctrine\O
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAwayHomeGame', [$awayHomeGame]);
 
         return parent::setAwayHomeGame($awayHomeGame);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getHomeGameResults()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getHomeGameResults', []);
+
+        return parent::getHomeGameResults();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAwayGameResults()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAwayGameResults', []);
+
+        return parent::getAwayGameResults();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setHomeGameResults($homeGameResults)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHomeGameResults', [$homeGameResults]);
+
+        return parent::setHomeGameResults($homeGameResults);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAwayGameResults($awayGameResults)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAwayGameResults', [$awayGameResults]);
+
+        return parent::setAwayGameResults($awayGameResults);
     }
 
     /**

@@ -1,0 +1,39 @@
+<?php
+$this->headTitle('Games results');
+
+$this->mainMenu()->setActiveItemId('schedule');
+
+$this->pageBreadcrumbs()->setItems([
+            'Home'=>$this->url('home'),
+            'Game results'=>$this->url('games-results'),
+            ]);
+?>
+
+<div class="row">
+<h1 class="col mt-3 mb-3">Wedstrijd resultaten</h1>
+</div>
+<div class="row">
+    <div class="col">
+        <table class="table table-sm table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center"><?php echo $this->translator()->translate('season.game.home.player.title'); ?></th>
+                <th scope="col" colspan="3" class="text-center"><i class="far fa-futbol"></i></th>
+                <th scope="col" class="text-center" scope="col"><?php echo $this->translator()->translate('season.game.away.player.title'); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($season->getGames() as $index => $game) { ?>
+                <tr id="gameId<?php echo $game->getId(); ?>" <?php echo ($index % 2 == 0? '':'class="bg-dark text-white"'); ?>>
+                    <td class="text-center" scope="row" class="text-center"><?php echo $game->getHomePlayer()->getFullName(); ?></td>
+                    <td class="text-center"><?php echo (is_object($game->getHomeGameResult())? $game->getHomeGameResult()->getGoalsH():''); ?></td>
+                    <td class="text-center"><b>-</b></td>
+                    <td class="text-center"><?php echo (is_object($game->getAwayGameResult())? $game->getAwayGameResult()->getGoalsA():''); ?></td>
+                    <td class="text-center"><?php echo $game->getAwayPlayer()->getFullName(); ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+

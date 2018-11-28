@@ -156,6 +156,18 @@ class AwayGameResult {
      */
     private $player;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Competition\Entity\Competition", inversedBy="awayGameResults")
+     * @ORM\JoinColumn(name="competition_id", referencedColumnName="id")
+     */
+    private $competition;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Season\Entity\Season", inversedBy="awayGameResults")
+     * @ORM\JoinColumn(name="season_id", referencedColumnName="id")
+     */
+    private $season;
+
     function getId() {
         return $this->id;
     }
@@ -282,6 +294,22 @@ class AwayGameResult {
 
     function setPlayer($player) {
         $this->player = $player;
+    }
+
+    function getCompetition() {
+        return $this->competition;
+    }
+
+    function getSeason() {
+        return $this->season;
+    }
+
+    function setCompetition($competition) {
+        $this->competition = $competition;
+    }
+
+    function setSeason($season) {
+        $this->season = $season;
     }
 
 }

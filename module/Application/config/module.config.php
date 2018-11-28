@@ -45,6 +45,16 @@ return [
                     ],
                 ],
             ],
+            'games-results' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/games-results',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'gamesResults',
+                    ],
+                ],
+            ],
             'application' => [
                 'type' => Segment::class,
                 'options' => [
@@ -81,7 +91,7 @@ return [
         'controllers' => [
             Controller\IndexController::class => [
                 // Allow anyone to visit "index" and "about" actions
-                ['actions' => ['index', 'rules', 'gameSchedule'], 'allow' => '*'],
+                ['actions' => ['index', 'rules', 'gameSchedule', 'gamesResults'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
                 ['actions' => ['settings'], 'allow' => '@']
             ],

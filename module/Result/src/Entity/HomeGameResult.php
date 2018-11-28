@@ -65,7 +65,7 @@ class HomeGameResult {
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="possession")
-    * @Annotation\Options({
+     * @Annotation\Options({
      * "label": "Possesion",
      * "label_attributes": {"class": "col-form-label"}
      * })
@@ -142,7 +142,7 @@ class HomeGameResult {
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
     private $passAccuracyH = 0;
-    
+
     /**
      * One Home game result has One Game.
      * @ORM\OneToOne(targetEntity="Game\Entity\Game", inversedBy="homeGameResult")
@@ -155,6 +155,18 @@ class HomeGameResult {
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
      */
     private $player;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Competition\Entity\Competition", inversedBy="homeGameResults")
+     * @ORM\JoinColumn(name="competition_id", referencedColumnName="id")
+     */
+    private $competition;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Season\Entity\Season", inversedBy="homeGameResults")
+     * @ORM\JoinColumn(name="season_id", referencedColumnName="id")
+     */
+    private $season;
 
     function getId() {
         return $this->id;
@@ -220,6 +232,14 @@ class HomeGameResult {
         return $this->player;
     }
 
+    function getCompetition() {
+        return $this->competition;
+    }
+
+    function getSeason() {
+        return $this->season;
+    }
+
     function setId($id) {
         $this->id = $id;
     }
@@ -283,5 +303,15 @@ class HomeGameResult {
     function setPlayer($player) {
         $this->player = $player;
     }
+
+    function setCompetition($competition) {
+        $this->competition = $competition;
+    }
+
+    function setSeason($season) {
+        $this->season = $season;
+    }
+
+
 
 }

@@ -90,10 +90,22 @@ use TimestampableEntity;
      * @Annotation\Attributes({"class":""})
      */
     private $competitions;
+    
+            /**
+     * @ORM\OneToMany(targetEntity="Result\Entity\HomeGameResult", mappedBy="season")
+     */
+    private $homeGameResults;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Result\Entity\AwayGameResult", mappedBy="season")
+     */
+    private $awayGameResults;
 
     public function __construct() {
         $this->competitions = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->homeGameResults = new ArrayCollection();
+        $this->awayGameResults = new ArrayCollection();
     }
 
     public function addCompetitions(ArrayCollection $competition) {
@@ -177,10 +189,28 @@ use TimestampableEntity;
     /**
      * @param mixed $lockPlaySchedule
      */
-    public function setLockPlaySchedule($lockPlaySchedule): void
+    public function setLockPlaySchedule($lockPlaySchedule)
     {
         $this->lockPlaySchedule = $lockPlaySchedule;
     }
+    
+    function getHomeGameResults() {
+        return $this->homeGameResults;
+    }
+
+    function getAwayGameResults() {
+        return $this->awayGameResults;
+    }
+
+    function setHomeGameResults($homeGameResults) {
+        $this->homeGameResults = $homeGameResults;
+    }
+
+    function setAwayGameResults($awayGameResults) {
+        $this->awayGameResults = $awayGameResults;
+    }
+
+
 
 
 

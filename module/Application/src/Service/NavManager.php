@@ -50,15 +50,21 @@ class NavManager
         ];
         
         $items[] = [
-            'id' => 'rules',
+            'id' => 'Regels',
             'label' => 'Rules',
             'link'  => $url('rules')
         ];
 
         $items[] = [
             'id' => 'schedule',
-            'label' => 'Game schedule',
+            'label' => 'Schema',
             'link'  => $url('game-schedule')
+        ];
+        
+        $items[] = [
+            'id' => 'results',
+            'label' => 'Uitslagen',
+            'link'  => $url('games-results')
         ];
         
         // Display "Login" menu item for not authorized user only. On the other hand,
