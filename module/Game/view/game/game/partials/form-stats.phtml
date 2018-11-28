@@ -13,19 +13,14 @@
     <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('goalsA')); ?></div>
 </div>
 <div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('shotOnTargetH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.shots.target') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('shotOnTargetA')); ?></div>
-</div>
-<div class="row mb-1">
     <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('totalShotsH')); ?></div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.total.shots') ?></b></div>
     <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('totalShotsA')); ?></div>
 </div>
 <div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('foulsH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.fouls') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('foulsA')); ?></div>
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('shotOnTargetH')); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.shots.target') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('shotOnTargetA')); ?></div>
 </div>
 <div class="row">
     <div class="col text-center">
@@ -52,14 +47,14 @@
     </div>
 </div>
 <div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('cornersH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.corners') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('cornersA')); ?></div>
-</div>
-<div class="row mb-1">
     <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('tacklesH')); ?></div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.tackles') ?></b></div>
     <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('tacklesA')); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('foulsH')); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.fouls') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('foulsA')); ?></div>
 </div>
 <div class="row mb-1">
     <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('yellowCardsH')); ?></div>
@@ -77,6 +72,16 @@
     <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('injuriesA')); ?></div>
 </div>
 <div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('offsideH')); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.offside') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('offsideA')); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('cornersH')); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.corners') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('cornersA')); ?></div>
+</div>
+<div class="row mb-1">
     <div class="col-md-2 text-right">
         <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -85,7 +90,7 @@
             <?php echo $this->formNumber($formHomeGameResult->get('shotAccuracyH')); ?>
         </div>
     </div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.pass.accuracy') ?></b></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.shot.accuracy') ?></b></div>
     <div class="col-md-2">
         <div class="input-group mb-2">
             <?php echo $this->formNumber($formAwayGameResult->get('shotAccuracyA')); ?>

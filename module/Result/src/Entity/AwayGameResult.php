@@ -26,12 +26,12 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $goalsA = 0;
+    public $goalsA = 0;
 
     /**
      * @ORM\Column(type="integer", length=1, nullable=false, name="points")
      */
-    private $pointsA;
+    public $pointsA;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="shot_on_target")
@@ -41,7 +41,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $shotOnTargetA = 0;
+    public $shotOnTargetA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="total_shots")
@@ -51,7 +51,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $totalShotsA = 0;
+    public $totalShotsA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="fouls")
@@ -61,7 +61,17 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $foulsA = 0;
+    public $foulsA = 0;
+    
+        /**
+     * @ORM\Column(type="integer", length=11, nullable=true, name="offside")
+     * @Annotation\Options({
+     * "label": "Offside",
+     * "label_attributes": {"class": "col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
+     */
+    public $offsideA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="possession")
@@ -71,7 +81,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $possessionA = 50;
+    public $possessionA = 50;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="corners")
@@ -81,7 +91,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $cornersA = 0;
+    public $cornersA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="tackles")
@@ -91,7 +101,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $tacklesA = 0;
+    public $tacklesA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="yellow_cards")
@@ -101,7 +111,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $yellowCardsA = 0;
+    public $yellowCardsA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="red_cards")
@@ -111,7 +121,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $redCardsA = 0;
+    public $redCardsA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="injuries")
@@ -121,7 +131,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $injuriesA = 0;
+    public $injuriesA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="shot_accuracy")
@@ -131,7 +141,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $shotAccuracyA = 0;
+    public $shotAccuracyA = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="pass_accuracy")
@@ -141,7 +151,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    private $passAccuracyA = 0;
+    public $passAccuracyA = 0;
 
     /**
      * One Away game result has One Game.
@@ -311,5 +321,14 @@ class AwayGameResult {
     function setSeason($season) {
         $this->season = $season;
     }
+
+    function getOffsideA() {
+        return $this->offsideA;
+    }
+
+    function setOffsideA($offsideA) {
+        $this->offsideA = $offsideA;
+    }
+
 
 }
