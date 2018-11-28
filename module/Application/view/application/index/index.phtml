@@ -45,7 +45,13 @@ $this->pageBreadcrumbs()->setItems([
             <?php echo $game->getHomePlayer()->getFullNameShortLastName(); ?>
         </div>
         <div class="col-md-2 text-center">
+            <?php echo (is_object($game->getHomeGameResult())? $game->getHomeGameResult()->getGoalsH():''); ?>
+        </div>
+        <div class="col-md-1 text-center">
             <i class="far fa-futbol"></i>
+        </div>
+        <div class="col-md-2 text-center">
+            <?php echo (is_object($game->getAwayGameResult())? $game->getAwayGameResult()->getGoalsA():''); ?>
         </div>
         <div class="col">
             <?php echo $game->getAwayPlayer()->getFullNameShortLastName(); ?>
