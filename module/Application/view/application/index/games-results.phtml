@@ -24,7 +24,7 @@ $this->pageBreadcrumbs()->setItems([
             </thead>
             <tbody>
                 <?php foreach ($season->getGames() as $index => $game) { ?>
-                    <tr data-game-id="<?php echo $game->getId(); ?>" class="clickableRowResult <?php echo ($index % 2 == 0 ? '' : 'bg-dark text-white'); ?>">
+                    <tr data-game-id="<?php echo $game->getId(); ?>" class="<?php echo (is_object($game->getHomeGameResult()) && is_object($game->getAwayGameResult())? 'clickableRowResult':'' ) ?> <?php echo ($index % 2 == 0 ? '' : 'bg-dark text-white'); ?>">
                         <td class="text-center" scope="row" class="text-center"><?php echo $game->getHomePlayer()->getFullName(); ?></td>
                         <td class="text-center"><?php echo (is_object($game->getHomeGameResult()) ? $game->getHomeGameResult()->getGoalsH() : ''); ?></td>
                         <td class="text-center"><b>-</b></td>
