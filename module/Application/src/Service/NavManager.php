@@ -84,7 +84,7 @@ class NavManager
             if ($this->rbacManager->isGranted(null, 'user.manage')) {
                 $adminDropdownItems[] = [
                             'id' => 'users',
-                            'label' => 'Manage Users',
+                            'label' => 'Users',
                             'link' => $url('users')
                         ];
             }
@@ -92,7 +92,7 @@ class NavManager
             if ($this->rbacManager->isGranted(null, 'permission.manage')) {
                 $adminDropdownItems[] = [
                             'id' => 'permissions',
-                            'label' => 'Manage Permissions',
+                            'label' => 'Permissions',
                             'link' => $url('permissions')
                         ];
             }
@@ -100,45 +100,55 @@ class NavManager
             if ($this->rbacManager->isGranted(null, 'role.manage')) {
                 $adminDropdownItems[] = [
                             'id' => 'roles',
-                            'label' => 'Manage Roles',
+                            'label' => 'Roles',
                             'link' => $url('roles')
                         ];
             }
-            if ($this->rbacManager->isGranted(null, 'season.manage')) {
-                $adminDropdownItems[] = [
-                            'id' => 'seasons',
-                            'label' => 'Manage Seasons',
-                            'link' => $url('seasons')
-                        ];
-            }
-            if ($this->rbacManager->isGranted(null, 'competition.manage')) {
-                $adminDropdownItems[] = [
-                            'id' => 'competitions',
-                            'label' => 'Manage Competition',
-                            'link' => $url('competitions')
-                        ];
-            }
-            if ($this->rbacManager->isGranted(null, 'player.manage')) {
-                $adminDropdownItems[] = [
-                            'id' => 'players',
-                            'label' => 'Manage players',
-                            'link' => $url('players')
-                        ];
-            }
-            
-            
+
             if (count($adminDropdownItems)!=0) {
                 $items[] = [
                     'id' => 'admin',
-                    'label' => 'Season manage',
+                    'label' => 'User Manage',
                     'dropdown' => $adminDropdownItems
                 ];
             }
-            
+
+            if ($this->rbacManager->isGranted(null, 'season.manage')) {
+                $seasonDropdownItems[] = [
+                    'id' => 'seasons',
+                    'label' => 'Seasons',
+                    'link' => $url('seasons')
+                ];
+            }
+            if ($this->rbacManager->isGranted(null, 'competition.manage')) {
+                $seasonDropdownItems[] = [
+                    'id' => 'competitions',
+                    'label' => 'Competitions',
+                    'link' => $url('competitions')
+                ];
+            }
+            if ($this->rbacManager->isGranted(null, 'player.manage')) {
+                $seasonDropdownItems[] = [
+                    'id' => 'players',
+                    'label' => 'Players',
+                    'link' => $url('players')
+                ];
+            }
+
+
+            if (count($seasonDropdownItems)!=0) {
+                $items[] = [
+                    'id' => 'season',
+                    'label' => 'Season manage',
+                    'dropdown' => $seasonDropdownItems
+                ];
+            }
+
+
             if ($this->rbacManager->isGranted(null, 'language.manage')) {
                 $translatorDropdownItems[] = [
                             'id' => 'language',
-                            'label' => 'Manage languages',
+                            'label' => 'Languages',
                             'link' => $url('languages')
                         ];
             }
@@ -146,9 +156,17 @@ class NavManager
             if ($this->rbacManager->isGranted(null, 'translation.manage')) {
                 $translatorDropdownItems[] = [
                             'id' => 'translation',
-                            'label' => 'Manage translations',
+                            'label' => 'Translations',
                             'link' => $url('translations')
                         ];
+            }
+
+            if ($this->rbacManager->isGranted(null, 'translation.manage')) {
+                $translatorDropdownItems[] = [
+                    'id' => 'translator',
+                    'label' => 'Translation files',
+                    'link' => $url('translators')
+                ];
             }
             
             if (count($translatorDropdownItems)!=0) {

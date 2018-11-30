@@ -67,7 +67,8 @@ return [
             ],
             \Game\Controller\GameAjaxController::class => [
                 // to anyone.
-                ['actions' => '*', 'allow' => '+game.manage']
+                ['actions' => '*', 'allow' => '*']
+
             ],
         ]
     ],
