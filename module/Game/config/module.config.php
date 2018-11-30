@@ -67,8 +67,9 @@ return [
             ],
             \Game\Controller\GameAjaxController::class => [
                 // to anyone.
-                ['actions' => '*', 'allow' => '*']
-
+                ['actions' => ['getGame'], 'allow' => '*'],
+                // Allow authorized users to visit "settings" action
+                ['actions' => ['setPlayDate', 'setSortOrder' ], 'allow' => '+game.manage']
             ],
         ]
     ],
