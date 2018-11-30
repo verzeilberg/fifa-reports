@@ -11,16 +11,19 @@ use User\Entity\User;
  * site-wide actions such as Home or About.
  */
 class IndexController extends AbstractActionController {
-
+    protected $vhm;
     private $seasonRepository;
     private $gameRepository;
+    private $resultRepository;
 
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      */
-    public function __construct($seasonRepository, $gameRepository) {
+    public function __construct($vhm, $seasonRepository, $gameRepository, $resultRepository) {
+        $this->vhm = $vhm;
         $this->seasonRepository = $seasonRepository;
         $this->gameRepository = $gameRepository;
+        $this->resultRepository = $resultRepository;
     }
 
     /**
@@ -29,24 +32,23 @@ class IndexController extends AbstractActionController {
      */
     public function indexAction() {
         $this->layout('layout/home');
-        
+        $this->vhm->get('headScript')->appendFile('/js/application.js');
+
         $season = $this->seasonRepository->getItem(1);
         $currentDate = new \DateTime();
 
-        $this->seasonRepository->getResultsBySeason($season->getId());
-        
-        
         $weekArray = $this->getStartAndEndDate($currentDate->format('W'), $currentDate->format('Y'));
         $games = $this->gameRepository->getGamesBySeasonAndDates($season->getId(), $weekArray);
-        
-        $currentDateTime = new \DateTime(); 
+        $results = $this->resultRepository->getResultsBySeason(1);
+
+        $currentDateTime = new \DateTime();
         $weekNr = $currentDateTime->format('W');
-        
+
         return new ViewModel([
             'season' => $season,
             'games' => $games,
-            'weekNr' => $weekNr
-
+            'weekNr' => $weekNr,
+            'results' => $results
         ]);
     }
 
@@ -57,31 +59,29 @@ class IndexController extends AbstractActionController {
         return new ViewModel([
             'season' => $season
         ]);
-
-
     }
-    
-        public function gamesResultsAction() {
 
+    public function gamesResultsAction() {
+        $this->vhm->get('headScript')->appendFile('/js/game.js');
         $season = $this->seasonRepository->getItem(1);
 
         return new ViewModel([
             'season' => $season
         ]);
-
-
     }
-
 
     /*
      * Rules page
      */
+
     public function rulesAction() {
         return new ViewModel();
     }
+
     /*
      * @todo move this to service class
      */
+
     private function getStartAndEndDate($week, $year) {
         $dto = new \DateTime();
         $dto->setISODate($year, $week);

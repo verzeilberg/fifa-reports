@@ -1,0 +1,113 @@
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="statsModal" tabindex="-1" role="dialog" aria-labelledby="statsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="statsModalLabel"><?php echo $this->translator()->translate('game.stats.title'); ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3 pb-2 pt-2 justify-content-md-center">
+                    <div class="col"><h4 id="homePlayer"></h4></div>
+                    <div class="col-md-auto text-center"><h4><i class="far fa-futbol"></i></h4></div>
+                    <div class="col text-right"><h4 id="awayPlayer"></h4></div>
+                </div>
+                <div class="row mb-3 pb-2 pt-2 justify-content-md-center">
+                    <div class="col-md-2 text-right" id="goalsH"></div>
+                    <div class="col text-center"><h4 id="playDate"></h4></div>
+                    <div class="col-md-2" id="goalsA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="totalShotsH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.total.shots') ?></b></div>
+                    <div class="col-md-2" id="totalShotsA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="shotOnTargetH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.shots.target') ?></b></div>
+                    <div class="col-md-2" id="shotOnTargetA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.possesion') ?></b></div>
+                    <div class="col-md-2"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-1"></div>
+                    <div class="col">
+                        <div class="progress">
+                            <div id="possessionH" class="progress-bar bg-info" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div id="possessionA" class="progress-bar bg-warning" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="tacklesH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.tackles') ?></b></div>
+                    <div class="col-md-2" id="tacklesA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="foulsH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.fouls') ?></b></div>
+                    <div class="col-md-2" id="foulsA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="yellowCardsH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.yellow.cards') ?></b></div>
+                    <div class="col-md-2" id="yellowCardsA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="redCardsH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.red.cards') ?></b></div>
+                    <div class="col-md-2" id="redCardsA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="injuriesH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.injuries') ?></b></div>
+                    <div class="col-md-2" id="injuriesA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="offsideH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.offside') ?></b></div>
+                    <div class="col-md-2" id="offsideA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="cornersH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.corners') ?></b></div>
+                    <div class="col-md-2" id="cornersA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="shotAccuracyH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.shot.accuracy') ?></b></div>
+                    <div class="col-md-2" id="shotAccuracyA"></div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-2 text-right" id="passAccuracyH"></div>
+                    <div class="col text-center"><b><?php echo $this->translator()->translate('game.pass.accuracy') ?></b></div>
+                    <div class="col-md-2" id="passAccuracyA"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

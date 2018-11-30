@@ -17,8 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Player {
 
     use SoftDeleteableEntity;
-
-use TimestampableEntity;
+    use TimestampableEntity;
 
     /**
      * @ORM\Id

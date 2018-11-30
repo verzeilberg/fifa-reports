@@ -112,68 +112,61 @@ class GameController extends AbstractActionController {
         if (empty($game)) {
             return $this->redirect()->toRoute('competitions', array('action' => 'show', 'id' => $competitionId));
         }
-        $form = $this->repository->createForm($game);
-        
-        if(is_object($game->getHomeGameResult())){
-            $homeGameResult = $game->getHomeGameResult();
+
+        if (is_object($game->getHomeResult())) {
+            $resultHome = $game->getHomeResult();
         } else {
-            $homeGameResult = $this->resultRepository->newHomeItem();
+            $resultHome = $this->resultRepository->newItem();
         }
-        
-        $formHomeGameResult = $this->resultRepository->createHomeForm($homeGameResult);
-        
-        if(is_object($game->getAwayGameResult())){
-            $awayGameResult = $game->getAwayGameResult();
+        $formHome = $this->resultRepository->createForm($resultHome);
+        if (is_object($game->getAwayResult())) {
+            $resultAway = $game->getAwayResult();
         } else {
-            $awayGameResult = $this->resultRepository->newAwayItem();
+            $resultAway = $this->resultRepository->newItem();
         }
-        $formAwayGameResult = $this->resultRepository->createAwayForm($awayGameResult);
-        
+        $formAway = $this->resultRepository->createForm($resultAway);
         $season = $game->getSeason();
         if ($this->getRequest()->isPost()) {
-            
             $data = $this->getRequest()->getPost();
-            
-            if ($data['goalsH'] == $data['goalsA']) {
-                $data['pointsH'] = 1;
-                $data['pointsA'] = 1;
-            } else if ($data['goalsH'] > $data['goalsA']) {
-                $data['pointsH'] = 3;
-                $data['pointsA'] = 0;
-            } else if ($data['goalsH'] < $data['goalsA']) {
-                $data['pointsH'] = 0;
-                $data['pointsA'] = 3;
+            $formHome->setData($data['homeForm']);
+            $formAway->setData($data['awayForm']);
+
+            // Home form
+            foreach ($data['homeForm'] as $index => $item) {
+                $functionName = 'set' . lcfirst($index);
+                $item = (empty($item) ? 0 : $item);
+                $resultHome->$functionName($item);
             }
-            
-            $form->setData($data);
-            $formHomeGameResult->setData($data);
-            $formAwayGameResult->setData($data);
-            
-            if ($form->isValid() && $formHomeGameResult->isValid() && $formAwayGameResult->isValid()) {
-                //Save Items
-                $this->repository->saveItem($game);
-                $homeGameResult->setGame($game);
-                $homeGameResult->setPlayer($game->getHomePlayer());
-                $homeGameResult->setSeason($game->getSeason());
-                $homeGameResult->setCompetition($game->getCompetition());
-                $this->resultRepository->saveItem($homeGameResult);
-                
-                $awayGameResult->setGame($game);
-                $awayGameResult->setPlayer($game->getAwayPlayer());
-                $awayGameResult->setSeason($game->getSeason());
-                $awayGameResult->setCompetition($game->getCompetition());
-                $this->resultRepository->saveItem($awayGameResult);
-                return $this->redirect()->toRoute('competitions', array('action' => 'show', 'id' => $competitionId));
+            $resultHome->setHomeAway('H');
+            $resultHome->setPlayer($game->getHomePlayer());
+            $resultHome->setSeason($game->getSeason());
+            $resultHome->setCompetition($game->getCompetition());
+            $this->resultRepository->saveItem($resultHome);
+            $game->setHomeResult($resultHome);
+            $this->repository->saveItem($game);
+            //Away form
+            foreach ($data['awayForm'] as $index => $item) {
+                $functionName = 'set' . lcfirst($index);
+                $item = (empty($item) ? 0 : $item);
+                $resultAway->$functionName($item);
             }
+            $resultAway->setHomeAway('A');
+            $resultAway->setPlayer($game->getAwayPlayer());
+            $resultAway->setSeason($game->getSeason());
+            $resultAway->setCompetition($game->getCompetition());
+            $this->resultRepository->saveItem($resultAway);
+            $game->setAwayResult($resultAway);
+            $this->repository->saveItem($game);
+
+            return $this->redirect()->toRoute('competitions', array('action' => 'show', 'id' => $game->getCompetition()->getId()));
         }
 
         return new ViewModel(
                 array(
             'game' => $game,
             'season' => $season,
-            'form' => $form,
-            'formHomeGameResult' => $formHomeGameResult,
-            'formAwayGameResult' => $formAwayGameResult
+            'formHome' => $formHome,
+            'formAway' => $formAway
                 )
         );
     }

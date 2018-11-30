@@ -34,9 +34,12 @@ class GameAjaxController extends AbstractActionController {
                 $errorMessage = 'No game found';
             }
 
-            $homeGameResult = (is_object($game->getHomeGameResult()) ? $game->getHomeGameResult() : '');
-            $awayGameResult = (is_object($game->getAwayGameResult()) ? $game->getAwayGameResult() : '');
+            $homeGameResult = (is_object($game->getHomeResult()) ? $game->getHomeResult() : '');
+            $awayGameResult = (is_object($game->getAwayResult()) ? $game->getAwayResult() : '');
 
+            $homeGameResult = $this->repository->convertObjectToArray($homeGameResult);
+            $awayGameResult = $this->repository->convertObjectToArray($awayGameResult);
+            
             $result = [];
             $result['game']['playDate'] = $game->getPlayDate()->format('d-m-Y');
             $result['game']['homePlayer'] = $game->getHomePlayer()->getFullName();

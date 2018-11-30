@@ -4,12 +4,13 @@ namespace Result\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="away_game_result")
+ * @ORM\Table(name="result")
  */
-class AwayGameResult {
+class Result {
 
     /**
      * @ORM\Id
@@ -19,6 +20,11 @@ class AwayGameResult {
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=11, nullable=false, name="home_away")
+     */
+    public $homeAway;
+
+    /**
      * @ORM\Column(type="integer", length=11, nullable=false, name="goals")
      * @Annotation\Options({
      * "label": "Goals",
@@ -26,12 +32,17 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $goalsA = 0;
+    public $goals = 0;
+    
+        /**
+     * @ORM\Column(type="integer", length=11, nullable=false, name="goals_against")
+     */
+    public $goalsAgainst = 0;
 
     /**
-     * @ORM\Column(type="integer", length=1, nullable=false, name="points")
+     * @ORM\Column(type="integer", length=11, nullable=false, name="points")
      */
-    public $pointsA;
+    public $points = 1;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="shot_on_target")
@@ -41,7 +52,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $shotOnTargetA = 0;
+    public $shotOnTarget = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="total_shots")
@@ -51,7 +62,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $totalShotsA = 0;
+    public $totalShots = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="fouls")
@@ -61,9 +72,9 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $foulsA = 0;
-    
-        /**
+    public $fouls = 0;
+
+    /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="offside")
      * @Annotation\Options({
      * "label": "Offside",
@@ -71,7 +82,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $offsideA = 0;
+    public $offside = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="possession")
@@ -81,7 +92,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $possessionA = 50;
+    public $possession = 50;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="corners")
@@ -91,7 +102,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $cornersA = 0;
+    public $corners = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="tackles")
@@ -101,7 +112,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $tacklesA = 0;
+    public $tackles = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="yellow_cards")
@@ -111,7 +122,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $yellowCardsA = 0;
+    public $yellowCards = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="red_cards")
@@ -121,7 +132,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $redCardsA = 0;
+    public $redCards = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="injuries")
@@ -131,7 +142,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $injuriesA = 0;
+    public $injuries = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="shot_accuracy")
@@ -141,7 +152,7 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $shotAccuracyA = 0;
+    public $shotAccuracy = 0;
 
     /**
      * @ORM\Column(type="integer", length=11, nullable=true, name="pass_accuracy")
@@ -151,29 +162,22 @@ class AwayGameResult {
      * })
      * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
      */
-    public $passAccuracyA = 0;
+    public $passAccuracy = 0;
 
     /**
-     * One Away game result has One Game.
-     * @ORM\OneToOne(targetEntity="Game\Entity\Game", inversedBy="awayGameResult")
-     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
-     */
-    private $game;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Player\Entity\Player", inversedBy="awayGameResult")
+     * @ORM\ManyToOne(targetEntity="Player\Entity\Player", inversedBy="results")
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
      */
     private $player;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Competition\Entity\Competition", inversedBy="awayGameResults")
+     * @ORM\ManyToOne(targetEntity="Competition\Entity\Competition", inversedBy="gameResults")
      * @ORM\JoinColumn(name="competition_id", referencedColumnName="id")
      */
     private $competition;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Season\Entity\Season", inversedBy="awayGameResults")
+     * @ORM\ManyToOne(targetEntity="Season\Entity\Season", inversedBy="gameResults")
      * @ORM\JoinColumn(name="season_id", referencedColumnName="id")
      */
     private $season;
@@ -182,128 +186,68 @@ class AwayGameResult {
         return $this->id;
     }
 
-    function getGoalsA() {
-        return $this->goalsA;
+    function getHomeAway() {
+        return $this->homeAway;
     }
 
-    function getPointsA() {
-        return $this->pointsA;
+    function getGoals() {
+        return $this->goals;
     }
 
-    function getShotOnTargetA() {
-        return $this->shotOnTargetA;
+    function getPoints() {
+        return $this->points;
     }
 
-    function getTotalShotsA() {
-        return $this->totalShotsA;
+    function getShotOnTarget() {
+        return $this->shotOnTarget;
     }
 
-    function getFoulsA() {
-        return $this->foulsA;
+    function getTotalShots() {
+        return $this->totalShots;
     }
 
-    function getPossessionA() {
-        return $this->possessionA;
+    function getFouls() {
+        return $this->fouls;
     }
 
-    function getCornersA() {
-        return $this->cornersA;
+    function getOffside() {
+        return $this->offside;
     }
 
-    function getTacklesA() {
-        return $this->tacklesA;
+    function getPossession() {
+        return $this->possession;
     }
 
-    function getYellowCardsA() {
-        return $this->yellowCardsA;
+    function getCorners() {
+        return $this->corners;
     }
 
-    function getRedCardsA() {
-        return $this->redCardsA;
+    function getTackles() {
+        return $this->tackles;
     }
 
-    function getInjuriesA() {
-        return $this->injuriesA;
+    function getYellowCards() {
+        return $this->yellowCards;
     }
 
-    function getShotAccuracyA() {
-        return $this->shotAccuracyA;
+    function getRedCards() {
+        return $this->redCards;
     }
 
-    function getPassAccuracyA() {
-        return $this->passAccuracyA;
+    function getInjuries() {
+        return $this->injuries;
     }
 
-    function getGame() {
-        return $this->game;
+    function getShotAccuracy() {
+        return $this->shotAccuracy;
+    }
+
+    function getPassAccuracy() {
+        return $this->passAccuracy;
     }
 
     function getPlayer() {
         return $this->player;
-    }
-
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setGoalsA($goalsA) {
-        $this->goalsA = $goalsA;
-    }
-
-    function setPointsA($pointsA) {
-        $this->pointsA = $pointsA;
-    }
-
-    function setShotOnTargetA($shotOnTargetA) {
-        $this->shotOnTargetA = $shotOnTargetA;
-    }
-
-    function setTotalShotsA($totalShotsA) {
-        $this->totalShotsA = $totalShotsA;
-    }
-
-    function setFoulsA($foulsA) {
-        $this->foulsA = $foulsA;
-    }
-
-    function setPossessionA($possessionA) {
-        $this->possessionA = $possessionA;
-    }
-
-    function setCornersA($cornersA) {
-        $this->cornersA = $cornersA;
-    }
-
-    function setTacklesA($tacklesA) {
-        $this->tacklesA = $tacklesA;
-    }
-
-    function setYellowCardsA($yellowCardsA) {
-        $this->yellowCardsA = $yellowCardsA;
-    }
-
-    function setRedCardsA($redCardsA) {
-        $this->redCardsA = $redCardsA;
-    }
-
-    function setInjuriesA($injuriesA) {
-        $this->injuriesA = $injuriesA;
-    }
-
-    function setShotAccuracyA($shotAccuracyA) {
-        $this->shotAccuracyA = $shotAccuracyA;
-    }
-
-    function setPassAccuracyA($passAccuracyA) {
-        $this->passAccuracyA = $passAccuracyA;
-    }
-
-    function setGame($game) {
-        $this->game = $game;
-    }
-
-    function setPlayer($player) {
-        $this->player = $player;
     }
 
     function getCompetition() {
@@ -314,6 +258,74 @@ class AwayGameResult {
         return $this->season;
     }
 
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setHomeAway($homeAway) {
+        $this->homeAway = $homeAway;
+    }
+
+    function setGoals($goals) {
+        $this->goals = $goals;
+    }
+
+    function setPoints($points) {
+        $this->points = $points;
+    }
+
+    function setShotOnTarget($shotOnTarget) {
+        $this->shotOnTarget = $shotOnTarget;
+    }
+
+    function setTotalShots($totalShots) {
+        $this->totalShots = $totalShots;
+    }
+
+    function setFouls($fouls) {
+        $this->fouls = $fouls;
+    }
+
+    function setOffside($offside) {
+        $this->offside = $offside;
+    }
+
+    function setPossession($possession) {
+        $this->possession = $possession;
+    }
+
+    function setCorners($corners) {
+        $this->corners = $corners;
+    }
+
+    function setTackles($tackles) {
+        $this->tackles = $tackles;
+    }
+
+    function setYellowCards($yellowCards) {
+        $this->yellowCards = $yellowCards;
+    }
+
+    function setRedCards($redCards) {
+        $this->redCards = $redCards;
+    }
+
+    function setInjuries($injuries) {
+        $this->injuries = $injuries;
+    }
+
+    function setShotAccuracy($shotAccuracy) {
+        $this->shotAccuracy = $shotAccuracy;
+    }
+
+    function setPassAccuracy($passAccuracy) {
+        $this->passAccuracy = $passAccuracy;
+    }
+
+    function setPlayer($player) {
+        $this->player = $player;
+    }
+
     function setCompetition($competition) {
         $this->competition = $competition;
     }
@@ -321,14 +333,15 @@ class AwayGameResult {
     function setSeason($season) {
         $this->season = $season;
     }
-
-    function getOffsideA() {
-        return $this->offsideA;
+    
+    function getGoalsAgainst() {
+        return $this->goalsAgainst;
     }
 
-    function setOffsideA($offsideA) {
-        $this->offsideA = $offsideA;
+    function setGoalsAgainst($goalsAgainst) {
+        $this->goalsAgainst = $goalsAgainst;
     }
+
 
 
 }

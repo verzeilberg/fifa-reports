@@ -55,6 +55,7 @@ use TimestampableEntity;
 
     /**
      * @ORM\OneToMany(targetEntity="Game\Entity\Game", mappedBy="competition")
+     * @ORM\OrderBy({"sortOrder" = "ASC"})
      */
     private $games;
 
@@ -65,25 +66,23 @@ use TimestampableEntity;
     private $players;
     
         /**
-     * @ORM\OneToMany(targetEntity="Result\Entity\HomeGameResult", mappedBy="competition")
+     * @ORM\OneToMany(targetEntity="Result\Entity\Result", mappedBy="competition")
      */
-    private $homeGameResults;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Result\Entity\AwayGameResult", mappedBy="competition")
-     */
-    private $awayGameResults;
+    private $gameResults;
 
     public function __construct() {
         $this->seasons = new ArrayCollection();
         $this->players = new ArrayCollection();
         $this->games = new ArrayCollection();
-        $this->homeGameResults = new ArrayCollection();
-        $this->awayGameResults = new ArrayCollection();
+        $this->gameResults = new ArrayCollection();
     }
 
     function getId() {
         return $this->id;
+    }
+
+    function getAwayHomeGame() {
+        return $this->awayHomeGame;
     }
 
     function getName() {
@@ -98,8 +97,20 @@ use TimestampableEntity;
         return $this->games;
     }
 
+    function getPlayers() {
+        return $this->players;
+    }
+
+    function getGameResults() {
+        return $this->gameResults;
+    }
+
     function setId($id) {
         $this->id = $id;
+    }
+
+    function setAwayHomeGame($awayHomeGame) {
+        $this->awayHomeGame = $awayHomeGame;
     }
 
     function setName($name) {
@@ -114,36 +125,12 @@ use TimestampableEntity;
         $this->games = $games;
     }
 
-    function getPlayers() {
-        return $this->players;
-    }
-
     function setPlayers($players) {
         $this->players = $players;
     }
 
-    function getAwayHomeGame() {
-        return $this->awayHomeGame;
-    }
-
-    function setAwayHomeGame($awayHomeGame) {
-        $this->awayHomeGame = $awayHomeGame;
-    }
-
-    function getHomeGameResults() {
-        return $this->homeGameResults;
-    }
-
-    function getAwayGameResults() {
-        return $this->awayGameResults;
-    }
-
-    function setHomeGameResults($homeGameResults) {
-        $this->homeGameResults = $homeGameResults;
-    }
-
-    function setAwayGameResults($awayGameResults) {
-        $this->awayGameResults = $awayGameResults;
+    function setGameResults($gameResults) {
+        $this->gameResults = $gameResults;
     }
 
 

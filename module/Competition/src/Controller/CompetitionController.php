@@ -13,10 +13,12 @@ class CompetitionController extends AbstractActionController {
 
     protected $vhm;
     protected $repository;
+    protected $resultRepository;
 
-    public function __construct($vhm, $repository) {
+    public function __construct($vhm, $repository, $resultRepository) {
         $this->vhm = $vhm;
         $this->repository = $repository;
+        $this->resultRepository = $resultRepository;
     }
 
     /**
@@ -102,11 +104,12 @@ class CompetitionController extends AbstractActionController {
             return $this->redirect()->toRoute('competitions');
         }
         
+        $results = $this->resultRepository->getResultsBySeason(1);
         
-
         return new ViewModel(
                 array(
-            'competition' => $competition
+                'competition' => $competition,
+                'results' => $results
                 )
         );
     }

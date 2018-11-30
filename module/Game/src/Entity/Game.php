@@ -7,6 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Zend\Form\Annotation;
 use Application\Traits\SoftDeleteableEntity;
 use Application\Traits\TimestampableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
@@ -35,8 +36,8 @@ use TimestampableEntity;
      * @Annotation\Attributes({"class":"form-control datepicker", "autocomplete":"off"})
      */
     private $playDate;
-    
-        /**
+
+    /**
      * @ORM\Column(type="integer", nullable=true, name="sort_order")
      * @Annotation\Options({
      * "label": "Play date",
@@ -47,13 +48,33 @@ use TimestampableEntity;
     private $sortOrder;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Player\Entity\Player", inversedBy="homeGame")
+     * @ORM\Column(type="integer", nullable=true, name="home_goals")
+     * @Annotation\Options({
+     * "label": "Home goals",
+     * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
+     */
+    private $homeGoals;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, name="away_goals")
+     * @Annotation\Options({
+     * "label": "Away goals",
+     * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"}
+     * })
+     * @Annotation\Attributes({"class":"form-control", "autocomplete":"off"})
+     */
+    private $awayGoals;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Player\Entity\Player", inversedBy="homeGames")
      * @ORM\JoinColumn(name="home_player_id", referencedColumnName="id")
      */
     private $homePlayer;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Player\Entity\Player", inversedBy="awayGame")
+     * @ORM\ManyToOne(targetEntity="Player\Entity\Player", inversedBy="awayGames")
      * @ORM\JoinColumn(name="away_player_id", referencedColumnName="id")
      */
     private $awayPlayer;
@@ -65,16 +86,16 @@ use TimestampableEntity;
     private $season;
 
     /**
-     * One Game has One Home game result.
-     * @ORM\OneToOne(targetEntity="Result\Entity\HomeGameResult", mappedBy="game")
+     * @ORM\ManyToOne(targetEntity="Result\Entity\Result")
+     * @ORM\JoinColumn(name="home_result_id", referencedColumnName="id")
      */
-    private $homeGameResult;
-    
+    private $homeResult;
+
     /**
-     * One Game has One Home game result.
-     * @ORM\OneToOne(targetEntity="Result\Entity\AwayGameResult", mappedBy="game")
+     * @ORM\ManyToOne(targetEntity="Result\Entity\Result")
+     * @ORM\JoinColumn(name="away_result_id", referencedColumnName="id")
      */
-    private $awayGameResult;
+    private $awayResult;
 
     /**
      * @ORM\ManyToOne(targetEntity="Competition\Entity\Competition", inversedBy="game")
@@ -90,6 +111,10 @@ use TimestampableEntity;
         return $this->playDate;
     }
 
+    function getSortOrder() {
+        return $this->sortOrder;
+    }
+
     function getHomePlayer() {
         return $this->homePlayer;
     }
@@ -102,12 +127,12 @@ use TimestampableEntity;
         return $this->season;
     }
 
-    function getAwayGameResult() {
-        return $this->awayGameResult;
+    function getHomeResult() {
+        return $this->homeResult;
     }
 
-    function getHomeGameResult() {
-        return $this->homeGameResult;
+    function getAwayResult() {
+        return $this->awayResult;
     }
 
     function getCompetition() {
@@ -122,6 +147,10 @@ use TimestampableEntity;
         $this->playDate = $playDate;
     }
 
+    function setSortOrder($sortOrder) {
+        $this->sortOrder = $sortOrder;
+    }
+
     function setHomePlayer($homePlayer) {
         $this->homePlayer = $homePlayer;
     }
@@ -134,26 +163,32 @@ use TimestampableEntity;
         $this->season = $season;
     }
 
-    function setAwayGameResult($awayGameResult) {
-        $this->awayGameResult = $awayGameResult;
+    function setHomeResult($homeResult) {
+        $this->homeResult = $homeResult;
     }
 
-    function setHomeGameResult($homeGameResult) {
-        $this->homeGameResult = $homeGameResult;
+    function setAwayResult($awayResult) {
+        $this->awayResult = $awayResult;
     }
 
     function setCompetition($competition) {
         $this->competition = $competition;
     }
-    
-    function getSortOrder() {
-        return $this->sortOrder;
+
+    function getHomeGoals() {
+        return $this->homeGoals;
     }
 
-    function setSortOrder($sortOrder) {
-        $this->sortOrder = $sortOrder;
+    function getAwayGoals() {
+        return $this->awayGoals;
     }
 
+    function setHomeGoals($homeGoals) {
+        $this->homeGoals = $homeGoals;
+    }
 
+    function setAwayGoals($awayGoals) {
+        $this->awayGoals = $awayGoals;
+    }
 
 }

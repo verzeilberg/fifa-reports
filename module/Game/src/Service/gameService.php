@@ -52,6 +52,27 @@ class gameService implements gameServiceInterface {
 
     /**
      *
+     * GConvert an object to array
+     *
+     * @param      object $object to be converted
+     * @return      array
+     *
+     */
+    public function convertObjectToArray($object) {
+        $class_methods = get_class_methods($object);
+        $objectArray = [];
+        foreach ($class_methods as $method_name) {
+            if (substr($method_name, 0, 3) == 'get') {
+                $value = $object->$method_name();
+                $index = lcfirst(substr_replace($method_name, '', 0 ,3));
+                $objectArray[$index] = $value;
+            }
+        }
+        return $objectArray;
+    }
+
+    /**
+     *
      * Get array of items based on season id and start- end date
      *
      * @param       seasonId $seasonId The id of the season you want to fetch the games from

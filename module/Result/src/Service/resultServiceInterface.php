@@ -4,7 +4,7 @@ namespace Result\Service;
 
 interface ResultServiceInterface {
 
-    /**
+   /**
      *
      * Get array of items
      *
@@ -12,6 +12,7 @@ interface ResultServiceInterface {
      *
      */
     public function getItems();
+
     /**
      *
      * Get item object by on id
@@ -20,17 +21,7 @@ interface ResultServiceInterface {
      * @return      object
      *
      */
-    public function getHomeItem($id);
-    
-        /**
-     *
-     * Get item object by on id
-     *
-     * @param       id  $id The id to fetch the item from the database
-     * @return      object
-     *
-     */
-    public function getAwayItem($id);
+    public function getItem($id);
 
     /**
      *
@@ -50,23 +41,8 @@ interface ResultServiceInterface {
      * @return      form
      *
      */
-    public function createHomeForm($item);
-        /**
-     *
-     * Create form of an object
-     *
-     * @param       item $item object
-     * @return      form
-     *
-     */
-    public function createAwayForm($item);
-    /**
-     *
-     * Create a new item object
-     * @return      object
-     *
-     */
-    public function newHomeItem();
+    public function createForm($item);
+
 
     /**
      *
@@ -74,8 +50,8 @@ interface ResultServiceInterface {
      * @return      object
      *
      */
-    public function newAwayItem();
-    
+    public function newItem();
+
     /**
      *
      * Save a item to the database
@@ -113,4 +89,5 @@ interface ResultServiceInterface {
      *
      */
     public function deleteItem($item);
+
 }

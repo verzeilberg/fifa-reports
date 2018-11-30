@@ -39,28 +39,28 @@ $this->pageBreadcrumbs()->setItems([
     <div class="row mb-2">
         <h2 class="col text-center">Wedstrijden week <?php echo $weekNr; ?></h2>
     </div>
-<?php foreach ($games as $game){ ?>
-    <div class="row mb-2">
-        <div class="col text-right">
-            <?php echo $game->getHomePlayer()->getFullNameShortLastName(); ?>
-        </div>
-        <div class="col-md-2 text-center">
-            <?php echo (is_object($game->getHomeGameResult())? $game->getHomeGameResult()->getGoalsH():''); ?>
-        </div>
-        <div class="col-md-1 text-center">
-            <i class="far fa-futbol"></i>
-        </div>
-        <div class="col-md-2 text-center">
-            <?php echo (is_object($game->getAwayGameResult())? $game->getAwayGameResult()->getGoalsA():''); ?>
-        </div>
-        <div class="col">
-            <?php echo $game->getAwayPlayer()->getFullNameShortLastName(); ?>
-        </div>
-    </div>   
-<?php } ?>
+    <?php foreach ($games as $game) { ?>
+        <div class="row mb-2">
+            <div class="col text-right">
+                <?php echo $game->getHomePlayer()->getFullNameShortLastName(); ?>
+            </div>
+            <div class="col-md-2 text-center">
+                <?php echo (is_object($game->getHomeResult()) ? $game->getHomeResult()->getGoals() : ''); ?>
+            </div>
+            <div class="col-md-1 text-center">
+                <i class="far fa-futbol"></i>
+            </div>
+            <div class="col-md-2 text-center">
+                <?php echo (is_object($game->getAwayResult()) ? $game->getAwayResult()->getGoals() : ''); ?>
+            </div>
+            <div class="col">
+                <?php echo $game->getAwayPlayer()->getFullNameShortLastName(); ?>
+            </div>
+        </div>   
+    <?php } ?>
     <div class="row mb-2">
         <div class="col text-center">
-        <a class="btn btn-sm btn-dark" href="<?php echo $this->url('game-schedule'); ?>" title="Alle wedstrijden"><i class="fas fa-list-ol"></i> Alle wedstrijden</a>
+            <a class="btn btn-sm btn-dark" href="<?php echo $this->url('game-schedule'); ?>" title="Alle wedstrijden"><i class="fas fa-list-ol"></i> Alle wedstrijden</a>
         </div>
     </div>
 </div>
@@ -70,36 +70,50 @@ $this->pageBreadcrumbs()->setItems([
 <div class="row mb-2" id="game">
     <?php foreach ($season->getCompetitions() as $competition) { ?>
 
-        <div class="col">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header text-white bg-dark">
                     <b><?php echo $competition->getName(); ?></b>
                 </div>
-                    
+
                 <div class="card-body">
-                    <table class="table table-bordered table-hover table-sm">
-                        <tr>
-                            <th class="text-center">Player</th>
-                            <th class="text-center">G <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Gespeeld"></i></th>
-                            <th class="text-center">P <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Punten"></i></th>
-                            <th class="text-center">W <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Winst"></i></th>
-                            <th class="text-center">G <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Gelijk"></i></th>
-                            <th class="text-center">V <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Verloren"></i></th>
-                            <th class="text-center">DS <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Doelsaldo"></i></th>
-                        </tr>
-                        <?php foreach ($competition->getPlayers() as $player) { ?>
+                    <table class="table table-bordered table-hover table-sm resultTable">
+                        <thead class="bg-dark text-white">
                             <tr>
-                                <td>
-                                    <?php echo $player->getSurName(); ?>
-                                </td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <th class="text-center">Player</th>
+                                <th class="text-center">G <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Gespeeld"></i></th>
+                                <th class="text-center">P <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Punten"></i></th>
+                                <th class="text-center">P</th>
+                                <th class="text-center">W <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Winst"></i></th>
+                                <th class="text-center">G <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Gelijk"></i></th>
+                                <th class="text-center">V <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Verloren"></i></th>
+                                <th class="text-center">DS <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Doelsaldo"></i></th>
                             </tr>
-                        <?php } ?>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($competition->getPlayers() as $player) { ?>
+                                <?php
+                                $playerResult = [];
+                                if (array_key_exists($competition->getId(), $results)) {
+                                    $competitionPlayers = $results[$competition->getId()];
+                                    if (array_key_exists($player->getId(), $competitionPlayers)) {
+                                        $playerResult = $competitionPlayers[$player->getId()];
+                                    }
+                                }
+                                ?>
+                                <tr>
+                                    <td><?php echo $player->getSurName(); ?></td>
+                                    <td><?php echo (array_key_exists('totalGames', $playerResult) ? $playerResult['totalGames'] : 0); ?></td>
+                                    <td><?php echo (array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
+                                    <td><?php echo (array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
+                                    <td><?php echo (array_key_exists('gamesWon', $playerResult) ? $playerResult['gamesWon'] : 0); ?></td>
+                                    <td><?php echo (array_key_exists('gamesDraw', $playerResult) ? $playerResult['gamesDraw'] : 0); ?></td>
+                                    <td><?php echo (array_key_exists('gamesLost', $playerResult) ? $playerResult['gamesLost'] : 0); ?></td>
+                                    <td><?php echo (array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+
                     </table>
                 </div>
             </div>

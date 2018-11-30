@@ -10,6 +10,7 @@ use DoctrineORMModule\Form\Annotation\AnnotationBuilder;
  * Entities
  */
 use Season\Entity\Season;
+use Player\Entity\Player;
 
 class seasonService implements seasonServiceInterface {
 
@@ -48,33 +49,6 @@ class seasonService implements seasonServiceInterface {
                 ->findOneBy(['id' => $id], []);
 
         return $item;
-    }
-
-    public function getResultsBySeason($id) {
-        $qb = $this->entityManager->getRepository(Season::class)->createQueryBuilder('s');
-        $qb->select('SUM(agr.pointsA) as total');
-        $qb->join('s.competitions', 'c');
-        $qb->join('c.games', 'g');
-        $qb->join('c.players', 'p');
-        $qb->join('g.homeGameResult', 'hgr');
-        $qb->join('g.awayGameResult', 'agr');
-        $qb->where('s.id = :seasonId');
-        $qb->groupBy('c.id');
-        $qb->addGroupBy('p.id');
-        $qb->setParameter('seasonId', $id);
-        $query = $qb->getQuery();
-        $result = $query->getResult();
-
-        return $result;
-
-        //        $qb->join('p.homeGames', 'hg');
-//        $qb->join('p.awayGames', 'ag');
-//        $qb->where('p.id = :playerid');
-//        $qb->andWhere('hg.season = :seasonid');
-//        $qb->andWhere('ag.season = :seasonid');
-//        //@todo finish him
-//        $qb->setParameter('playerid', $playerId);
-//        $qb->setParameter('seasonid', $seasonId);
     }
 
     /**

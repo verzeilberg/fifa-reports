@@ -1,4 +1,10 @@
-<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->form()->openTag($formHome); ?>
+<?php echo $this->formHidden($formHome->get('homeAway')->setValue('H')->setAttributes(['name' => 'homeForm[homeAway]'])); ?>
+<?php echo $this->formHidden($formHome->get('points')->setAttributes(['id' => 'points_h'])->setAttributes(['name' => 'homeForm[points]'])); ?>
+<?php echo $this->formHidden($formHome->get('goalsAgainst')->setAttributes(['id' => 'goals_against_h'])->setAttributes(['name' => 'homeForm[goalsAgainst]'])); ?>
+<?php echo $this->formHidden($formAway->get('homeAway')->setValue('A')->setAttributes(['name' => 'awayForm[homeAway]'])); ?>
+<?php echo $this->formHidden($formAway->get('points')->setAttributes(['id' => 'points_a'])->setAttributes(['name' => 'awayForm[points]'])); ?>
+<?php echo $this->formHidden($formAway->get('goalsAgainst')->setAttributes(['id' => 'goals_against_a'])->setAttributes(['name' => 'awayForm[goalsAgainst]'])); ?>
 <div class="row mb-3 pb-2 pt-2 justify-content-md-center border-top">
     <div class="col col-lg-2"><h4><?php echo $game->getHomePlayer()->getFullName(); ?></h4></div>
     <div class="col-md-auto text-center"><h4><i class="far fa-futbol"></i></h4></div>
@@ -8,19 +14,25 @@
     <div class="col-md-auto text-center"><h4><?php echo $game->getPlayDate()->format('d-m-Y'); ?></h4></div>
 </div>
 <div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('goalsH')); ?></div>
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('goals')->setAttributes(['id' => 'goals_h'])->setAttributes(['name' => 'homeForm[goals]'])); ?></div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.goals') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('goalsA')); ?></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('goals')->setAttributes(['id' => 'goals_a'])->setAttributes(['name' => 'awayForm[goals]'])); ?></div>
 </div>
+
 <div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('totalShotsH')); ?></div>
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('totalShots')->setAttributes(['name' => 'homeForm[totalShots]'])); ?></div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.total.shots') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('totalShotsA')); ?></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('totalShots')->setAttributes(['name' => 'awayForm[totalShots]'])); ?></div>
 </div>
 <div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('shotOnTargetH')); ?></div>
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('shotOnTarget')->setAttributes(['name' => 'homeForm[shotOnTarget]'])); ?></div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.shots.target') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('shotOnTargetA')); ?></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('shotOnTarget')->setAttributes(['name' => 'awayForm[shotOnTarget]'])); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('fouls')->setAttributes(['name' => 'homeForm[fouls]'])); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.fouls') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('fouls')->setAttributes(['name' => 'awayForm[fouls]'])); ?></div>
 </div>
 <div class="row">
     <div class="col text-center">
@@ -33,13 +45,13 @@
             <div class="input-group-prepend">
                 <div class="input-group-text">%</div>
             </div>
-            <?php echo $this->formNumber($formHomeGameResult->get('possessionH')); ?>
+            <?php echo $this->formNumber($formHome->get('possession')->setAttributes(['name' => 'homeForm[possession]'])); ?>
         </div>
     </div>
     <div class="col text-center pt-2"><div id="slider"></div></div>
     <div class="col-md-2">
         <div class="input-group mb-2">
-            <?php echo $this->formNumber($formAwayGameResult->get('possessionA')); ?>
+            <?php echo $this->formNumber($formAway->get('possession')->setAttributes(['name' => 'awayForm[possession]'])); ?>
             <div class="input-group-append">
                 <div class="input-group-text">%</div>
             </div>
@@ -47,39 +59,34 @@
     </div>
 </div>
 <div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('tacklesH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.tackles') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('tacklesA')); ?></div>
-</div>
-<div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('foulsH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.fouls') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('foulsA')); ?></div>
-</div>
-<div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('yellowCardsH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.yellow.cards') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('yellowCardsA')); ?></div>
-</div>
-<div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('redCardsH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.red.cards') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('redCardsA')); ?></div>
-</div>
-<div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('injuriesH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.injuries') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('injuriesA')); ?></div>
-</div>
-<div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('offsideH')); ?></div>
-    <div class="col text-center"><b><?php echo $this->translator()->translate('game.offside') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('offsideA')); ?></div>
-</div>
-<div class="row mb-1">
-    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHomeGameResult->get('cornersH')); ?></div>
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('corners')->setAttributes(['name' => 'homeForm[corners]'])); ?></div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.corners') ?></b></div>
-    <div class="col-md-2"><?php echo $this->formNumber($formAwayGameResult->get('cornersA')); ?></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('corners')->setAttributes(['name' => 'awayForm[corners]'])); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('tackles')->setAttributes(['name' => 'homeForm[tackles]'])); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.tackles') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('tackles')->setAttributes(['name' => 'awayForm[tackles]'])); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('yellowCards')->setAttributes(['name' => 'homeForm[yellowCards]'])); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.yellow.cards') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('yellowCards')->setAttributes(['name' => 'awayForm[yellowCards]'])); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('redCards')->setAttributes(['name' => 'homeForm[redCards]'])); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.red.cards') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('redCards')->setAttributes(['name' => 'awayForm[redCards]'])); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('injuries')->setAttributes(['name' => 'homeForm[injuries]'])); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.injuries') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('injuries')->setAttributes(['name' => 'awayForm[injuries]'])); ?></div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-2 text-right"><?php echo $this->formNumber($formHome->get('offside')->setAttributes(['name' => 'homeForm[offside]'])); ?></div>
+    <div class="col text-center"><b><?php echo $this->translator()->translate('game.offside') ?></b></div>
+    <div class="col-md-2"><?php echo $this->formNumber($formAway->get('offside')->setAttributes(['name' => 'awayForm[offside]'])); ?></div>
 </div>
 <div class="row mb-1">
     <div class="col-md-2 text-right">
@@ -87,13 +94,13 @@
             <div class="input-group-prepend">
                 <div class="input-group-text">%</div>
             </div>
-            <?php echo $this->formNumber($formHomeGameResult->get('shotAccuracyH')); ?>
+            <?php echo $this->formNumber($formHome->get('shotAccuracy')->setAttributes(['name' => 'homeForm[shotAccuracy]'])); ?>
         </div>
     </div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.shot.accuracy') ?></b></div>
     <div class="col-md-2">
         <div class="input-group mb-2">
-            <?php echo $this->formNumber($formAwayGameResult->get('shotAccuracyA')); ?>
+            <?php echo $this->formNumber($formAway->get('passAccuracy')->setAttributes(['name' => 'awayForm[passAccuracy]'])); ?>
             <div class="input-group-append">
                 <div class="input-group-text">%</div>
             </div>
@@ -106,20 +113,20 @@
             <div class="input-group-prepend">
                 <div class="input-group-text">%</div>
             </div>
-            <?php echo $this->formNumber($formHomeGameResult->get('passAccuracyH')); ?>
+            <?php echo $this->formNumber($formHome->get('passAccuracy')->setAttributes(['name' => 'homeForm[passAccuracy]'])); ?>
         </div>
     </div>
     <div class="col text-center"><b><?php echo $this->translator()->translate('game.pass.accuracy') ?></b></div>
     <div class="col-md-2">
         <div class="input-group mb-2">
-            <?php echo $this->formNumber($formAwayGameResult->get('passAccuracyA')); ?>
+            <?php echo $this->formNumber($formAway->get('shotAccuracy')->setAttributes(['name' => 'awayForm[shotAccuracy]'])); ?>
             <div class="input-group-append">
                 <div class="input-group-text">%</div>
             </div>
         </div>
     </div>
 </div>
-<div class="row mb-1 pt-2 border-top">
+<div class="row mb-1 pt-2">
     <div class="col">
         <button type="submit" id="submit" class="btn btn-dark"><?php echo $this->translator()->translate('save') ?></button> 
     </div>
@@ -127,4 +134,4 @@
         <a href="<?= $this->url('competitions', ['action' => 'show', 'id' => $game->getCompetition()->getId()]); ?>" class="btn btn-danger" title="<?php echo $this->translator()->translate('cancel') ?>"><?php echo $this->translator()->translate('cancel') ?></a>
     </div>
 </div>
-<?php echo $this->form()->closeTag($form); ?>
+<?php echo $this->form()->closeTag($formHome); ?>

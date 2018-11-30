@@ -92,20 +92,14 @@ use TimestampableEntity;
     private $competitions;
     
             /**
-     * @ORM\OneToMany(targetEntity="Result\Entity\HomeGameResult", mappedBy="season")
+     * @ORM\OneToMany(targetEntity="Result\Entity\Result", mappedBy="season")
      */
-    private $homeGameResults;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Result\Entity\AwayGameResult", mappedBy="season")
-     */
-    private $awayGameResults;
+    private $gameResults;
 
     public function __construct() {
         $this->competitions = new ArrayCollection();
         $this->games = new ArrayCollection();
-        $this->homeGameResults = new ArrayCollection();
-        $this->awayGameResults = new ArrayCollection();
+        $this->gameResults = new ArrayCollection();
     }
 
     public function addCompetitions(ArrayCollection $competition) {
@@ -146,8 +140,20 @@ use TimestampableEntity;
         return $this->name;
     }
 
+    function getLockPlaySchedule() {
+        return $this->lockPlaySchedule;
+    }
+
+    function getGames() {
+        return $this->games;
+    }
+
     function getCompetitions() {
         return $this->competitions;
+    }
+
+    function getGameResults() {
+        return $this->gameResults;
     }
 
     function setId($id) {
@@ -166,52 +172,22 @@ use TimestampableEntity;
         $this->name = $name;
     }
 
-    function setCompetitions($competitions) {
-        $this->competitions = $competitions;
-    }
-    
-    function getGames() {
-        return $this->games;
+    function setLockPlaySchedule($lockPlaySchedule) {
+        $this->lockPlaySchedule = $lockPlaySchedule;
     }
 
     function setGames($games) {
         $this->games = $games;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLockPlaySchedule()
-    {
-        return $this->lockPlaySchedule;
+    function setCompetitions($competitions) {
+        $this->competitions = $competitions;
     }
 
-    /**
-     * @param mixed $lockPlaySchedule
-     */
-    public function setLockPlaySchedule($lockPlaySchedule)
-    {
-        $this->lockPlaySchedule = $lockPlaySchedule;
+    function setGameResults($gameResults) {
+        $this->gameResults = $gameResults;
     }
+
+
     
-    function getHomeGameResults() {
-        return $this->homeGameResults;
-    }
-
-    function getAwayGameResults() {
-        return $this->awayGameResults;
-    }
-
-    function setHomeGameResults($homeGameResults) {
-        $this->homeGameResults = $homeGameResults;
-    }
-
-    function setAwayGameResults($awayGameResults) {
-        $this->awayGameResults = $awayGameResults;
-    }
-
-
-
-
-
 }
