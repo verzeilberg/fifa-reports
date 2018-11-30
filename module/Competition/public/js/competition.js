@@ -1,9 +1,3 @@
-$(function () {
-    $(".datepicker").datepicker({
-        showButtonPanel: false,
-        dateFormat: "dd-mm-yy",
-    });
-});
 $(document).ready(function () {
     $('.resultTable').DataTable({
         searching: false,
@@ -21,5 +15,12 @@ $(document).ready(function () {
             { orderable: false, targets: 6 },
             { orderable: false, targets: 7 }
         ]
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $(".datepicker").datepicker({
+        showButtonPanel: false,
+        dateFormat: "dd-mm-yy",
     });
 });

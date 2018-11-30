@@ -70,7 +70,7 @@ $this->pageBreadcrumbs()->setItems([
 <div class="row mb-2" id="game">
     <?php foreach ($season->getCompetitions() as $competition) { ?>
 
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <div class="card">
                 <div class="card-header text-white bg-dark">
                     <b><?php echo $competition->getName(); ?></b>
@@ -114,6 +114,9 @@ $this->pageBreadcrumbs()->setItems([
                         </tbody>
 
                     </table>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-sm btn-dark" href="<?php echo $this->url('competition', ['action' => 'getCompetition', 'id' => $competition->getId()]); ?>" title="Alle wedstrijden"> Naar competitie <i class="fas fa-angle-double-right"></i></a>
                 </div>
             </div>
         </div>

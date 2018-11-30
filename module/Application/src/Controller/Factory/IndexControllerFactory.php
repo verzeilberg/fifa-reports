@@ -1,6 +1,7 @@
 <?php
 namespace Application\Controller\Factory;
 
+use Competition\Service\competitionService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Application\Controller\IndexController;
@@ -21,7 +22,8 @@ class IndexControllerFactory implements FactoryInterface
         $seasonRepository = new seasonService($entityManager);
         $gameRepository = new gameService($entityManager);
         $resultRepository = new resultService($entityManager);
+        $competitionRepository = new competitionService($entityManager);
         // Instantiate the controller and inject dependencies
-        return new IndexController($vhm, $seasonRepository, $gameRepository, $resultRepository);
+        return new IndexController($vhm, $seasonRepository, $gameRepository, $resultRepository, $competitionRepository);
     }
 }

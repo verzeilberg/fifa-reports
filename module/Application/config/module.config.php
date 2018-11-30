@@ -55,6 +55,16 @@ return [
                     ],
                 ],
             ],
+            'competition' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/competition[/:action[/:id]]',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'getCompetition',
+                    ],
+                ],
+            ],
             'application' => [
                 'type' => Segment::class,
                 'options' => [
@@ -91,7 +101,7 @@ return [
         'controllers' => [
             Controller\IndexController::class => [
                 // Allow anyone to visit "index" and "about" actions
-                ['actions' => ['index', 'rules', 'gameSchedule', 'gamesResults'], 'allow' => '*'],
+                ['actions' => ['index', 'rules', 'gameSchedule', 'gamesResults', 'getCompetition'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
                 ['actions' => ['settings'], 'allow' => '@']
             ],

@@ -16,14 +16,14 @@ $this->pageBreadcrumbs()->setItems([
         <table id="resultsTable" class="table table-sm table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" class="text-center"><?php echo $this->translator()->translate('season.game.home.player.title'); ?></th>
-                    <th scope="col" colspan="3" class="text-center"><i class="far fa-futbol"></i></th>
-                    <th scope="col" class="text-center" scope="col"><?php echo $this->translator()->translate('season.game.away.player.title'); ?></th>
+                    <th scope="col" class="text-center"><h4><?php echo $this->translator()->translate('season.game.home.player.title'); ?></h4></th>
+                    <th scope="col" colspan="3" class="text-center"><h4><i class="far fa-futbol"></i></h4></th>
+                    <th scope="col" class="text-center" scope="col"><h4><?php echo $this->translator()->translate('season.game.away.player.title'); ?></h4></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($season->getGames() as $index => $game) { ?>
-                    <tr data-game-id="<?php echo $game->getId(); ?>" class="<?php echo (is_object($game->getHomeResult()) && is_object($game->getAwayResult())? 'clickableRowResult':'' ) ?> <?php echo ($index % 2 == 0 ? '' : 'bg-dark text-white'); ?>">
+                    <tr data-game-id="<?php echo $game->getId(); ?>" class="<?php echo (is_object($game->getHomeResult()) && is_object($game->getAwayResult())? 'clickableRowResult':'' ) ?> <?php echo ($index % 2 == 0 ? '' : 'bg-secondary text-white'); ?>">
                         <td class="text-center" scope="row" class="text-center"><?php echo $game->getHomePlayer()->getFullName(); ?></td>
                         <td class="text-center"><?php echo (is_object($game->getHomeResult()) ? $game->getHomeResult()->getGoals() : ''); ?></td>
                         <td class="text-center"><b>-</b></td>

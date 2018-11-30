@@ -1,0 +1,143 @@
+<?php
+$this->headTitle($this->translator()->translate('competition.title'));
+
+$this->mainMenu()->setActiveItemId($this->translator()->translate('competition.active.item'));
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('competition') => $this->url('competition', ['action' => 'getCompetition', 'id' => $competition->getId()])
+]);
+?>
+<div class="row">
+    <h1 class="col"><?php echo $competition->getName(); ?></h1>
+</div>
+</div>
+    <h3 class="col"><?php echo $this->translator()->translate('competition.rank'); ?></h3>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <table class="table table-bordered table-hover table-sm resultTable">
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Player</th>
+                <th class="text-center">G <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Gespeeld"></i></th>
+                <th class="text-center">P <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Punten"></i></th>
+                <th class="text-center">P</th>
+                <th class="text-center">W <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Winst"></i></th>
+                <th class="text-center">G <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Gelijk"></i></th>
+                <th class="text-center">V <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Verloren"></i></th>
+                <th class="text-center">DS <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Doelsaldo"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($competition->getPlayers() as $player) { ?>
+                <?php
+                $playerResult = [];
+                if (array_key_exists($competition->getId(), $results)) {
+                    $competitionPlayers = $results[$competition->getId()];
+                    if (array_key_exists($player->getId(), $competitionPlayers)) {
+                        $playerResult = $competitionPlayers[$player->getId()];
+                    }
+                }
+                ?>
+                <tr>
+                    <td><?php echo $player->getSurName(); ?></td>
+                    <td><?php echo (array_key_exists('totalGames', $playerResult) ? $playerResult['totalGames'] : 0); ?></td>
+                    <td><?php echo (array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
+                    <td><?php echo (array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
+                    <td><?php echo (array_key_exists('gamesWon', $playerResult) ? $playerResult['gamesWon'] : 0); ?></td>
+                    <td><?php echo (array_key_exists('gamesDraw', $playerResult) ? $playerResult['gamesDraw'] : 0); ?></td>
+                    <td><?php echo (array_key_exists('gamesLost', $playerResult) ? $playerResult['gamesLost'] : 0); ?></td>
+                    <td><?php echo (array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row mt-3">
+    <h3 class="col"><?php echo $this->translator()->translate('competition.game.title'); ?></h3>
+    <?php if (count($competition->getGames()) == 0) { ?>
+        <label class="col-md-auto form-label"><?php echo $this->translator()->translate('season.select'); ?></label>
+        <div class="col-md-auto">
+            <select class="form-control" name="season" id="seasonselect">
+                <option value=""><?php echo $this->translator()->translate('empty.choice'); ?></option>
+                <?php foreach ($competition->getSeasons() as $season) { ?>
+                    <option value="<?php echo $season->getId(); ?>"><?php echo $season->getName(); ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="col-md-auto">
+            <span id="generateGames" data-competitionid="<?php echo $competition->getId(); ?>" class="btn btn-dark"><?php echo $this->translator()->translate('competition.game.generate'); ?> <i class="fas fa-cogs"></i></span>
+        </div>
+    <?php } ?>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <table id="gamesTable" class="table table-bordered table-hover table-sm">
+            <thead class="thead-dark">
+            <tr>
+                <th colspan="5"><?php echo $this->translator()->translate('competition.game.players'); ?></th>
+                <th class="text-center"><?php echo $this->translator()->translate('competition.game.date'); ?></th>
+            <tr>
+            </thead>
+            <tbody>
+            <?php if (count($competition->getGames()) > 0) { ?>
+                <?php foreach ($competition->getGames() as $game) { ?>
+                    <tr>
+                        <td class="border-right-0"><?php echo $game->getHomePlayer()->getFullName() ?></td>
+                        <td class="text-center"><?php echo (is_object($game->getHomeResult()) ? $game->getHomeResult()->getGoals() : ''); ?></td>
+                        <td class="text-center border-right-0 border-left-0">-</td>
+                        <td class="text-center"><?php echo (is_object($game->getAwayResult()) ? $game->getAwayResult()->getGoals() : ''); ?></td>
+                        <td class="text-right border-left-0"><?php echo $game->getAwayPlayer()->getFullName(); ?></td>
+                        <td class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('d-m-Y') : ''); ?></td>
+                    </tr>
+                <?php } ?>
+            <?php } else { ?>
+                <tr id="noGenerateGames">
+                    <td colspan="5" class="text-center"><?php echo $this->translator()->translate('competition.no.game.generated'); ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $("#generateGames").on("click", function () {
+        var competitionId = $(this).data('competitionid');
+        var seasonId = $('select#seasonselect').val();
+        if (seasonId != '') {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    competitionId: competitionId,
+                    seasonId: seasonId
+                },
+                url: "/competition-ajax/generateGames",
+                async: true,
+                success: function (data) {
+                    if (data.success === true) {
+                        $('#noGenerateGames').hide();
+                        $('#generateGames').hide();
+                        $('#seasonselect').hide();
+                        $.each(data.games, function (index, game) {
+                            var row = $('<tr>');
+                            row.append($('<td class="border-right-0">').html(game.homeplayer));
+                            row.append($('<td class="text-center border-right-0 border-left-0">').html('-'));
+                            row.append($('<td class="text-right border-left-0">').html(game.awayplayer));
+                            row.append($('<td class="text-center">').html('&nbsp;'));
+                            row.append($('<td class="text-center">').html('<a class="btn text-white btn-warning btn-sm" href="/games/edit/' + game.competitionid + '/' + game.gameid + '"><i class="far fa-calendar"></i></a>&nbsp;<a class="btn text-white btn-warning btn-sm" href="/games/editStats/' + game.competitionid + '/' + game.gameid + '"><i class="far fa-chart-bar"></i></a>'));
+                            $('#gamesTable > tbody').append(row);
+                        });
+                    } else {
+                        alert(data.errorMessage);
+                    }
+                }
+            });
+        } else {
+            alert('Selecteer een seizoen');
+        }
+    });
+
+
+</script>

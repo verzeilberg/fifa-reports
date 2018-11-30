@@ -15,15 +15,17 @@ class IndexController extends AbstractActionController {
     private $seasonRepository;
     private $gameRepository;
     private $resultRepository;
+    private $competitionRepository;
 
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      */
-    public function __construct($vhm, $seasonRepository, $gameRepository, $resultRepository) {
+    public function __construct($vhm, $seasonRepository, $gameRepository, $resultRepository, $competitionRepository) {
         $this->vhm = $vhm;
         $this->seasonRepository = $seasonRepository;
         $this->gameRepository = $gameRepository;
         $this->resultRepository = $resultRepository;
+        $this->competitionRepository = $competitionRepository;
     }
 
     /**
@@ -78,6 +80,29 @@ class IndexController extends AbstractActionController {
         return new ViewModel();
     }
 
+    /*
+     * Competition page
+     */
+    public function getCompetitionAction() {
+        $this->vhm->get('headScript')->appendFile('/js/competition.js');
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (empty($id)) {
+            return $this->redirect()->toRoute('competitions');
+        }
+        $competition = $this->competitionRepository->getItem($id);
+        if (empty($competition)) {
+            return $this->redirect()->toRoute('competitions');
+        }
+
+        $results = $this->resultRepository->getResultsBySeason(1);
+
+        return new ViewModel(
+            array(
+                'competition' => $competition,
+                'results' => $results
+            )
+        );
+    }
     /*
      * @todo move this to service class
      */

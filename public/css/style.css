@@ -143,6 +143,17 @@ td.no-left-right-borders {
     border-right: none !important;
 }
 
+
+.card-header {
+    font-family: 'Khand', sans-serif;
+    font-size: 16pt;
+}
+
+table th {
+    font-family: 'Khand', sans-serif;
+    font-size: 14pt;
+}
+
 /* Game input fields */
 form#Game input {
     text-align:center;
