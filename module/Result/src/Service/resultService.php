@@ -78,8 +78,6 @@ class resultService implements resultServiceInterface {
         $qb->setParameter('seasonId', $seasonId);
         $query = $qb->getQuery();
         $result = $query->getResult();
-        $qb->addOrderBy('column2', 'DESC');
-        
         
         $resultsByCompetition = [];
         foreach($result as $index => $result){
