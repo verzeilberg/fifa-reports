@@ -137,13 +137,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-/* Table styles */
-td.no-left-right-borders {
-    border-left: none !important;
-    border-right: none !important;
-}
-
-
 .card-header {
     font-family: 'Khand', sans-serif;
     font-size: 16pt;
@@ -163,3 +156,7 @@ form#Game input {
 .clickableRowResult {
     cursor: pointer;
 }
+
+/* Tooltips */
+.custom-tooltip + .tooltip > .tooltip-inner {background-color: #f00; !important}
+.custom-tooltip + .tooltip > .arrow { border-bottom-color:#f00; !important}

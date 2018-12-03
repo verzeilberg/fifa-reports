@@ -135,6 +135,14 @@ class NavManager
                 ];
             }
 
+            if ($this->rbacManager->isGranted(null, 'club.manage')) {
+                $seasonDropdownItems[] = [
+                    'id' => 'clubs',
+                    'label' => 'Clubs',
+                    'link' => $url('clubs')
+                ];
+            }
+
 
             if (count($seasonDropdownItems)!=0) {
                 $items[] = [

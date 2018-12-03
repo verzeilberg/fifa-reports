@@ -5,6 +5,7 @@ namespace Game\Service;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use DoctrineORMModule\Form\Annotation\AnnotationBuilder;
+use Application\Traits\timeDateService;
 
 /*
  * Entities
@@ -12,6 +13,9 @@ use DoctrineORMModule\Form\Annotation\AnnotationBuilder;
 use Game\Entity\Game;
 
 class gameService implements gameServiceInterface {
+
+
+    use timeDateService;
 
     /**
      * Constructor.

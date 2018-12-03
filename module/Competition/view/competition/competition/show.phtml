@@ -99,9 +99,9 @@ $this->pageBreadcrumbs()->setItems([
                     <?php foreach ($competition->getGames() as $game) { ?>
                         <tr>
                             <td class="border-right-0"><?php echo $game->getHomePlayer()->getFullName() ?></td>
-                            <td class="text-center"><?php echo (is_object($game->getHomeResult()) ? $game->getHomeResult()->getGoals() : ''); ?></td>
+                            <td class="text-center border-right-0"><?php echo (is_object($game->getHomeResult()) ? $game->getHomeResult()->getGoals() : ''); ?></td>
                             <td class="text-center border-right-0 border-left-0">-</td>
-                            <td class="text-center"><?php echo (is_object($game->getAwayResult()) ? $game->getAwayResult()->getGoals() : ''); ?></td>
+                            <td class="text-center border-left-0"><?php echo (is_object($game->getAwayResult()) ? $game->getAwayResult()->getGoals() : ''); ?></td>
                             <td class="text-right border-left-0"><?php echo $game->getAwayPlayer()->getFullName(); ?></td>
                             <td class="text-center"><?php echo (is_object($game->getPlayDate()) ? $game->getPlayDate()->format('d-m-Y') : ''); ?></td>
                             <td  class="text-center"> 

@@ -116,6 +116,9 @@ return [
             Service\NavManager::class => Service\Factory\NavManagerFactory::class,
             Service\RbacAssertionManager::class => Service\Factory\RbacAssertionManagerFactory::class,
         ],
+        'invokables' => [
+            'Application\Service\defaultServiceInterface' => 'Application\Service\defaultService',
+        ],
     ],
     'view_helpers' => [
         'factories' => [

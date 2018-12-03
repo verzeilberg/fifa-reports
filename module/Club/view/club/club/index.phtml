@@ -1,25 +1,25 @@
 <?php
-$this->headTitle('Customers');
+$this->headTitle($this->translator()->translate('clubs.title'));
 
-$this->mainMenu()->setActiveItemId('customer');
+$this->mainMenu()->setActiveItemId('club');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home' => $this->url('home'),
-    'Manage Customers' => $this->url('competitions'),
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('manage.clubs') => $this->url('clubs'),
 ]);
 ?>
 <div class="row">
-    <h1 class="col">Manage Customers</h1>
+    <h1 class="col"><?php echo $this->translator()->translate('manage.clubs') ?></h1>
 </div>
 <div class="row">
     <div class="col">
         <a class="btn btn-dark" href="
-           <?= $this->url('competitions', ['action' => 'add']); ?>">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Customer
+           <?= $this->url('clubs', ['action' => 'add']); ?>">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <?php echo $this->translator()->translate('new.club') ?>
         </a>
     </div>
     <div class="col text-right">
-        <form class="form-inline" name="searchCustomer" method="post" action="<?php echo $this->url('competitions'); ?>">
+        <form class="form-inline" name="searchClub" method="post" action="<?php echo $this->url('clubs'); ?>">
             <div class="col text-right" style="padding-right:0;">
                 <input class="form-control" name="search" value="<?php echo $searchString; ?>" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-dark" type="submit">Search</button>
@@ -32,32 +32,25 @@ $this->pageBreadcrumbs()->setItems([
         <table class="table table-striped table-condensed">
             <thead class="thead-dark">
                 <tr>
-                    <th><?php echo $this->translator()->translate('customer.name') ?></th>
-                    <th><?php echo $this->translator()->translate('customer.date.created') ?></th>
-                    <th><?php echo $this->translator()->translate('customer.language') ?></th>
+                    <th><?php echo $this->translator()->translate('club.name') ?></th>
+                    <th><?php echo $this->translator()->translate('club.date.created') ?></th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
-            <?php if (count($customers) > 0) { ?>
-            <?php foreach ($customers as $customer): ?>
+            <?php if (count($clubs) > 0) { ?>
+            <?php foreach ($clubs as $club): ?>
                 <tr>
                     <td>
-                        <?= $this->escapeHtml($customer->getName()); ?></a> 
+                        <?= $this->escapeHtml($club->getName()); ?></a> 
                     </td>
                     <td>
-                        <?= (is_object($customer->getDateCreated()) ? $this->escapeHtml($customer->getDateCreated()->format('Y-m-d H:m')) : ''); ?>
-                    </td>        
-                    <td class="align-center">
-                        <?php echo '<img class="img-responsive " src="/' . $customer->getLanguage()->getLanguageImage()->getImageTypes('450x300')[0]->getFolder() . $customer->getLanguage()->getLanguageImage()->getImageTypes('450x300')[0]->getFileName() . '?v=' . rand() . '" alt="' . $customer->getLanguage()->getLanguageImage()->getAlt() . '" width="25" height="auto" />'; ?>
+                        <?= (is_object($club->getCreatedAt()) ? $this->escapeHtml($club->getCreatedAt()->format('Y-m-d H:m')) : ''); ?>
                     </td>        
                     <td>
-                        <a class="btn btn-dark btn-sm" href="<?= $this->url('competitions', ['action' => 'edit', 'id' => $customer->getId()]); ?>">
+                        <a class="btn btn-dark btn-sm" href="<?= $this->url('clubs', ['action' => 'edit', 'id' => $club->getId()]); ?>">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a class="btn btn-dark btn-sm" href="<?= $this->url('competitions', ['action' => 'show', 'id' => $customer->getId()]); ?>">
-                            <i class="fas fa-search-plus"></i>
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="<?= $this->url('competitions', ['action' => 'delete', 'id' => $customer->getId()]); ?>">
+                        <a class="btn btn-danger btn-sm" href="<?= $this->url('clubs', ['action' => 'delete', 'id' => $club->getId()]); ?>">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>    
@@ -65,7 +58,7 @@ $this->pageBreadcrumbs()->setItems([
             <?php endforeach; ?>  
             <?php } else { ?>
                 <tr>
-                    <td colspan="5" class="text-center"><?php echo $this->translator()->translate('no.customers.found') ?></td>
+                    <td colspan="5" class="text-center"><?php echo $this->translator()->translate('no.clubs.found') ?></td>
                 </tr>
             <?php } ?>
         </table>

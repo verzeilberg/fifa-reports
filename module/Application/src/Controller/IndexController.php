@@ -39,7 +39,7 @@ class IndexController extends AbstractActionController {
         $season = $this->seasonRepository->getItem(1);
         $currentDate = new \DateTime();
 
-        $weekArray = $this->getStartAndEndDate($currentDate->format('W'), $currentDate->format('Y'));
+        $weekArray = $this->gameRepository->getStartAndEndDate($currentDate->format('W'), $currentDate->format('Y'));
         $games = $this->gameRepository->getGamesBySeasonAndDates($season->getId(), $weekArray);
         $results = $this->resultRepository->getResultsBySeason(1);
 
@@ -102,18 +102,6 @@ class IndexController extends AbstractActionController {
                 'results' => $results
             )
         );
-    }
-    /*
-     * @todo move this to service class
-     */
-
-    private function getStartAndEndDate($week, $year) {
-        $dto = new \DateTime();
-        $dto->setISODate($year, $week);
-        $ret['start'] = $dto->format('Y-m-d');
-        $dto->modify('+6 days');
-        $ret['end'] = $dto->format('Y-m-d');
-        return $ret;
     }
 
     /**
