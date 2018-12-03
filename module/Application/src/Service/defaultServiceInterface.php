@@ -2,7 +2,18 @@
 
 namespace Application\Service;
 
-interface defaultServiceInterface {
+interface defaultServiceInterface
+{
+
+    /**
+     *
+     * Get item object by on id
+     *
+     * @param       id $id The id to fetch the item from the database
+     * @return      object
+     *
+     */
+    public function getItem($id);
 
     /**
      *
@@ -12,15 +23,18 @@ interface defaultServiceInterface {
      *
      */
     public function getItems();
+
     /**
      *
-     * Get item object by on id
+     * Get array of languages  for pagination
+     * @var $query query
+     * @var $currentPage current page
+     * @var $itemsPerPage items on a page
      *
-     * @param       id  $id The id to fetch the item from the database
-     * @return      object
+     * @return      array
      *
      */
-    public function getItem($id);
+    public function getItemsForPagination($query, $currentPage = 1, $itemsPerPage = 10);
 
     /**
      *
@@ -41,6 +55,7 @@ interface defaultServiceInterface {
      *
      */
     public function createForm($item);
+
     /**
      *
      * Create a new item object

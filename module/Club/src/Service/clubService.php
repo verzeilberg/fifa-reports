@@ -15,7 +15,9 @@ use Club\Entity\Club;
 
 class clubService extends defaultService implements clubServiceInterface
 {
-
+    /**
+     * Set the columns for searching
+     */
     private $searchColumns = ['name', 'city'];
 
 

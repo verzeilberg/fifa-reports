@@ -5,52 +5,42 @@ namespace Result\Service;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use DoctrineORMModule\Form\Annotation\AnnotationBuilder;
+use Application\Service\defaultService;
 
 /*
  * Entities
  */
 use Result\Entity\Result;
 
-class resultService implements resultServiceInterface {
+class resultService extends defaultService implements resultServiceInterface {
+
+    /**
+     * Set the columns for searching
+     */
+    private $searchColumns = [];
+    /**
+     * EntityManager for doctrine
+     */
+    private $entityManager;
 
     /**
      * Constructor.
      */
-    public function __construct($entityManager) {
+    public function __construct($entityManager)
+    {
+        parent::setEntityManager($entityManager);
+        parent::setEntity('Result\Entity\Result');
+        parent::setSearchColumns($this->searchColumns);
         $this->entityManager = $entityManager;
     }
 
     /**
+     * Get games result voor specific season
      *
-     * Get array of items
+     * @var $seasonId id of that specific season
      *
-     * @return      array
-     *
+     * @return array
      */
-    public function getItems() {
-
-        $items = $this->entityManager->getRepository(Result::class)
-                ->findBy([], ['createdAt' => 'DESC']);
-
-        return $items;
-    }
-
-    /**
-     *
-     * Get item object by on id
-     *
-     * @param       id  $id The id to fetch the item from the database
-     * @return      object
-     *
-     */
-    public function getItem($id) {
-        $item = $this->entityManager->getRepository(Result::class)
-                ->findOneBy(['id' => $id], []);
-
-        return $item;
-    }
-    
-    
     public function getResultsBySeason($seasonId) {
         $qb = $this->entityManager->getRepository(Result::class)->createQueryBuilder('r');
         $qb->select('c.id as competitionId, '
@@ -84,101 +74,6 @@ class resultService implements resultServiceInterface {
             $resultsByCompetition[$result['competitionId']][$result['playerId']] = $result;
         }
         return $resultsByCompetition;
-        
-    }
-
-    /**
-     *
-     * Get array of items
-     * @var $searchString string to search for
-     *
-     * @return      array
-     *
-     */
-    public function searchItems($searchString) {
-        $qb = $this->entityManager->getRepository(Result::class)->createQueryBuilder('c');
-        $orX = $qb->expr()->orX();
-        $orX->add($qb->expr()->like('c.name', $qb->expr()->literal("%$searchString%")));
-        $qb->where($orX);
-        $query = $qb->getQuery();
-        $result = $query->getResult();
-        return $result;
-    }
-
-    /**
-     *
-     * Create form of an object
-     *
-     * @param       item $item object
-     * @return      form
-     *
-     */
-    public function createForm($item) {
-        $builder = new AnnotationBuilder($this->entityManager);
-        $form = $builder->createForm($item);
-        $form->setHydrator(new DoctrineHydrator($this->entityManager, 'Result\Entity\Result'));
-        $form->bind($item);
-        return $form;
-    }
-
-
-    /**
-     *
-     * Create a new item object
-     * @return      object
-     *
-     */
-    public function newItem() {
-        $item = new Result();
-        return $item;
-    }
-
-    /**
-     *
-     * Save a item to the database
-     * @param       item $item object
-     * @param       user $user object
-     * @return      void
-     *
-     */
-    public function saveItem($item) {
-        $this->storeItem($item);
-    }
-
-    /**
-     *
-     * Update a item in database
-     * @param       item $item object
-     * @param       user $user object
-     * @return      void
-     *
-     */
-    public function updateItem($item) {
-        $this->storeItem($item);
-    }
-
-    /**
-     *
-     * Save a item to database
-     * @param       item $item object
-     * @return      void
-     *
-     */
-    public function storeItem($item) {
-        $this->entityManager->persist($item);
-        $this->entityManager->flush();
-    }
-
-    /**
-     *
-     * Delete a item from the database
-     * @param       item $item object
-     * @return      void
-     *
-     */
-    public function deleteItem($item) {
-        $this->entityManager->remove($item);
-        $this->entityManager->flush();
     }
 
 }
