@@ -10,29 +10,36 @@ use User\Entity\User;
  * This is the main controller class of the User Demo application. It contains
  * site-wide actions such as Home or About.
  */
-class IndexController extends AbstractActionController {
+class IndexController extends AbstractActionController
+{
+    protected $entityManager;
     protected $vhm;
     private $seasonRepository;
     private $gameRepository;
     private $resultRepository;
     private $competitionRepository;
+    private $playerRepository;
 
     /**
      * Constructor. Its purpose is to inject dependencies into the controller.
      */
-    public function __construct($vhm, $seasonRepository, $gameRepository, $resultRepository, $competitionRepository) {
+    public function __construct($entityManager, $vhm, $seasonRepository, $gameRepository, $resultRepository, $competitionRepository, $playerRepository)
+    {
+        $this->entityManager = $entityManager;
         $this->vhm = $vhm;
         $this->seasonRepository = $seasonRepository;
         $this->gameRepository = $gameRepository;
         $this->resultRepository = $resultRepository;
         $this->competitionRepository = $competitionRepository;
+        $this->playerRepository = $playerRepository;
     }
 
     /**
-     * This is the default "index" action of the controller. It displays the 
+     * This is the default "index" action of the controller. It displays the
      * Home page.
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->layout('layout/home');
         $this->vhm->get('headScript')->appendFile('/js/application.js');
 
@@ -54,7 +61,8 @@ class IndexController extends AbstractActionController {
         ]);
     }
 
-    public function gameScheduleAction() {
+    public function gameScheduleAction()
+    {
 
         $season = $this->seasonRepository->getItem(1);
 
@@ -63,7 +71,8 @@ class IndexController extends AbstractActionController {
         ]);
     }
 
-    public function gamesResultsAction() {
+    public function gamesResultsAction()
+    {
         $this->vhm->get('headScript')->appendFile('/js/game.js');
         $season = $this->seasonRepository->getItem(1);
 
@@ -76,16 +85,18 @@ class IndexController extends AbstractActionController {
      * Rules page
      */
 
-    public function rulesAction() {
+    public function rulesAction()
+    {
         return new ViewModel();
     }
 
     /*
      * Competition page
      */
-    public function getCompetitionAction() {
+    public function getCompetitionAction()
+    {
         $this->vhm->get('headScript')->appendFile('/js/competition.js');
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $id = (int)$this->params()->fromRoute('id', 0);
         if (empty($id)) {
             return $this->redirect()->toRoute('competitions');
         }
@@ -107,12 +118,13 @@ class IndexController extends AbstractActionController {
     /**
      * The "settings" action displays the info about currently logged in user.
      */
-    public function settingsAction() {
+    public function settingsAction()
+    {
         $id = $this->params()->fromRoute('id');
 
         if ($id != null) {
             $user = $this->entityManager->getRepository(User::class)
-                    ->find($id);
+                ->find($id);
         } else {
             $user = $this->currentUser();
         }
@@ -123,12 +135,36 @@ class IndexController extends AbstractActionController {
         }
 
         if (!$this->access('profile.any.view') &&
-                !$this->access('profile.own.view', ['user' => $user])) {
+            !$this->access('profile.own.view', ['user' => $user])) {
             return $this->redirect()->toRoute('not-authorized');
         }
 
         return new ViewModel([
             'user' => $user
+        ]);
+    }
+
+    /**
+     * The "profile" action displays the users profile for editing.
+     */
+    public function profileAction()
+    {
+        $this->vhm->get('headScript')->appendFile('/js/chart/chart.bundle.min.js');
+
+        $id = $this->params()->fromRoute('id');
+        if ($id == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $player = $this->playerRepository->getItem($id);
+        if ($player == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        return new ViewModel([
+            'player' => $player
         ]);
     }
 

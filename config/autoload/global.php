@@ -76,6 +76,15 @@ return [
                 'image/gif'
             ],
         ],
+        'player' => [
+            'uploadFolder' => 'img/userFiles/players/original/',
+            'uploadeFileSize' => '5000000000000000',
+            'allowedImageTypes' => [
+                'image/jpeg',
+                'image/png',
+                'image/gif'
+            ],
+        ],
         'rootPath' => $_SERVER['DOCUMENT_ROOT'] . '/img/userFiles',
     ],
 ];

@@ -1,0 +1,18 @@
+<?php
+$this->headTitle($this->translator()->translate('playoff.title'));
+
+$this->mainMenu()->setActiveItemId('playoff');
+
+$this->pageBreadcrumbs()->setItems([
+    $this->translator()->translate('home') => $this->url('home'),
+    $this->translator()->translate('playoff.manage') => $this->url('playoffs'),
+    $this->translator()->translate('playoff.edit') => $this->url('playoffs', ['action' => 'edit'])
+]);
+$form->setAttributes(array(
+    'enctype' => 'multipart/form-data'
+));
+?>
+<h1><?php echo $this->translator()->translate('playoff.manage') ?></h1>
+<?php
+echo $this->partial('playoff/playoff/partials/form.phtml', array('form' => $form));
+?>

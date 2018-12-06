@@ -56,6 +56,9 @@ $this->pageBreadcrumbs()->setItems([
                         <a class="btn btn-success btn-sm" href="<?= $this->url('seasons', ['action' => 'games', 'id' => $season->getId()]); ?>">
                             <i class="fas fa-list-ol"></i>
                         </a>
+                        <a class="btn btn-info btn-sm" href="<?= $this->url('seasons', ['action' => 'play-offs', 'id' => $season->getId()]); ?>">
+                            <i class="fas fa-project-diagram"></i>
+                        </a>
                         <a class="btn btn-danger btn-sm" href="<?= $this->url('seasons', ['action' => 'delete', 'id' => $season->getId()]); ?>">
                             <i class="fas fa-trash"></i>
                         </a>

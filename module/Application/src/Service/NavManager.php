@@ -196,6 +196,11 @@ class NavManager
                         'link' => $url('application', ['action'=>'settings'])
                     ],
                     [
+                        'id' => 'profile',
+                        'label' => 'Profile',
+                        'link' => $url('application', ['action'=>'profile'])
+                    ],
+                    [
                         'id' => 'logout',
                         'label' => 'Sign out',
                         'link' => $url('logout')

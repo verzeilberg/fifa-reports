@@ -2,9 +2,10 @@
 namespace Season\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
 use Season\Controller\SeasonController;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Season\Service\seasonService;
+use Player\Service\playerService;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -17,7 +18,7 @@ class SeasonControllerFactory implements FactoryInterface
         $vhm = $container->get('ViewHelperManager');
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $repository = new seasonService($entityManager);
-        $playerRepository = new \Player\Service\playerService($entityManager);
+        $playerRepository = new playerService($entityManager);
         // Instantiate the controller and inject dependencies
         return new SeasonController($vhm, $repository, $playerRepository);
     }

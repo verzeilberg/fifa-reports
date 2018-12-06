@@ -8,6 +8,7 @@ use Application\Controller\IndexController;
 use Season\Service\seasonService;
 use Game\Service\gameService;
 use Result\Service\resultService;
+use Player\Service\playerService;
 
 /**
  * This is the factory for IndexController. Its purpose is to instantiate the
@@ -23,7 +24,16 @@ class IndexControllerFactory implements FactoryInterface
         $gameRepository = new gameService($entityManager);
         $resultRepository = new resultService($entityManager);
         $competitionRepository = new competitionService($entityManager);
+        $playerRepository = new playerService($entityManager);
         // Instantiate the controller and inject dependencies
-        return new IndexController($vhm, $seasonRepository, $gameRepository, $resultRepository, $competitionRepository);
+        return new IndexController(
+            $entityManager,
+            $vhm,
+            $seasonRepository,
+            $gameRepository,
+            $resultRepository,
+            $competitionRepository,
+            $playerRepository
+        );
     }
 }

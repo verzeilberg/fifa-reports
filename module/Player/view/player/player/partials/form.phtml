@@ -1,4 +1,3 @@
-<?php echo $this->form()->openTag($form); ?>
 <div class="form-group row">
     <?php echo $this->formLabel($form->get('surName')); ?>
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -36,9 +35,11 @@
     </div>
 </div>
 <div class="form-group row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <button type="submit" id="submit" class="btn btn-dark"><?php echo $this->translator()->translate('save') ?></button> 
-        <a href="<?php echo $this->url['players']; ?>" class="btn btn-danger" title="<?php echo $this->translator()->translate('cancel') ?>"><?php echo $this->translator()->translate('cancel') ?></a>
+    <?php echo $this->formLabel($form->get('user')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $this->formSelect($form->get('user')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('user')); ?>
     </div>
 </div>
-<?php echo $this->form()->closeTag($form); ?>

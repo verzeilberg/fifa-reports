@@ -70,11 +70,19 @@ use TimestampableEntity;
      */
     private $gameResults;
 
+    /**
+     * Many Competitions have Many PLayOffs.
+     * @ORM\ManyToMany(targetEntity="PlayOff\Entity\PlayOff", inversedBy="competitions")
+     * @ORM\JoinTable(name="competitions_playoffs")
+     */
+    private $playOffs;
+
     public function __construct() {
         $this->seasons = new ArrayCollection();
         $this->players = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->gameResults = new ArrayCollection();
+        $this->playOffs = new ArrayCollection();
     }
 
     function getId() {
@@ -133,6 +141,20 @@ use TimestampableEntity;
         $this->gameResults = $gameResults;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPlayOffs()
+    {
+        return $this->playOffs;
+    }
 
+    /**
+     * @param mixed $playOffs
+     */
+    public function setPlayOffs($playOffs): void
+    {
+        $this->playOffs = $playOffs;
+    }
 
 }

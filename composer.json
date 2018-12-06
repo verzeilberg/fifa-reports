@@ -45,6 +45,7 @@
             "Club\\": "module/Club/src/",
             "Player\\": "module/Player/src/",
             "Result\\": "module/Result/src/",
+            "PlayOff\\": "module/PlayOff/src/",
             "Translator\\": "module/Translator/src/",
             "UploadImages\\": "module/UploadImages/src/",
             "UploadFiles\\": "module/UploadFiles/src/",

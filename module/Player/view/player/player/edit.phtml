@@ -13,6 +13,19 @@ $form->setAttributes(array(
 ));
 ?>
 <h1><?php echo $this->translator()->translate('player.manage') ?></h1>
+<?php echo $this->form()->openTag($form); ?>
 <?php
 echo $this->partial('player/player/partials/form.phtml', array('form' => $form));
 ?>
+<!-- Image upload -->
+<?php echo $this->partial('player/player/partials/show_image.phtml', array('formImage' => $formImage, 'image' => $image, 'returnURL' => $returnURL)); ?>
+<!-- End image upload -->
+<div class="form-group row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="submit" id="submit"
+                class="btn btn-dark"><?php echo $this->translator()->translate('save') ?></button>
+        <a href="<?php echo $this->url['players']; ?>" class="btn btn-danger"
+           title="<?php echo $this->translator()->translate('cancel') ?>"><?php echo $this->translator()->translate('cancel') ?></a>
+    </div>
+</div>
+<?php echo $this->form()->closeTag($form); ?>

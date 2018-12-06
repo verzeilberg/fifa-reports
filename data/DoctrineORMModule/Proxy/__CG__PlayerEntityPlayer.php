@@ -64,10 +64,10 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', 'deletedAt', 'createdAt', 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'user', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'playerImage', 'deletedAt', 'createdAt', 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', 'deletedAt', 'createdAt', 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'id', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'surName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastNamePrefix', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'lastName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'screenName', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'homeGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'awayGames', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'user', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'club', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'competition', '' . "\0" . 'Player\\Entity\\Player' . "\0" . 'playerImage', 'deletedAt', 'createdAt', 'updatedAt'];
     }
 
     /**
@@ -395,6 +395,61 @@ class Player extends \Player\Entity\Player implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getFullNameShortLastName', []);
 
         return parent::getFullNameShortLastName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUser()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUser', []);
+
+        return parent::getUser();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUser($user): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUser', [$user]);
+
+        parent::setUser($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPlayerImage()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPlayerImage', []);
+
+        return parent::getPlayerImage();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPlayerImage($playerImage): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPlayerImage', [$playerImage]);
+
+        parent::setPlayerImage($playerImage);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAllGames()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAllGames', []);
+
+        return parent::getAllGames();
     }
 
     /**

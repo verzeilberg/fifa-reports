@@ -39,6 +39,7 @@ return [
     'Club',
     'Player',
     'Result',
+    'PlayOff',
     'User',
     'Application'
 ];

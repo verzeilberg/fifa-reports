@@ -103,7 +103,7 @@ return [
                 // Allow anyone to visit "index" and "about" actions
                 ['actions' => ['index', 'rules', 'gameSchedule', 'gamesResults', 'getCompetition'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
-                ['actions' => ['settings'], 'allow' => '@']
+                ['actions' => ['settings', 'profile'], 'allow' => '@']
             ],
         ]
     ],

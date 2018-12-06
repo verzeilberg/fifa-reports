@@ -22,6 +22,10 @@ $this->pageBreadcrumbs()->setItems([
 </div>
 <div class="row">
     <h3 class="col"><?php echo $this->translator()->translate('season.competition.title'); ?></h3>
+    <div class="col-md-auto">
+        <a href="<?php echo $this->url('seasons'); ?>" class="btn btn-danger"
+           title="<?php echo $this->translator()->translate('cancel') ?>"><?php echo $this->translator()->translate('cancel') ?></a>
+    </div>
 </div>
 <div class="row mt-3">
     <div class="col">
@@ -36,7 +40,7 @@ $this->pageBreadcrumbs()->setItems([
                     <th scope="col"><?php echo $this->translator()->translate('season.game.competition'); ?></th>
                 </tr>
             </thead>
-            <tbody id="sortable">
+            <tbody <?php echo ($season->getLockPlaySchedule() != 1? 'id="sortable"':''); ?>>
                 <?php foreach ($games as $game) { ?>
                     <tr id="gameId<?php echo $game->getId(); ?>" data-gameid="<?php echo $game->getId(); ?>" class="ui-state-default">
                         <td scope="row" class="text-center"><?php echo $game->getSortOrder(); ?></td>

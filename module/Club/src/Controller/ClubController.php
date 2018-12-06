@@ -121,9 +121,9 @@ class ClubController extends AbstractActionController {
     }
 
     public function editAction() {
+        //Include css and js for image upload
         $this->vhm->get('headScript')->appendFile('/js/upload-images.js');
         $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
-
         //Create session container for crop images
         $container = new Container('cropImages');
         $container->getManager()->getStorage()->clear('cropImages');

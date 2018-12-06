@@ -77,6 +77,24 @@ class Player {
     private $awayGames;
 
     /**
+     * One Player has One User.
+     * @ORM\OneToOne(targetEntity="User\Entity\User")
+     * @ORM\JoinColumn(name="suser_id", referencedColumnName="id")
+     * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
+     * @Annotation\Required(false)
+     * @Annotation\AllowEmpty
+     * @Annotation\Options({
+     * "target_class":"User\Entity\User",
+     * "property": "fullName",
+     * "label": "User",
+     * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"},
+     * "find_method":{"name": "findAll","params": {"orderBy":{"fullName": "ASC"}}}
+     * })
+     * @Annotation\Attributes({"class":"form-control col-md-2"})
+     */
+    private $user;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Club\Entity\Club", inversedBy="player")
      * @ORM\JoinColumn(name="club_id", referencedColumnName="id")
      */
@@ -88,6 +106,13 @@ class Player {
      * @ORM\JoinColumn(name="competition_id", referencedColumnName="id")
      */
     private $competition;
+
+    /**
+     * One player have One Image.
+     * @ORM\OneToOne(targetEntity="UploadImages\Entity\Image")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $playerImage;
 
     public function __construct() {
         $this->homeGames = new ArrayCollection();
@@ -172,6 +197,47 @@ class Player {
 
     function getFullNameShortLastName() {
         return $this->surName . ' ' . ($this->lastNamePrefix ? $this->lastNamePrefix . ' ' : '') . substr($this->lastName, 0, 1) . '.';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlayerImage()
+    {
+        return $this->playerImage;
+    }
+
+    /**
+     * @param mixed $playerImage
+     */
+    public function setPlayerImage($playerImage): void
+    {
+        $this->playerImage = $playerImage;
+    }
+
+    public function getAllGames() {
+        $awayGames = $this->awayGames;
+        $homeGames = $this->homeGames;
+
+        $allGames = array_merge($awayGames->toArray(), $homeGames->toArray());
+
+        return $allGames;
     }
 
 }

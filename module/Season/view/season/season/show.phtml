@@ -14,6 +14,10 @@ $this->pageBreadcrumbs()->setItems([
 </div>
 <div class="row">
     <h3 class="col"><?php echo $this->translator()->translate('season.competition.title'); ?></h3>
+    <div class="col-md-auto">
+        <a href="<?php echo $this->url('seasons'); ?>" class="btn btn-danger"
+           title="<?php echo $this->translator()->translate('cancel') ?>"><?php echo $this->translator()->translate('cancel') ?></a>
+    </div>
 </div>
 <div class="row mt-3">
     <?php foreach ($season->getCompetitions() as $index => $competition) { ?>
@@ -21,11 +25,13 @@ $this->pageBreadcrumbs()->setItems([
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $competition->getName(); ?></h5>
-                    <ul id="sortable<?php echo $index + 1; ?>" data-competitionid="<?php echo $competition->getId(); ?>" class="connectedSortable sortableUl">
-                    <?php foreach ($competition->getPlayers() AS $player) { ?>
-                        <li class="ui-state-highlight bg-dark" data-playerid="<?php echo $player->getId(); ?>"><?php echo ($player->getScreenName() ? $player->getScreenName() : $player->getFullName()); ?></li>
-                    <?php } ?>
-                    
+                    <ul id="sortable<?php echo $index + 1; ?>" data-competitionid="<?php echo $competition->getId(); ?>"
+                        class="connectedSortable sortableUl">
+                        <?php foreach ($competition->getPlayers() AS $player) { ?>
+                            <li class="ui-state-highlight bg-dark"
+                                data-playerid="<?php echo $player->getId(); ?>"><?php echo($player->getScreenName() ? $player->getScreenName() : $player->getFullName()); ?></li>
+                        <?php } ?>
+
                     </ul>
                 </div>
             </div>
@@ -39,7 +45,8 @@ $this->pageBreadcrumbs()->setItems([
     <div class="col">
         <ul id="sortable0" class="connectedSortable">
             <?php foreach ($players as $player) { ?>
-                <li class="ui-state-highlight bg-dark" data-playerid="<?php echo $player->getId(); ?>"><?php echo ($player->getScreenName() ? $player->getScreenName() : $player->getFullName()); ?></li>
+                <li class="ui-state-highlight bg-dark"
+                    data-playerid="<?php echo $player->getId(); ?>"><?php echo($player->getScreenName() ? $player->getScreenName() : $player->getFullName()); ?></li>
             <?php } ?>
         </ul>
     </div>
@@ -48,30 +55,30 @@ $this->pageBreadcrumbs()->setItems([
 <style>
     ul.connectedSortable {
         list-style: none;
-        margin:0;
-        padding:0;
-    } 
+        margin: 0;
+        padding: 0;
+    }
 
     ul.sortableUl {
         min-height: 20px;
-        border: 1px solid rgba(0,0,0,.125);
+        border: 1px solid rgba(0, 0, 0, .125);
         border-radius: 0.25rem;
     }
-    
+
     ul.sortableUl li {
         padding: 2px 5px;
         margin: 2px;
         border-radius: 0.25rem;
     }
-    
+
     ul#sortable0 {
         min-height: 100%;
-        border: 1px solid rgba(0,0,0,.125);
+        border: 1px solid rgba(0, 0, 0, .125);
     }
 
     ul#sortable0 li {
         padding: 2px 5px;
-        float:left;
+        float: left;
         margin: 2px;
         border-radius: 0.25rem;
     }
