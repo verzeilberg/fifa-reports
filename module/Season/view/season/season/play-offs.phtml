@@ -20,32 +20,71 @@ $this->pageBreadcrumbs()->setItems([
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col">
-        <button id="addPlayOff" class="btn btn-sm btn-dark" data-season-id="<?php echo $season->getId(); ?>">
+    <div class="col-md-auto">
+        <button id="addPlayOff" class="btn btn-dark mb-2 w-100" data-season-id="<?php echo $season->getId(); ?>">
             <i class="fas fa-plus-square"></i>
             <?php echo $this->translator()->translate('season.add.playoffs'); ?>
         </button>
+        <select name="playOffType" class="form-control">
+            <option value="0">--Maak een keuze--</option>
+            <option value="1">Promotie</option>
+            <option value="2">Degredatie</option>
+            <option value="3">Kampioenschap</option>
+        </select>
     </div>
+</div>
+<div class="row mt-3">
+    <dv class="col">
+        <table id="playOffTable" class="table table-sm table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th><?php echo $this->translator()->translate('playoff.table.name') ?></th>
+                <th class="text-center"><i class="fas fa-cogs"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </dv>
 </div>
 
 
 <script>
     $('button#addPlayOff').on("click", function () {
         var seasonId = $(this).data('season-id');
-        console.log(seasonId);
-        $.ajax({
-            type: 'POST',
-            data: {
-                seasonId: seasonId
-            },
-            url: "<?= $this->url('playoffajax', ['action' => 'add']); ?>",
-            async: true,
-            success: function (data) {
-                if (data.succes === true) {
-                } else {
+        var playOffTypeId = $('select[name=playOffType]').val();
+
+        if (seasonId != '' && playOffTypeId > 0) {
+
+            $.ajax({
+                type: 'POST',
+                data: {
+                    seasonId: seasonId,
+                    playOffTypeId: playOffTypeId
+                },
+                url: "<?= $this->url('playoffajax', ['action' => 'add']); ?>",
+                async: true,
+                success: function (data) {
+                    if (data.success === true) {
+                        $('select[name=playOffType]').val(0)
+                        var row = '<tr>';
+                        row += '<td>' + data.playOff.name + '</td>';
+                        row += '<td class="text-center"><button class="btn btn-dark playOffDetail" data-playoff="' + data.playOff.id + '" ><i class="fas fa-sliders-h"></i></button></td>';
+                        row += '</tr>';
+                        $('table#playOffTable').append(row);
+                    } else {
+                        bootbox.dialog({
+                            message: '<p class="text-center mt-3 text-danger custom-font"><i class="fas fa-exclamation-triangle"></i> Er is iets mis gegaan. Probeer het nogmaals!</p>',
+                        });
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            bootbox.dialog({
+                message: '<p class="text-center mt-3 text-danger custom-font"><i class="fas fa-exclamation-triangle"></i> Selecteer een PlayOff type</p>',
+            });
+        }
 
     });
 </script>

@@ -5,6 +5,7 @@ use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use PlayOff\Controller\PlayOffAjaxController;
 use PlayOff\Service\playOffService;
+use PlayOff\Service\playOffTypeService;
 use Season\Service\seasonService;
 
 /**
@@ -18,8 +19,9 @@ class PlayOffAjaxControllerFactory implements FactoryInterface
         $vhm = $container->get('ViewHelperManager');
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $repository = new playOffService($entityManager);
+        $playOffTypeRepository = new playOffTypeService($entityManager);
         $seasonRepository = new seasonService($entityManager);
         // Instantiate the controller and inject dependencies
-        return new PlayOffAjaxController($vhm, $repository, $seasonRepository);
+        return new PlayOffAjaxController($vhm, $repository, $seasonRepository, $playOffTypeRepository);
     }
 }

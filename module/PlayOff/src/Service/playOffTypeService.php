@@ -13,7 +13,7 @@ use Application\Service\defaultService;
 
 use PlayOff\Entity\PlayOff;
 
-class playOffService extends defaultService implements playOffServiceInterface
+class playOffTypeService extends defaultService implements playOffTypeServiceInterface
 {
 
     /**
@@ -27,7 +27,7 @@ class playOffService extends defaultService implements playOffServiceInterface
     public function __construct($entityManager)
     {
         parent::setEntityManager($entityManager);
-        parent::setEntity('PlayOff\Entity\PlayOff');
+        parent::setEntity('PlayOff\Entity\PlayOffType');
         parent::setSearchColumns($this->searchColumns);
     }
 }

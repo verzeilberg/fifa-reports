@@ -17,6 +17,7 @@ return [
     'service_manager' => [
         'invokables' => [
             'PlayOff\Service\playOffServiceInterface' => 'PlayOff\Service\playOffService',
+            'PlayOff\Service\playOffTypeServiceInterface' => 'PlayOff\Service\playOffTypeService',
         ],
     ],
     // The following section is new and should be added to your file

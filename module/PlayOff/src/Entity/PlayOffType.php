@@ -27,7 +27,7 @@ class PlayOffType {
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false, name="sur_name")
+     * @ORM\Column(type="string", length=255, nullable=false, name="name")
      * @Annotation\Options({
      * "label": "Name",
      * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"}
