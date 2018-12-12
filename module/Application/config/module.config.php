@@ -101,9 +101,9 @@ return [
         'controllers' => [
             Controller\IndexController::class => [
                 // Allow anyone to visit "index" and "about" actions
-                ['actions' => ['index', 'rules', 'gameSchedule', 'gamesResults', 'getCompetition'], 'allow' => '*'],
+                ['actions' => ['index', 'rules', 'gameSchedule', 'gamesResults', 'getCompetition', 'profile'], 'allow' => '*'],
                 // Allow authorized users to visit "settings" action
-                ['actions' => ['settings', 'profile'], 'allow' => '@']
+                ['actions' => ['settings'], 'allow' => '@']
             ],
         ]
     ],

@@ -82,7 +82,7 @@ class ClubController extends AbstractActionController {
                         //Upload thumb 150x100
                         $imageFiles = $this->cropImageService->resizeAndCropImage('public/' . $folderOriginal . $fileName, 'public/img/userFiles/clubs/thumb/', 100, 100, '100x100', $image);
                         //Create 450x300 crop
-                        $imageFiles = $this->cropImageService->createCropArray('200x250', $folderOriginal, $fileName, 'public/img/userFiles/clubs/200x2500/', 200, 250, $image);
+                        $imageFiles = $this->cropImageService->resizeAndCropImage('150x300', $folderOriginal, $fileName, 'public/img/userFiles/clubs/200x2500/', 200, 250, $image);
                         $image = $imageFiles['image'];
                         $cropImages = $imageFiles['cropImages'];
                         //Create return URL

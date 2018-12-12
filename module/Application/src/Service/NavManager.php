@@ -80,6 +80,8 @@ class NavManager
             
             // Determine which items must be displayed in Admin dropdown.
             $adminDropdownItems = [];
+            $seasonDropdownItems = [];
+            $translatorDropdownItems = [];
             
             if ($this->rbacManager->isGranted(null, 'user.manage')) {
                 $adminDropdownItems[] = [

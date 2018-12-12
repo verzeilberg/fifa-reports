@@ -39,6 +39,7 @@ $this->pageBreadcrumbs()->setItems([
                     <th class="text-center">G <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Gelijk"></i></th>
                     <th class="text-center">V <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Verloren"></i></th>
                     <th class="text-center">DS <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Doelsaldo"></i></th>
+                    <th class="text-center">DS</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +61,7 @@ $this->pageBreadcrumbs()->setItems([
                         <td><?php echo (array_key_exists('gamesWon', $playerResult) ? $playerResult['gamesWon'] : 0); ?></td>
                         <td><?php echo (array_key_exists('gamesDraw', $playerResult) ? $playerResult['gamesDraw'] : 0); ?></td>
                         <td><?php echo (array_key_exists('gamesLost', $playerResult) ? $playerResult['gamesLost'] : 0); ?></td>
+                        <td><?php echo (array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
                         <td><?php echo (array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
                     </tr>
                 <?php } ?>

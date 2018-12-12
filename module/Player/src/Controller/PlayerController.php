@@ -230,4 +230,97 @@ class PlayerController extends AbstractActionController
         return $this->redirect()->toRoute('players');
     }
 
+    public function editPlayerAction() {
+        $this->vhm->get('headScript')->appendFile('/js/upload-images.js');
+        $this->vhm->get('headLink')->appendStylesheet('/css/upload-image.css');
+
+        $id = $this->params()->fromRoute('id');
+        if ($id == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $player = $this->repository->getItem($id);
+        if ($player == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $user = $player->getUser();
+        if($user->getId() != $this->currentUser()->getId()) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $form = $this->repository->createForm($player);
+        $image = $this->imageService->createImage();
+        $formImage = $this->imageService->createImageForm($image);
+
+        if ($this->getRequest()->isPost()) {
+            $form->setData($this->getRequest()->getPost());
+            $formImage->setData($this->getRequest()->getPost());
+
+            if ($form->isValid() && $formImage->isValid()) {
+
+                //Create image array and set it
+                $imageFile = [];
+                $imageFile = $this->getRequest()->getFiles('image');
+                if($imageFile['size'] !== 0) {
+                    //Upload image
+                    if ($imageFile['error'] === 0) {
+                        //Upload original file
+                        $imageFiles = $this->cropImageService->uploadImage($imageFile, 'player', 'original', $image, 1);
+                        if (is_array($imageFiles)) {
+                            $folderOriginal = $imageFiles['imageType']->getFolder();
+                            $fileName = $imageFiles['imageType']->getFileName();
+                            $image = $imageFiles['image'];
+                            //Upload thumb 150x100
+                            $imageFiles = $this->cropImageService->resizeAndCropImage('public/' . $folderOriginal . $fileName, 'public/img/userFiles/players/thumb/', 150, 100, '150x100', $image);
+                            //Create 450x300 crop
+                            $imageFiles = $this->cropImageService->createCropArray('400x400', $folderOriginal, $fileName, 'public/img/userFiles/players/400x400/', 400, 400, $image);
+                            $image = $imageFiles['image'];
+                            $cropImages = $imageFiles['cropImages'];
+                            //Create return URL
+                            $returnURL = $this->cropImageService->createReturnURL('players', 'edit-player', $id);
+
+                            //Create session container for crop
+                            $this->cropImageService->createContainerImages($cropImages, $returnURL);
+
+                            //Save blog image
+                            $this->imageService->saveImage($image);
+                            //Add image to player
+                            $player->setPlayerImage($image);
+                        } else {
+                            $this->flashMessenger()->addErrorMessage($imageFiles);
+                        }
+                    } else {
+                        $this->flashMessenger()->addErrorMessage('Image not uploaded');
+                    }
+                }
+                //End upload image
+
+                //Save Item
+                $this->repository->saveItem($player);
+
+                if ($imageFile['error'] === 0 && is_array($imageFiles)) {
+                    return $this->redirect()->toRoute('images', array('action' => 'crop'));
+                } else {
+                    return $this->redirect()->toRoute('players', ['action' => 'edit-player', 'id' => $id]);
+                }
+            }
+        }
+
+        $returnURL = $this->cropImageService->createReturnURL('players', 'edit-player', $id);
+
+
+        return new ViewModel([
+            'player' => $player,
+            'form' => $form,
+            'formImage' => $formImage,
+            'image' => $player->getPLayerImage(),
+            'returnURL' => $returnURL
+        ]);
+
+    }
+
 }

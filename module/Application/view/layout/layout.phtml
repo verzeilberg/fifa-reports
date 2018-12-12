@@ -73,10 +73,10 @@
                 ->setMessageCloseString('</li></ul></div>');
             ?>
             <?php
-            echo $this->flashMessenger()->render('error', array('alert', 'alert-dismissable', 'alert-danger'));
-            echo $this->flashMessenger()->render('info', array('alert', 'alert-dismissable', 'alert-info'));
-            echo $this->flashMessenger()->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
-            echo $this->flashMessenger()->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+            echo $this->flashMessenger()->render('error', array('alert', 'alert-dismissable', 'alert-danger', 'mt-3'));
+            echo $this->flashMessenger()->render('info', array('alert', 'alert-dismissable', 'alert-info', 'mt-3'));
+            echo $this->flashMessenger()->render('default', array('alert', 'alert-dismissable', 'alert-warning', 'mt-3'));
+            echo $this->flashMessenger()->render('success', array('alert', 'alert-dismissable', 'alert-success', 'mt-3'));
             ?>
 
 

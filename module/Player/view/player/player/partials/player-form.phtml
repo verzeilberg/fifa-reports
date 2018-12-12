@@ -1,0 +1,39 @@
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('surName')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $player->getSurName(); ?>
+        <?php echo $this->formHidden($form->get('surName')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('surName')); ?>
+    </div>
+</div>
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('lastNamePrefix')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $player->getLastNamePrefix(); ?>
+        <?php echo $this->formHidden($form->get('lastNamePrefix')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('lastNamePrefix')); ?>
+    </div>
+</div>
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('lastName')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $player->getLastName(); ?>
+        <?php echo $this->formHidden($form->get('lastName')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('lastName')); ?>
+    </div>
+</div>
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('screenName')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $this->formText($form->get('screenName')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('screenName')); ?>
+    </div>
+</div>

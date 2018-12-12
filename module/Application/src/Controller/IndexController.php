@@ -163,8 +163,18 @@ class IndexController extends AbstractActionController
             return;
         }
 
+        $loggedOnUser = false;
+        if(
+            is_object($player->getUser()) &&
+            is_object($this->currentUser()) &&
+            $player->getUser()->getId() == $this->currentUser()->getId()
+        ) {
+            $loggedOnUser = true;
+        }
+
         return new ViewModel([
-            'player' => $player
+            'player' => $player,
+            'loggedOnUser' => $loggedOnUser
         ]);
     }
 

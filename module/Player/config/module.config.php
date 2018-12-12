@@ -63,11 +63,13 @@ return [
         'controllers' => [
             \Player\Controller\PlayerController::class => [
                 // to anyone.
-                ['actions' => '*', 'allow' => '+player.manage']
+                ['actions' => ['index', 'add', 'edit', 'delete'], 'allow' => '+player.manage'],
+                ['actions' => ['editPlayer'], 'allow' => '@']
+
             ],
             \Player\Controller\PlayerAjaxController::class => [
                 // to anyone.
-                ['actions' => '*', 'allow' => '+player.manage']
+                ['actions' => '*', 'allow' => '+player.manage'],
             ],
         ]
     ],

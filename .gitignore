@@ -7,3 +7,4 @@ phpunit.xml
 /nbproject/private/
 nbproject/*
 module/Translator/locales/*
+public/img/userFiles/
