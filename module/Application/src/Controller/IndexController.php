@@ -49,6 +49,9 @@ class IndexController extends AbstractActionController
         $weekArray = $this->gameRepository->getStartAndEndDate($currentDate->format('W'), $currentDate->format('Y'));
         $games = $this->gameRepository->getGamesBySeasonAndDates($season->getId(), $weekArray);
         $results = $this->resultRepository->getResultsBySeason(1);
+        $topScorers = $this->resultRepository->getTopScoresBySeason(1);
+        $bottomScorers = $this->resultRepository->getBottomScoresBySeason(1);
+
 
         $currentDateTime = new \DateTime();
         $weekNr = $currentDateTime->format('W');
@@ -57,7 +60,9 @@ class IndexController extends AbstractActionController
             'season' => $season,
             'games' => $games,
             'weekNr' => $weekNr,
-            'results' => $results
+            'results' => $results,
+            'topScorers' => $topScorers,
+            'bottomScorers' => $bottomScorers
         ]);
     }
 
@@ -106,6 +111,7 @@ class IndexController extends AbstractActionController
         }
 
         $results = $this->resultRepository->getResultsBySeason(1);
+
 
         return new ViewModel(
             array(

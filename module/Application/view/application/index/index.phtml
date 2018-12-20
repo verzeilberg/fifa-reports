@@ -16,13 +16,19 @@ $this->pageBreadcrumbs()->setItems([
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" src="https://apollo2.dl.playstation.net/cdn/EP0006/CUSA11608_00/FREE_CONTENTQBDo6Zwy82aZ3zpecu0i/FIFA19_06.jpg" alt="First slide">
+                <img class="d-block w-100"
+                     src="https://apollo2.dl.playstation.net/cdn/EP0006/CUSA11608_00/FREE_CONTENTQBDo6Zwy82aZ3zpecu0i/FIFA19_06.jpg"
+                     alt="First slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="https://gamemania-sec.azureedge.net/-/media/Sites/GameMania/Products/Games/F/FIFA/FIFA-19/Screenshots/FIFA-19-02.jpg?v=RkwW7wc2OUaHHKCiUwdrUA&Type=Small" alt="Second slide">
+                <img class="d-block w-100"
+                     src="https://gamemania-sec.azureedge.net/-/media/Sites/GameMania/Products/Games/F/FIFA/FIFA-19/Screenshots/FIFA-19-02.jpg?v=RkwW7wc2OUaHHKCiUwdrUA&Type=Small"
+                     alt="Second slide">
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="https://data4.origin.com/content/dam/originx/web/app/games/fifa/fifa-19/screenshots/FIFA19_gdp_screenshot_RamonSanchezPizjuan.jpg" alt="Third slide">
+                <img class="d-block w-100"
+                     src="https://data4.origin.com/content/dam/originx/web/app/games/fifa/fifa-19/screenshots/FIFA19_gdp_screenshot_RamonSanchezPizjuan.jpg"
+                     alt="Third slide">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -45,22 +51,23 @@ $this->pageBreadcrumbs()->setItems([
                 <?php echo $game->getHomePlayer()->getFullNameShortLastName(); ?>
             </div>
             <div class="col-md-2 text-center">
-                <?php echo (is_object($game->getHomeResult()) ? $game->getHomeResult()->getGoals() : ''); ?>
+                <?php echo(is_object($game->getHomeResult()) ? $game->getHomeResult()->getGoals() : ''); ?>
             </div>
             <div class="col-md-1 text-center">
                 <i class="far fa-futbol"></i>
             </div>
             <div class="col-md-2 text-center">
-                <?php echo (is_object($game->getAwayResult()) ? $game->getAwayResult()->getGoals() : ''); ?>
+                <?php echo(is_object($game->getAwayResult()) ? $game->getAwayResult()->getGoals() : ''); ?>
             </div>
             <div class="col">
                 <?php echo $game->getAwayPlayer()->getFullNameShortLastName(); ?>
             </div>
-        </div>   
+        </div>
     <?php } ?>
     <div class="row mb-2">
         <div class="col text-center">
-            <a class="btn btn-sm btn-dark" href="<?php echo $this->url('game-schedule'); ?>" title="Alle wedstrijden"><i class="fas fa-list-ol"></i> Alle wedstrijden</a>
+            <a class="btn btn-sm btn-dark" href="<?php echo $this->url('game-schedule'); ?>" title="Alle wedstrijden"><i
+                        class="fas fa-list-ol"></i> Alle wedstrijden</a>
         </div>
     </div>
 </div>
@@ -78,51 +85,114 @@ $this->pageBreadcrumbs()->setItems([
                 <div class="card-body">
                     <table class="table table-bordered table-hover table-sm resultTable">
                         <thead class="bg-dark text-white">
-                            <tr>
-                                <th class="text-center">Player</th>
-                                <th class="text-center">G <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip" data-placement="right" title="Gespeeld"></i></th>
-                                <th class="text-center">P <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip" data-placement="right" title="Punten"></i></th>
-                                <th class="text-center">P</th>
-                                <th class="text-center">W <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip" data-placement="right" title="Winst"></i></th>
-                                <th class="text-center">G <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip" data-placement="right" title="Gelijk"></i></th>
-                                <th class="text-center">V <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip" data-placement="right" title="Verloren"></i></th>
-                                <th class="text-center">DS <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip" data-placement="right" title="Doelsaldo"></i></th>
-                                <th class="text-center">DS</th>
-                            </tr>
+                        <tr>
+                            <th class="text-center">Player</th>
+                            <th class="text-center">G <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip"
+                                                         data-placement="right" title="Gespeeld"></i></th>
+                            <th class="text-center">P <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip"
+                                                         data-placement="right" title="Punten"></i></th>
+                            <th class="text-center">P</th>
+                            <th class="text-center">W <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip"
+                                                         data-placement="right" title="Winst"></i></th>
+                            <th class="text-center">G <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip"
+                                                         data-placement="right" title="Gelijk"></i></th>
+                            <th class="text-center">V <i class="fas fa-info-circle custom-tooltip" data-toggle="tooltip"
+                                                         data-placement="right" title="Verloren"></i></th>
+                            <th class="text-center">DS <i class="fas fa-info-circle custom-tooltip"
+                                                          data-toggle="tooltip" data-placement="right"
+                                                          title="Doelsaldo"></i></th>
+                            <th class="text-center">DS</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($competition->getPlayers() as $player) { ?>
-                                <?php
-                                $playerResult = [];
-                                if (array_key_exists($competition->getId(), $results)) {
-                                    $competitionPlayers = $results[$competition->getId()];
-                                    if (array_key_exists($player->getId(), $competitionPlayers)) {
-                                        $playerResult = $competitionPlayers[$player->getId()];
-                                    }
+                        <?php foreach ($competition->getPlayers() as $player) { ?>
+                            <?php
+                            $playerResult = [];
+                            if (array_key_exists($competition->getId(), $results)) {
+                                $competitionPlayers = $results[$competition->getId()];
+                                if (array_key_exists($player->getId(), $competitionPlayers)) {
+                                    $playerResult = $competitionPlayers[$player->getId()];
                                 }
-                                ?>
-                                <tr>
-                                    <td><?php echo $player->getSurName(); ?></td>
-                                    <td><?php echo (array_key_exists('totalGames', $playerResult) ? $playerResult['totalGames'] : 0); ?></td>
-                                    <td><?php echo (array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
-                                    <td><?php echo (array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
-                                    <td><?php echo (array_key_exists('gamesWon', $playerResult) ? $playerResult['gamesWon'] : 0); ?></td>
-                                    <td><?php echo (array_key_exists('gamesDraw', $playerResult) ? $playerResult['gamesDraw'] : 0); ?></td>
-                                    <td><?php echo (array_key_exists('gamesLost', $playerResult) ? $playerResult['gamesLost'] : 0); ?></td>
-                                    <td><?php echo (array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
-                                    <td><?php echo (array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
-                                </tr>
-                            <?php } ?>
+                            }
+                            ?>
+                            <tr>
+                                <td><?php echo $player->getSurName(); ?></td>
+                                <td><?php echo(array_key_exists('totalGames', $playerResult) ? $playerResult['totalGames'] : 0); ?></td>
+                                <td><?php echo(array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
+                                <td><?php echo(array_key_exists('totalPoints', $playerResult) ? $playerResult['totalPoints'] : 0); ?></td>
+                                <td><?php echo(array_key_exists('gamesWon', $playerResult) ? $playerResult['gamesWon'] : 0); ?></td>
+                                <td><?php echo(array_key_exists('gamesDraw', $playerResult) ? $playerResult['gamesDraw'] : 0); ?></td>
+                                <td><?php echo(array_key_exists('gamesLost', $playerResult) ? $playerResult['gamesLost'] : 0); ?></td>
+                                <td><?php echo(array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
+                                <td><?php echo(array_key_exists('targetBalance', $playerResult) ? $playerResult['targetBalance'] : 0); ?></td>
+                            </tr>
+                        <?php } ?>
                         </tbody>
 
                     </table>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-sm btn-dark" href="<?php echo $this->url('competition', ['action' => 'getCompetition', 'id' => $competition->getId()]); ?>" title="Alle wedstrijden"> Naar competitie <i class="fas fa-angle-double-right"></i></a>
+                    <a class="btn btn-sm btn-dark"
+                       href="<?php echo $this->url('competition', ['action' => 'getCompetition', 'id' => $competition->getId()]); ?>"
+                       title="Alle wedstrijden"> Naar competitie <i class="fas fa-angle-double-right"></i></a>
                 </div>
             </div>
         </div>
     <?php } ?>
+</div>
+<div class="row mb-2">
+    <h2 class="col text-center">Top scorers</h2>
+    <h2 class="col text-center">Bottom scorers</h2>
+</div>
+<div class="row mb-2" id="topscorers">
+    <div class="col">
+        <table class="table table-bordered table-hover table-sm">
+            <thead class="bg-dark text-white">
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Player</th>
+                <th class="text-center">Goals</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($topScorers as $index => $topScorer) { ?>
+                <tr>
+                    <td class="text-center col-md-auto"><?php echo $index + 1; ?></td>
+                    <td>
+                        <?php echo $topScorer['surName']; ?>
+                        <?php echo(isset($topScorer['lastNamePrefix']) ? $topScorer['lastNamePrefix'] . ' ' : ''); ?>
+                        <?php echo $topScorer['lastName']; ?>
+                    </td>
+                    <td class="text-center"><?php echo $topScorer['totalGoals']; ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <table class="table table-bordered table-hover table-sm">
+            <thead class="bg-dark text-white">
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Player</th>
+                <th class="text-center">Against goals</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($bottomScorers as $index => $bottomScorer) { ?>
+                <tr>
+                    <td class="text-center col-md-auto"><?php echo $index + 1; ?></td>
+                    <td>
+                        <?php echo $bottomScorer['surName']; ?>
+                        <?php echo(isset($bottomScorer['lastNamePrefix']) ? $bottomScorer['lastNamePrefix'] . ' ' : ''); ?>
+                        <?php echo $bottomScorer['lastName']; ?>
+                    </td>
+                    <td class="text-center"><?php echo $bottomScorer['totalAgainstGoals']; ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 

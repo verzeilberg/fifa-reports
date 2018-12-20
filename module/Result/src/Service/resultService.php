@@ -76,4 +76,60 @@ class resultService extends defaultService implements resultServiceInterface {
         return $resultsByCompetition;
     }
 
+    /**
+     * Get top  5 topscorers
+     *
+     * @var $seasonId id of that specific season
+     *
+     * @return array
+     */
+    public function getTopScoresBySeason($seasonId) {
+        $qb = $this->entityManager->getRepository(Result::class)->createQueryBuilder('r');
+        $qb->select('c.id as competitionId, '
+            . 'p.id as playerId, '
+            . 'p.surName as surName, '
+            . 'p.lastNamePrefix as lastNamePrefix, '
+            . 'p.lastName as lastName, '
+            . 'SUM(r.goals) as totalGoals');
+        $qb->leftJoin('r.season', 's');
+        $qb->leftJoin('r.player', 'p');
+        $qb->leftJoin('r.competition', 'c');
+        $qb->where('s.id = :seasonId');
+        $qb->groupBy('r.player');
+        $qb->orderBy('totalGoals', 'DESC');
+        $qb->setMaxResults( 5 );
+        $qb->setParameter('seasonId', $seasonId);
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
+
+    /**
+     * Get bottom 5 topscorers
+     *
+     * @var $seasonId id of that specific season
+     *
+     * @return array
+     */
+    public function getBottomScoresBySeason($seasonId) {
+        $qb = $this->entityManager->getRepository(Result::class)->createQueryBuilder('r');
+        $qb->select('c.id as competitionId, '
+            . 'p.id as playerId, '
+            . 'p.surName as surName, '
+            . 'p.lastNamePrefix as lastNamePrefix, '
+            . 'p.lastName as lastName, '
+            . 'SUM(r.goalsAgainst) as totalAgainstGoals');
+        $qb->leftJoin('r.season', 's');
+        $qb->leftJoin('r.player', 'p');
+        $qb->leftJoin('r.competition', 'c');
+        $qb->where('s.id = :seasonId');
+        $qb->groupBy('r.player');
+        $qb->orderBy('totalAgainstGoals', 'DESC');
+        $qb->setMaxResults( 5 );
+        $qb->setParameter('seasonId', $seasonId);
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
+
 }
