@@ -45,6 +45,7 @@ $this->pageBreadcrumbs()->setItems([
     <div class="row mb-2">
         <h2 class="col text-center">Wedstrijden week <?php echo $weekNr; ?></h2>
     </div>
+    <?php if(count($games) > 0) { ?>}
     <?php foreach ($games as $game) { ?>
         <div class="row mb-2">
             <div class="col text-right">
@@ -63,6 +64,15 @@ $this->pageBreadcrumbs()->setItems([
                 <?php echo $game->getAwayPlayer()->getFullNameShortLastName(); ?>
             </div>
         </div>
+    <?php } ?>
+    <?php } else { ?>
+
+        <div class="row mb-2">
+            <div class="col text-center">
+                <p>Geen wedstrijden deze week!</p>
+            </div>
+        </div>
+
     <?php } ?>
     <div class="row mb-2">
         <div class="col text-center">
