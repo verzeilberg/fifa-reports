@@ -32,6 +32,7 @@ $this->pageBreadcrumbs()->setItems([
         <table class="table table-striped table-condensed">
             <thead class="thead-dark">
                 <tr>
+                    <th class="text-center"><i class="far fa-image"></i></th>
                     <th><?php echo $this->translator()->translate('club.name') ?></th>
                     <th><?php echo $this->translator()->translate('club.date.created') ?></th>
                     <th>&nbsp;</th>
@@ -40,6 +41,12 @@ $this->pageBreadcrumbs()->setItems([
             <?php if (count($clubs) > 0) { ?>
             <?php foreach ($clubs as $club): ?>
                 <tr>
+                    <td class="text-center">
+                        <?php
+                        $image = $club->getClubImage();
+                        echo '<img width="75" height="auto" class="img-thumbnail img-responsive" src="/' . $image->getImageTypes('resized')[0]->getFolder() . $image->getImageTypes('resized')[0]->getFileName() . '?v=' . rand() . '" alt="' . $image->getAlt() . '"/>';
+                        ?>
+                    </td>
                     <td>
                         <?= $this->escapeHtml($club->getName()); ?></a> 
                     </td>
