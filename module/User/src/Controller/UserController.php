@@ -51,14 +51,16 @@ class UserController extends AbstractActionController
             $this->getResponse()->setStatusCode(401);
             return;
         }
+
+        $page = $this->params()->fromQuery('page', 1);
         
         $query = $this->entityManager->getRepository(User::class)
                 ->findAllUsers();
         
         $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
         $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(3);        
-        //$paginator->setCurrentPageNumber($page);
+        $paginator->setDefaultItemCountPerPage(2);
+        $paginator->setCurrentPageNumber($page);
          	         
         return new ViewModel([
             'users' => $paginator
