@@ -86,6 +86,7 @@ class Player {
      * @Annotation\Options({
      * "target_class":"User\Entity\User",
      * "property": "fullName",
+     * "empty_option": "--Maak uw keuze--",
      * "label": "User",
      * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"},
      * "find_method":{"name": "findAll","params": {"orderBy":{"fullName": "ASC"}}}
@@ -97,6 +98,22 @@ class Player {
     /**
      * @ORM\ManyToOne(targetEntity="Club\Entity\Club", inversedBy="player")
      * @ORM\JoinColumn(name="club_id", referencedColumnName="id")
+     * @Annotation\Type("DoctrineModule\Form\Element\ObjectSelect")
+     * @Annotation\Required(false)
+     * @Annotation\AllowEmpty
+     * @Annotation\Options({
+     * "target_class":"Club\Entity\Club",
+     * "property": "name",
+     * "empty_option": "--Maak uw keuze--",
+     * "label": "Favourite club",
+     * "label_attributes": {"class": "col-lg-4 col-md-4 col-sm-4 col-form-label"},
+     * "find_method":{"name": "findBy","params": {
+     *     "criteria":{"deletedAt": null},
+     *     "orderBy":{"name": "ASC"}
+     *     }
+     *  }
+     * })
+     * @Annotation\Attributes({"class":"form-control col-md-2"})
      */
     private $club;
 
