@@ -265,7 +265,9 @@ class PlayerController extends AbstractActionController
                 //Create image array and set it
                 $imageFile = [];
                 $imageFile = $this->getRequest()->getFiles('image');
-                if($imageFile['size'] !== 0) {
+
+
+                if($imageFile['size'] !== null) {
                     //Upload image
                     if ($imageFile['error'] === 0) {
                         //Upload original file

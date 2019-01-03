@@ -159,27 +159,34 @@ class IndexController extends AbstractActionController
 
         $id = $this->params()->fromRoute('id');
         if ($id == null) {
-            $this->getResponse()->setStatusCode(404);
+            if(is_object($this->currentUser())) {
+                $id = $this->currentUser()->getId();
+            } else {
+                $this->getResponse()->setStatusCode(404);
+                return;
+            }
+        }
+
+
+        $player = $this->playerRepository->getPlayerByUserId($id);
+
+        if (count($player) == 0) {
+            return $this->redirect()->toRoute('home');
             return;
         }
 
-        $player = $this->playerRepository->getItem($id);
-        if ($player == null) {
-            $this->getResponse()->setStatusCode(404);
-            return;
-        }
 
         $loggedOnUser = false;
         if(
-            is_object($player->getUser()) &&
+            is_object($player[0]->getUser()) &&
             is_object($this->currentUser()) &&
-            $player->getUser()->getId() == $this->currentUser()->getId()
+            $player[0]->getUser()->getId() == $this->currentUser()->getId()
         ) {
             $loggedOnUser = true;
         }
 
         return new ViewModel([
-            'player' => $player,
+            'player' => $player[0],
             'loggedOnUser' => $loggedOnUser
         ]);
     }

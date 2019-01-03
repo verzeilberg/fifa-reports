@@ -37,3 +37,12 @@
         <?php echo $this->formElementErrors($form->get('screenName')); ?>
     </div>
 </div>
+<div class="form-group row">
+    <?php echo $this->formLabel($form->get('club')); ?>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <?php echo $this->formSelect($form->get('club')); ?>
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <?php echo $this->formElementErrors($form->get('club')); ?>
+    </div>
+</div>
