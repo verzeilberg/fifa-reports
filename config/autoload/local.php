@@ -29,10 +29,10 @@ return [
             'orm_default' => [
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => [
-                    'host'     => 'localhost',
+                    'host'     => '172.19.4.82',
                     'port'     => '3306',
-                    'user'     => 'fifa-reports',
-                    'password' => 'CaX4l21O1AnEj5gEH7C2wOReFOkO2e',
+                    'user'     => 'usr_fifa',
+                    'password' => 'JORuwoS1N8HAsi8ID7w6GiG75OF1zI',
                     'dbname'   => 'fifa-reports',
                 ]
             ]
