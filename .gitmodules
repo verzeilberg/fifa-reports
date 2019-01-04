@@ -7,3 +7,6 @@
 [submodule "Translator"]
     path = module/Translator
     url = https://github.com/verzeilberg/Translator.git
+[submodule "User"]
+    path = module/User
+    url = https://github.com/verzeilberg/Login.git
