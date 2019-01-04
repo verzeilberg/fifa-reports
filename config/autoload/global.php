@@ -33,8 +33,8 @@ return [
     'login_settings' => [
         'mailing_settings' => [
             'password_reset_token_mail' => [
-                'subject' => 'Password Reset',
-                'sender_mail' => 'sander@verzeilberg',
+                'subject' => 'FIFA Reports: Password Reset',
+                'sender_mail' => 'no-reply@example.com',
                 'sender_name' => 'FIFA Referee',
             ]
         ]
