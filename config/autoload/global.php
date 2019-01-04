@@ -30,6 +30,15 @@ return [
             HttpUserAgent::class,
         ]
     ],
+    'login_settings' => [
+        'mailing_settings' => [
+            'password_reset_token_mail' => [
+                'subject' => 'Password Reset',
+                'sender_mail' => 'sander@verzeilberg',
+                'sender_name' => 'FIFA Referee',
+            ]
+        ]
+    ],
     // Session storage configuration.
     'session_storage' => [
         'type' => SessionArrayStorage::class

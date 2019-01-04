@@ -6,6 +6,15 @@ use Zend\Router\Http\Segment;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
+    'login_settings' => [
+        'mailing_settings' => [
+            'password_reset_token_mail' => [
+                'subject' => 'FIFA: Password Reset',
+                'sender_mail' => 'no-reply@example.com',
+                'sender_name' => 'User Demo',
+            ]
+        ]
+    ],
     'router' => [
         'routes' => [
             'login' => [
@@ -182,5 +191,16 @@ return [
                 ]
             ]
         ]
+    ],
+    // Configuration for your SMTP server (for sending outgoing mail).
+    'smtp' => [
+        'name'              => 'localhost.localdomain',
+        'host'              => '127.0.0.1',
+        'port'              => 25,
+        'connection_class'  => 'plain',
+        'connection_config' => [
+            'username' => '<user>',
+            'password' => '<pass>',
+        ],
     ],
 ];
